@@ -21,7 +21,8 @@ class SupabaseConfig {
   /// ─────────────────────────────────────────────────────
   static const String supabaseUrl = String.fromEnvironment(
     'SUPABASE_URL',
-    defaultValue: 'https://mahrah-blood-bank-proxy.bagosaleh.workers.dev', // TODO: أنشئ worker جديد باسم yemen وحدّث الرابط هنا
+    defaultValue:
+        'https://mahrah-blood-bank-proxy.bagosaleh.workers.dev', // TODO: أنشئ worker جديد باسم yemen وحدّث الرابط هنا
     // ⬆️ استبدل WORKER_URL_HERE برابط الـ Worker بعد إنشائه
     // مثال: 'https://yemen-blood-bank-proxy.saleh-abc.workers.dev'
   );
