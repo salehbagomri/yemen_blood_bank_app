@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'config/supabase_config.dart';
 import 'constants/app_theme.dart';
 import 'constants/app_strings.dart';
@@ -62,7 +61,7 @@ void main() async {
   // تهيئة Supabase
   if (SupabaseConfig.isConfigured) {
     await SupabaseService.initialize(
-      url: SupabaseConfig.supabaseUrl,
+      url: SupabaseConfig.activeSupabaseUrl,
       anonKey: SupabaseConfig.supabaseAnonKey,
     );
   } else {

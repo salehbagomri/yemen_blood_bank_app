@@ -28,7 +28,14 @@ class SupabaseConfig {
 
   /// عنوان Supabase الأصلي (للاستخدام الداخلي فقط — محجوب في اليمن)
   static const String supabaseDirectUrl =
-      'https://mgeshfxrcdilwjohoniv.supabase.co';
+      'https://wdvsjpdrlvydoohvvhtx.supabase.co';
+
+  /// خيار تشغيل Cloudflare Worker لتجاوز الحجب في اليمن
+  /// 🚨 اضبطه على true إذا تبي تفعل الـ WorkerProxy
+  static const bool useCloudflareWorker = false;
+
+  /// العنوان النشط للاتصال بـ Supabase (مباشر أو عبر Proxy)
+  static String get activeSupabaseUrl => useCloudflareWorker ? supabaseUrl : supabaseDirectUrl;
 
   /// المفتاح العام (Anon Key)
   /// يُقرأ من --dart-define=SUPABASE_ANON_KEY
@@ -36,7 +43,7 @@ class SupabaseConfig {
   static const String supabaseAnonKey = String.fromEnvironment(
     'SUPABASE_ANON_KEY',
     defaultValue:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nZXNoZnhyY2RpbHdqb2hvbml2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ0NDU5MDEsImV4cCI6MjA4MDAyMTkwMX0.7Ypc4eQWJRU1hfb1TLzG-qhSMQ8rIsE9OOAxATQvaAA',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkdnNqcGRybHZ5ZG9vaHZ2aHR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MDg2MTEsImV4cCI6MjA5NTQ4NDYxMX0.AFT-aJBoQECUE1f1vFSHooxWebsUgJaXL7BrChm0v_g',
   );
 
   /// ملاحظات:
@@ -44,14 +51,15 @@ class SupabaseConfig {
   /// 2. المفتاح العام (anon key) آمن للاستخدام في التطبيق
   /// 3. الحماية تتم عبر Row Level Security (RLS) في Supabase
   /// 4. في الإنتاج، مرر المفاتيح عبر --dart-define أو --dart-define-from-file
-  /// 5. الـ URL الآن يمر عبر Cloudflare Worker لتجاوز حجب supabase.co
+  /// 5. الـ URL الآن يمر عبر Cloudflare Worker لتجاوز حجب supabase.co (يمكن تفعيله عبر useCloudflareWorker = true)
 
   /// التحقق من صحة الإعدادات
   static bool get isConfigured {
-    return supabaseUrl.isNotEmpty &&
+    final activeUrl = activeSupabaseUrl;
+    return activeUrl.isNotEmpty &&
         supabaseAnonKey.isNotEmpty &&
-        supabaseUrl != 'YOUR_SUPABASE_URL' &&
-        supabaseUrl != 'WORKER_URL_HERE' &&
+        activeUrl != 'YOUR_SUPABASE_URL' &&
+        activeUrl != 'WORKER_URL_HERE' &&
         supabaseAnonKey != 'YOUR_SUPABASE_ANON_KEY';
   }
 }

@@ -24,7 +24,7 @@ class ConnectivityService {
       ..addresses = [
         // التحقق عبر الـ Cloudflare Worker الخاص بنا
         AddressCheckOption(
-          uri: Uri.parse('${SupabaseConfig.supabaseUrl}/rest/v1/'),
+          uri: Uri.parse('${SupabaseConfig.activeSupabaseUrl}/rest/v1/'),
           timeout: const Duration(seconds: 5),
         ),
         // Cloudflare DNS (عادة غير محجوب)
@@ -65,7 +65,7 @@ class ConnectivityService {
       final client = HttpClient()
         ..connectionTimeout = const Duration(seconds: 5);
       final request = await client.getUrl(
-        Uri.parse('${SupabaseConfig.supabaseUrl}/rest/v1/'),
+        Uri.parse('${SupabaseConfig.activeSupabaseUrl}/rest/v1/'),
       );
       request.headers.set('apikey', SupabaseConfig.supabaseAnonKey);
       final response = await request.close();
