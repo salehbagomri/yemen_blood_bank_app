@@ -4,7 +4,7 @@
 // 🔧 الاستخدام:
 // 1. انسخ هذا الكود كاملاً
 // 2. ادخل https://dash.cloudflare.com → Workers & Pages → Create Worker
-// 3. سمّه: mahrah-blood-bank-proxy
+// 3. سمّه: yemen-blood-bank-proxy
 // 4. الصق هذا الكود → Deploy
 
 const SUPABASE_URL = 'https://mgeshfxrcdilwjohoniv.supabase.co';

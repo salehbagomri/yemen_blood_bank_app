@@ -254,7 +254,7 @@ class _ExportReportsScreenState extends State<ExportReportsScreen> {
     if (_exportedFilePath == null) return;
 
     try {
-      await _exportService.shareFile(_exportedFilePath!, 'تقرير بنك دم المهرة');
+      await _exportService.shareFile(_exportedFilePath!, 'تقرير بنك دم اليمن');
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

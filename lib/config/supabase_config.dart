@@ -17,13 +17,13 @@ class SupabaseConfig {
   /// 🚨 مهم: بعد إنشاء الـ Worker في Cloudflare، استبدل
   /// الـ defaultValue بالرابط الفعلي للـ Worker.
   ///
-  /// مثال: https://mahrah-blood-bank-proxy.saleh-xxx.workers.dev
+  /// مثال: https://yemen-blood-bank-proxy.saleh-xxx.workers.dev
   /// ─────────────────────────────────────────────────────
   static const String supabaseUrl = String.fromEnvironment(
     'SUPABASE_URL',
-    defaultValue: 'https://mahrah-blood-bank-proxy.bagosaleh.workers.dev',
+    defaultValue: 'https://mahrah-blood-bank-proxy.bagosaleh.workers.dev', // TODO: أنشئ worker جديد باسم yemen وحدّث الرابط هنا
     // ⬆️ استبدل WORKER_URL_HERE برابط الـ Worker بعد إنشائه
-    // مثال: 'https://mahrah-blood-bank-proxy.saleh-abc.workers.dev'
+    // مثال: 'https://yemen-blood-bank-proxy.saleh-abc.workers.dev'
   );
 
   /// عنوان Supabase الأصلي (للاستخدام الداخلي فقط — محجوب في اليمن)

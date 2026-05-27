@@ -70,11 +70,11 @@ void main() async {
     debugPrint('يرجى تحديث lib/config/supabase_config.dart بمفاتيح مشروعك');
   }
 
-  runApp(const MahrahBloodBankApp());
+  runApp(const YemenBloodBankApp());
 }
 
-class MahrahBloodBankApp extends StatelessWidget {
-  const MahrahBloodBankApp({super.key});
+class YemenBloodBankApp extends StatelessWidget {
+  const YemenBloodBankApp({super.key});
 
   @override
   Widget build(BuildContext context) {

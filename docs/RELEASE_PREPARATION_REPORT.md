@@ -1,5 +1,5 @@
-# 📱 تقرير تجهيز المشروع للنشر
-## بنك دم محافظة المهرة - Mahrah Blood Bank
+﻿# 📱 تقرير تجهيز المشروع للنشر
+## بنك دم اليمن - Yemen Blood Bank
 
 **التاريخ**: 2 ديسمبر 2025
 **الإصدار**: 1.0.0
@@ -26,20 +26,20 @@
 
 ### 3️⃣ **إعداد Android**
 - ✅ تحديث `build.gradle.kts`:
-  - `applicationId`: `com.mahrah.mahrah_blood_bank`
+  - `applicationId`: `com.mahrah.yemen_blood_bank`
   - `minSdk`: 21 (Android 5.0+)
   - `targetSdk`: 34 (أحدث Android API)
   - `versionCode`: 1
   - `versionName`: "1.0.0"
 - ✅ تحديث `AndroidManifest.xml`:
-  - اسم التطبيق: **"بنك دم المهرة"**
+  - اسم التطبيق: **"بنك دم اليمن"**
   - الأذونات: Internet, Network State, Phone, WhatsApp
   - Queries للاتصال وWhatsApp
 
 ### 4️⃣ **إعداد iOS**
 - ✅ تحديث `Info.plist`:
-  - `CFBundleDisplayName`: **"بنك دم المهرة"**
-  - `CFBundleName`: **"بنك دم المهرة"**
+  - `CFBundleDisplayName`: **"بنك دم اليمن"**
+  - `CFBundleName`: **"بنك دم اليمن"**
   - إضافة `LSApplicationQueriesSchemes` للاتصال وWhatsApp
 
 ### 5️⃣ **الأمان والخصوصية**
@@ -141,5 +141,5 @@
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**
 بواسطة **Saleh Bagomri** - [www.bagomri.com](https://www.bagomri.com)

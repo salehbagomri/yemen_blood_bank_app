@@ -1,9 +1,9 @@
-# خطة تحسين شاشة "حول التطبيق"
+﻿# خطة تحسين شاشة "حول التطبيق"
 
 ## 📊 تحليل الحالة الحالية
 
 ### الملف المستهدف
-[about_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart) — 364 سطر
+[about_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart) — 364 سطر
 
 ### البنية الحالية (من الأعلى للأسفل)
 | # | القسم | حالته | القرار |
@@ -31,8 +31,8 @@
 ```
 ┌──────────────────────────────────────────┐
 │           🔴 HEADER                       │
-│     شعار + "بنك دم المهرة"               │
-│     "Mahrah Blood Bank"                   │
+│     شعار + "بنك دم اليمن"               │
+│     "Yemen Blood Bank"                   │
 │     الإصدار 1.0.1                         │
 └──────────────────────────────────────────┘
 
@@ -62,7 +62,7 @@
 │  📍 حضرموت، اليمن                       │
 │                                          │
 │  ─────────────────────────               │
-│  © 2024 بنك دم المهرة                    │
+│  © 2024 بنك دم اليمن                    │
 │  جميع الحقوق محفوظة                     │
 └──────────────────────────────────────────┘
 ```
@@ -84,17 +84,17 @@
 ---
 
 ### التعديل 2: حذف قسم التقنيات المستخدمة
-**الموقع:** السطور 127-130 + دالتي [_buildTechnologiesCard](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#310-336) و [_buildTechItem](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#337-363) (سطر 310-362)
+**الموقع:** السطور 127-130 + دالتي [_buildTechnologiesCard](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#310-336) و [_buildTechItem](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#337-363) (سطر 310-362)
 
 **الإجراء:** حذف كامل لـ:
-- استدعاء القسم في [build()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/home/home_screen.dart#61-276) (السطور 127-130)
-- دالة [_buildTechnologiesCard()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#310-336) (السطور 310-334)
-- دالة [_buildTechItem()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#337-363) (السطور 337-362)
+- استدعاء القسم في [build()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/home/home_screen.dart#61-276) (السطور 127-130)
+- دالة [_buildTechnologiesCard()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#310-336) (السطور 310-334)
+- دالة [_buildTechItem()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#337-363) (السطور 337-362)
 
 ---
 
 ### التعديل 3: تحسين قسم الميزات — استبدال Emoji بـ Icons
-**الموقع:** دالة [_buildFeaturesCard()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#256-285) (السطر 256-284) و [_buildFeatureItem()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#286-309) (286-308)
+**الموقع:** دالة [_buildFeaturesCard()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#256-285) (السطر 256-284) و [_buildFeatureItem()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#286-309) (286-308)
 
 ```dart
 // ❌ القديم: يستخدم emoji نصي
@@ -137,7 +137,7 @@ _buildInfoCard(
 ---
 
 ### التعديل 5: إعادة تصميم قسم المطور → "التطوير والدعم الفني"
-**الموقع:** دالة [_buildDeveloperCard()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#180-238) (السطور 180-236) و [_buildContactItem()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#239-255) (239-253)
+**الموقع:** دالة [_buildDeveloperCard()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#180-238) (السطور 180-236) و [_buildContactItem()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#239-255) (239-253)
 
 **المطلوب:**
 1. تغيير العنوان من "المطور" إلى "التطوير والدعم الفني"
@@ -226,7 +226,7 @@ Widget _buildDeveloperSection() {
 
         // حقوق النشر
         Text(
-          '© 2024 بنك دم المهرة',
+          '© 2024 بنك دم اليمن',
           style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
         ),
         SizedBox(height: 4),
@@ -284,7 +284,7 @@ Widget _buildContactButton({
 ```
 
 > [!IMPORTANT]
-> يجب استيراد `url_launcher` واستخدام `launchUrl()` لفتح الروابط. الـ `url_launcher` موجود بالفعل في [pubspec.yaml](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/pubspec.yaml).
+> يجب استيراد `url_launcher` واستخدام `launchUrl()` لفتح الروابط. الـ `url_launcher` موجود بالفعل في [pubspec.yaml](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/pubspec.yaml).
 
 **دالة فتح الروابط:**
 ```dart
@@ -297,11 +297,11 @@ Future<void> _launchUrl(String url) async {
 ```
 
 > [!NOTE]
-> يجب تحويل [AboutScreen](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart#6-364) من `StatelessWidget` إلى عادي مع دوال عادية، أو الأفضل ترك `StatelessWidget` واستخدام `static` methods أو دوال عليا. الأبسط هو إضافة `import 'package:url_launcher/url_launcher.dart';` واستخدام دالة مستقلة.
+> يجب تحويل [AboutScreen](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart#6-364) من `StatelessWidget` إلى عادي مع دوال عادية، أو الأفضل ترك `StatelessWidget` واستخدام `static` methods أو دوال عليا. الأبسط هو إضافة `import 'package:url_launcher/url_launcher.dart';` واستخدام دالة مستقلة.
 
 ---
 
-### التعديل 6: تحديث الترتيب النهائي في [build()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/home/home_screen.dart#61-276)
+### التعديل 6: تحديث الترتيب النهائي في [build()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/home/home_screen.dart#61-276)
 
 ```dart
 // الترتيب الجديد:
@@ -377,5 +377,5 @@ children: [
 > - لا تنسَ إضافة `import 'package:url_launcher/url_launcher.dart';`
 
 > [!CAUTION]
-> - الإصدار في Header يجب أن يتطابق مع [pubspec.yaml](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/pubspec.yaml) (حالياً `1.0.1+4`)
-> - لا تحذف ملف [contact_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/contact_screen.dart) — هذه خطة لـ [about_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/info/about_screen.dart) فقط
+> - الإصدار في Header يجب أن يتطابق مع [pubspec.yaml](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/pubspec.yaml) (حالياً `1.0.1+4`)
+> - لا تحذف ملف [contact_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/contact_screen.dart) — هذه خطة لـ [about_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/info/about_screen.dart) فقط

@@ -1,6 +1,6 @@
-# 📊 حالة المشروع - Project Status
+﻿# 📊 حالة المشروع - Project Status
 
-**تطبيق بنك دم المهرة - Mahrah Blood Bank App**
+**تطبيق بنك دم اليمن - Yemen Blood Bank App**
 
 **آخر تحديث:** 3 ديسمبر 2025
 **الإصدار الحالي:** 2.0.0 (Build 2)
@@ -19,8 +19,8 @@
 
 | المعلومة | القيمة |
 |---------|--------|
-| اسم التطبيق | بنك دم المهرة - Mahrah Blood Bank |
-| Package Name | com.bagomri.mahrahbloodbank |
+| اسم التطبيق | بنك دم اليمن - Yemen Blood Bank |
+| Package Name | com.bagomri.yemenbloodbank |
 | الإصدار | 2.0.0 |
 | Build Number | 2 |
 | حجم APK | ~65.4 MB |
@@ -154,8 +154,8 @@ SHA-256: 34:48:32:C9:CD:5E:90:D4:42:28:40:63:BA:C3:14:50:F4:8D:C8:77:8D:CE:6F:D5
 ## 🔥 Firebase Setup
 
 ### الحالة
-- ✅ المشروع: `mahrah-blood-bank`
-- ✅ Package: `com.bagomri.mahrahbloodbank`
+- ✅ المشروع: `yemen-blood-bank`
+- ✅ Package: `com.bagomri.yemenbloodbank`
 - ✅ SHA Fingerprints: محدّثة
 - ✅ google-services.json: محدّث
 - ✅ Crashlytics: مفعّل
@@ -172,8 +172,8 @@ SHA-256: 34:48:32:C9:CD:5E:90:D4:42:28:40:63:BA:C3:14:50:F4:8D:C8:77:8D:CE:6F:D5
 
 | الرابط | الوصف |
 |--------|--------|
-| https://salehbagomri.github.io/mahrah-blood-bank-privacy/ | سياسة الخصوصية |
-| https://console.firebase.google.com/project/mahrah-blood-bank | Firebase Console |
+| https://salehbagomri.github.io/yemen-blood-bank-privacy/ | سياسة الخصوصية |
+| https://console.firebase.google.com/project/yemen-blood-bank | Firebase Console |
 | https://play.google.com/console/ | Google Play Console |
 | https://www.bagomri.com | موقع المطور |
 
@@ -305,7 +305,7 @@ cd android
 **👨‍💻 المطور:** صالح باقمري
 **📧 البريد:** s.bagomri@gmail.com
 
-**💙 صُنع بحب لأهالي المهرة**
+**💙 صُنع بحب لأهالي اليمن**
 
 ---
 
@@ -325,4 +325,4 @@ cd android
 
 **🚀 مبروك على إكمال المشروع!**
 
-**معاً ننقذ الأرواح في المهرة** 💙
+**معاً ننقذ الأرواح في اليمن** 💙

@@ -18,7 +18,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.bagomri.mahrahbloodbank"
+    namespace = "com.bagomri.yemenbloodbank"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -32,7 +32,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.bagomri.mahrahbloodbank"
+        applicationId = "com.bagomri.yemenbloodbank"
         minSdk = flutter.minSdkVersion  // Android 5.0+ support
         targetSdk = 35  // Latest Android API (Android 15)
         versionCode = flutter.versionCode

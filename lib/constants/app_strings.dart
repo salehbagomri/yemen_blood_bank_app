@@ -1,8 +1,8 @@
 /// جميع النصوص الثابتة في التطبيق
 class AppStrings {
   // اسم التطبيق
-  static const String appName = 'بنك دم المهرة';
-  static const String appNameEnglish = 'Mahrah Blood Bank';
+  static const String appName = 'بنك دم اليمن';
+  static const String appNameEnglish = 'Yemen Blood Bank';
   
   // الصفحة الرئيسية
   static const String home = 'الرئيسية';
@@ -14,7 +14,7 @@ class AppStrings {
   // البحث
   static const String searchForDonors = 'البحث عن متبرعين';
   static const String selectBloodType = 'اختر فصيلة الدم';
-  static const String selectDistrict = 'اختر المديرية';
+  static const String selectDistrict = 'اختر المحافظة';
   static const String searchResults = 'نتائج البحث';
   static const String noDonorsFound = 'لا يوجد متبرعين';
   static const String noDonorsMessage = 'لم يتم العثور على متبرعين بهذه المواصفات';
@@ -29,24 +29,37 @@ class AppStrings {
   static const String bloodTypeO = 'O+';
   static const String bloodTypeONeg = 'O-';
   
-  // مديريات المهرة
+  // محافظات اليمن
   static const List<String> districts = [
-    'الغيضة',
-    'سيحوت',
-    'حصوين',
-    'قشن',
-    'حات',
-    'حوف',
-    'منعر',
-    'المسيلة',
-    'شحن',
+    'أمانة العاصمة',
+    'عدن',
+    'تعز',
+    'حضرموت',
+    'الحديدة',
+    'إب',
+    'لحج',
+    'أبين',
+    'شبوة',
+    'مأرب',
+    'المهرة',
+    'البيضاء',
+    'الضالع',
+    'الجوف',
+    'حجة',
+    'عمران',
+    'صعدة',
+    'ذمار',
+    'المحويت',
+    'ريمة',
+    'أرخبيل سقطرى',
+    'صنعاء',
   ];
   
   // بيانات المتبرع
   static const String donorName = 'الاسم';
   static const String phoneNumber = 'رقم الهاتف';
   static const String bloodType = 'فصيلة الدم';
-  static const String district = 'المديرية';
+  static const String district = 'المحافظة';
   static const String age = 'العمر';
   static const String gender = 'الجنس';
   static const String male = 'ذكر';
@@ -82,7 +95,7 @@ class AppStrings {
   static const String statistics = 'الإحصائيات';
   static const String totalDonors = 'إجمالي المتبرعين';
   static const String mostCommonBloodType = 'أكثر فصيلة متوفرة';
-  static const String mostActiveDistrict = 'أكثر مديرية نشاطًا';
+  static const String mostActiveDistrict = 'أكثر محافظة نشاطًا';
   static const String latestDonor = 'أحدث متبرع';
   
   // التوعية
@@ -121,7 +134,7 @@ class AppStrings {
   static const String advancedSearch = 'بحث متقدم';
   static const String suspendedDonors = 'المتبرعين الموقوفين';
   static const String bloodTypeReport = 'تقرير الفصائل';
-  static const String districtReport = 'تقرير المديريات';
+  static const String districtReport = 'تقرير المحافظات';
   static const String suspendFor6Months = 'إيقاف لمدة 6 أشهر';
   static const String updateLastDonation = 'تحديث آخر تبرع';
   

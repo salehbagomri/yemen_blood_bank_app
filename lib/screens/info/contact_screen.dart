@@ -173,7 +173,7 @@ class ContactScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         const Text(
-                          'شكراً لاستخدامكم بنك دم المهرة',
+                          'شكراً لاستخدامكم بنك دم اليمن',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -347,10 +347,10 @@ class ContactScreen extends StatelessWidget {
 
   Future<void> _sendEmail(BuildContext context, String email) async {
     // تحضير موضوع وجسم الرسالة
-    const String subject = 'استفسار عن تطبيق بنك دم المهرة';
+    const String subject = 'استفسار عن تطبيق بنك دم اليمن';
     const String body = '''مرحباً،
 
-أود الاستفسار عن تطبيق بنك دم المهرة.
+أود الاستفسار عن تطبيق بنك دم اليمن.
 
 الموضوع:
 

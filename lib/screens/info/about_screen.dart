@@ -53,10 +53,10 @@ class AboutScreen extends StatelessWidget {
                   _buildSectionTitle('📱 عن التطبيق'),
                   const SizedBox(height: 12),
                   _buildInfoCard(
-                    '''بنك دم المهرة هو تطبيق مجاني يهدف إلى ربط المتبرعين بالدم مع المحتاجين في محافظة المهرة، اليمن.
+                    '''بنك دم اليمن هو تطبيق مجاني يهدف إلى ربط المتبرعين بالدم مع المحتاجين في اليمن.
 
 التطبيق يساعد على:
-• البحث السريع عن متبرعين حسب فصيلة الدم والمديرية
+• البحث السريع عن متبرعين حسب فصيلة الدم والمنطقة
 • التسجيل كمتبرع وإدارة معلوماتك
 • نشر الوعي حول أهمية التبرع بالدم
 • توفير الوقت في حالات الطوارئ
@@ -120,7 +120,7 @@ class AboutScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           const Text(
-            'بنك دم المهرة',
+            'بنك دم اليمن',
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -130,7 +130,7 @@ class AboutScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           const Text(
-            'Mahrah Blood Bank',
+            'Yemen Blood Bank',
             style: TextStyle(fontSize: 16, color: Colors.white70),
             textAlign: TextAlign.center,
           ),
@@ -322,7 +322,7 @@ class AboutScreen extends StatelessWidget {
 
           // حقوق النشر
           const Text(
-            'بنك دم المهرة 2026 \u00A9',
+            'بنك دم اليمن 2026 \u00A9',
             style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
           ),
           const SizedBox(height: 4),

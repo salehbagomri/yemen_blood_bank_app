@@ -1,8 +1,8 @@
-# 📱 دليل النشر على Play Store - Publishing Guide
+﻿# 📱 دليل النشر على Play Store - Publishing Guide
 
 **تاريخ: 3 ديسمبر 2025**
 **الإصدار: 2.0.0**
-**اسم التطبيق: بنك دم المهرة - Mahrah Blood Bank**
+**اسم التطبيق: بنك دم اليمن - Yemen Blood Bank**
 
 ---
 
@@ -22,7 +22,7 @@
 ### 1. ملف APK
 **الموقع:**
 ```
-d:\mahrah_blood_bank_app\build\app\outputs\flutter-apk\app-release.apk
+d:\yemen_blood_bank_app\build\app\outputs\flutter-apk\app-release.apk
 ```
 **الحجم:** ~65.4 MB
 **الحالة:** ✅ جاهز للنشر
@@ -33,7 +33,7 @@ flutter build appbundle --release
 ```
 **الموقع المتوقع:**
 ```
-d:\mahrah_blood_bank_app\build\app\outputs\bundle\release\app-release.aab
+d:\yemen_blood_bank_app\build\app\outputs\bundle\release\app-release.aab
 ```
 
 ### 2. ملفات التوقيع
@@ -62,7 +62,7 @@ d:\mahrah_blood_bank_app\build\app\outputs\bundle\release\app-release.aab
 
 1. اضغط **"Create app"** أو **"إنشاء تطبيق"**
 2. املأ المعلومات:
-   - **اسم التطبيق:** بنك دم المهرة
+   - **اسم التطبيق:** بنك دم اليمن
    - **اللغة الافتراضية:** العربية (ar)
    - **نوع التطبيق:** App
    - **مجاني أم مدفوع:** Free
@@ -82,7 +82,7 @@ d:\mahrah_blood_bank_app\build\app\outputs\bundle\release\app-release.aab
 1. اذهب إلى **Policy** → **Privacy Policy**
 2. أدخل رابط السياسة:
    ```
-   https://salehbagomri.github.io/mahrah-blood-bank-privacy/
+   https://salehbagomri.github.io/yemen-blood-bank-privacy/
    ```
 
 #### ج) فئة التطبيق (App Category)
@@ -100,7 +100,7 @@ d:\mahrah_blood_bank_app\build\app\outputs\bundle\release\app-release.aab
 **الحد الأقصى: 80 حرف**
 
 ```
-تطبيق ينقذ الأرواح - ربط متبرعي الدم بالمحتاجين في المهرة، اليمن
+تطبيق ينقذ الأرواح - ربط متبرعي الدم بالمحتاجين في اليمن، اليمن
 ```
 
 #### 2. الوصف الكامل (Full Description)
@@ -151,7 +151,7 @@ d:\mahrah_blood_bank_app\build\app\outputs\bundle\release\app-release.aab
 • تحسين الأداء
 • إصلاح الأخطاء
 
-💙 معاً ننقذ الأرواح في المهرة
+💙 معاً ننقذ الأرواح في اليمن
 ```
 
 **بالإنجليزية:**
@@ -170,7 +170,7 @@ Version 2.0.0 - Major Update
 • Performance improvements
 • Bug fixes
 
-💙 Together We Save Lives in Mahrah
+💙 Together We Save Lives in Yemen
 ```
 
 ### الخطوة 7️⃣: المراجعة والنشر
@@ -285,7 +285,7 @@ Version 2.0.0 - Major Update
 
 ### 2. أضف البصمات في Firebase
 1. اذهب إلى Firebase Console
-2. افتح مشروع `mahrah-blood-bank`
+2. افتح مشروع `yemen-blood-bank`
 3. اذهب إلى **Project Settings** → **Your apps**
 4. اضغط **Add fingerprint**
 5. أضف البصمات الجديدة من Play Console
@@ -332,7 +332,7 @@ Version 2.0.0 - Major Update
 - اطلب من المستخدمين التقييم
 - **رابط التطبيق:**
   ```
-  https://play.google.com/store/apps/details?id=com.bagomri.mahrahbloodbank
+  https://play.google.com/store/apps/details?id=com.bagomri.yemenbloodbank
   ```
 
 ---
@@ -388,7 +388,7 @@ Version 2.0.0 - Major Update
 
 **🎉 مبروك مقدماً على نشر التطبيق!**
 
-💙 **معاً ننقذ الأرواح في المهرة**
+💙 **معاً ننقذ الأرواح في اليمن**
 
 ---
 
@@ -454,4 +454,4 @@ Invalid dex file indices, expecting file 'classes?.dex' but found 'classes2.dex'
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**

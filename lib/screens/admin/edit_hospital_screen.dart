@@ -34,18 +34,8 @@ class _EditHospitalScreenState extends State<EditHospitalScreen> {
   bool _obscurePassword = false;
   bool _changePassword = false;
 
-  // قائمة المديريات
-  final List<String> _districts = [
-    'الغيضة',
-    'حصوين',
-    'حات',
-    'المسيلة',
-    'شحن',
-    'قشن',
-    'منعر',
-    'سيحوت',
-    'حوف',
-  ];
+  // قائمة المحافظات
+  final List<String> _districts = AppStrings.districts;
 
   @override
   void initState() {

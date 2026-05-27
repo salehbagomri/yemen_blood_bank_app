@@ -1,10 +1,10 @@
-# سياسة الخصوصية - Privacy Policy
+﻿# سياسة الخصوصية - Privacy Policy
 
-**تطبيق بنك دم المهرة - Mahrah Blood Bank App**
+**تطبيق بنك دم اليمن - Yemen Blood Bank App**
 
 **آخر تحديث: 3 ديسمبر 2025 - Last Updated: December 3, 2025**
 
-**🔗 رابط السياسة: https://salehbagomri.github.io/mahrah-blood-bank-privacy/**
+**🔗 رابط السياسة: https://salehbagomri.github.io/yemen-blood-bank-privacy/**
 
 ---
 
@@ -12,7 +12,7 @@
 
 ### 1. المقدمة
 
-مرحباً بك في تطبيق بنك دم المهرة. نحن ملتزمون بحماية خصوصيتك وبياناتك الشخصية. توضح هذه السياسة كيفية جمع واستخدام وحماية معلوماتك عند استخدام التطبيق.
+مرحباً بك في تطبيق بنك دم اليمن. نحن ملتزمون بحماية خصوصيتك وبياناتك الشخصية. توضح هذه السياسة كيفية جمع واستخدام وحماية معلوماتك عند استخدام التطبيق.
 
 **المطور**: صالح باقمري (Saleh Bagomri)
 **الموقع الإلكتروني**: www.bagomri.com
@@ -25,7 +25,7 @@
 - **الاسم الكامل**: لتحديد هوية المتبرع
 - **رقم الهاتف**: للتواصل معك عند الحاجة لتبرع
 - **فصيلة الدم**: لمطابقة المتبرعين مع المحتاجين
-- **المديرية**: لتحديد موقعك الجغرافي في محافظة المهرة
+- **المديرية**: لتحديد موقعك الجغرافي في اليمن
 - **الجنس**: لأغراض إحصائية وطبية
 - **العمر**: للتأكد من أهلية التبرع
 - **الوزن**: متطلب طبي لأهلية التبرع
@@ -142,7 +142,7 @@
 
 ### 1. Introduction
 
-Welcome to Mahrah Blood Bank App. We are committed to protecting your privacy and personal data. This policy explains how we collect, use, and protect your information when using the app.
+Welcome to Yemen Blood Bank App. We are committed to protecting your privacy and personal data. This policy explains how we collect, use, and protect your information when using the app.
 
 **Developer**: Saleh Bagomri
 **Website**: www.bagomri.com
@@ -155,7 +155,7 @@ When registering as a donor, we collect:
 - **Full Name**: To identify the donor
 - **Phone Number**: To contact you when blood is needed
 - **Blood Type**: To match donors with recipients
-- **District**: To determine your geographic location in Mahrah
+- **District**: To determine your geographic location in Yemen
 - **Gender**: For statistical and medical purposes
 - **Age**: To verify donation eligibility
 - **Weight**: Medical requirement for donation eligibility
@@ -302,7 +302,7 @@ This app complies with:
 
 ## 🔒 Your Consent
 
-By using Mahrah Blood Bank App, you consent to:
+By using Yemen Blood Bank App, you consent to:
 - Collection of data as described in this policy
 - Use of your data for the purposes mentioned
 - Storage of your data on Supabase servers
@@ -318,4 +318,4 @@ You can withdraw consent at any time by deleting your account.
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة - Made with love for the people of Mahrah**
+💙 **صُنع بحب لأهالي اليمن - Made with love for the people of Yemen**

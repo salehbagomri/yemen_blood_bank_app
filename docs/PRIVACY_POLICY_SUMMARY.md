@@ -1,4 +1,4 @@
-# 📄 ملخص سياسة الخصوصية - Privacy Policy Summary
+﻿# 📄 ملخص سياسة الخصوصية - Privacy Policy Summary
 
 **تاريخ الإنشاء: 3 ديسمبر 2025**
 
@@ -6,7 +6,7 @@
 
 ## ✅ ما تم إنجازه
 
-تم إنشاء سياسة خصوصية شاملة لتطبيق بنك دم المهرة وفقاً لمتطلبات Google Play Store.
+تم إنشاء سياسة خصوصية شاملة لتطبيق بنك دم اليمن وفقاً لمتطلبات Google Play Store.
 
 ### الملفات المنشأة:
 
@@ -32,12 +32,12 @@
 
 ### رابط المستودع:
 ```
-https://github.com/salehbagomri/mahrah-blood-bank-privacy.git
+https://github.com/salehbagomri/yemen-blood-bank-privacy.git
 ```
 
 ### الرابط المتوقع للسياسة بعد التفعيل:
 ```
-https://salehbagomri.github.io/mahrah-blood-bank-privacy/
+https://salehbagomri.github.io/yemen-blood-bank-privacy/
 ```
 
 ---
@@ -76,7 +76,7 @@ https://salehbagomri.github.io/mahrah-blood-bank-privacy/
 
 ```bash
 # انتقل إلى مجلد المستودع المحلي
-cd path/to/mahrah-blood-bank-privacy
+cd path/to/yemen-blood-bank-privacy
 
 # انسخ الملفات من privacy-policy-repo
 # (يدوياً أو باستخدام أوامر النسخ)
@@ -93,7 +93,7 @@ git push origin main
 
 ### 2. تفعيل GitHub Pages ⏳
 
-1. اذهب إلى: https://github.com/salehbagomri/mahrah-blood-bank-privacy
+1. اذهب إلى: https://github.com/salehbagomri/yemen-blood-bank-privacy
 2. اضغط على **Settings**
 3. اختر **Pages** من القائمة
 4. في **Source**: اختر `main` و `/ (root)`
@@ -104,7 +104,7 @@ git push origin main
 
 افتح الرابط وتأكد أن السياسة تعمل:
 ```
-https://salehbagomri.github.io/mahrah-blood-bank-privacy/
+https://salehbagomri.github.io/yemen-blood-bank-privacy/
 ```
 
 ### 4. استخدام الرابط في Play Store ⏳
@@ -112,7 +112,7 @@ https://salehbagomri.github.io/mahrah-blood-bank-privacy/
 عند رفع التطبيق على Google Play Console:
 - في قسم **Store Listing**
 - في حقل **Privacy Policy**
-- أدخل الرابط: `https://salehbagomri.github.io/mahrah-blood-bank-privacy/`
+- أدخل الرابط: `https://salehbagomri.github.io/yemen-blood-bank-privacy/`
 
 ---
 
@@ -235,8 +235,8 @@ https://salehbagomri.github.io/mahrah-blood-bank-privacy/
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة**
-💙 **Made with love for the people of Mahrah**
+💙 **صُنع بحب لأهالي اليمن**
+💙 **Made with love for the people of Yemen**
 
 ---
 

@@ -151,7 +151,7 @@ class ReportExportUtils {
               // تذييل
               pw.Divider(),
               pw.Text(
-                'تم إنشاء التقرير بواسطة تطبيق بنك الدم - المهرة',
+                'تم إنشاء التقرير بواسطة تطبيق بنك دم اليمن',
                 style: pw.TextStyle(
                   fontSize: 10,
                   color: PdfColors.grey700,
@@ -277,7 +277,7 @@ class ReportExportUtils {
       currentRow += 2; // مسافة فارغة
       
       sheet.cell(excel_pkg.CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: currentRow))
-          .value = excel_pkg.TextCellValue('تم إنشاء التقرير بواسطة تطبيق بنك الدم - المهرة');
+          .value = excel_pkg.TextCellValue('تم إنشاء التقرير بواسطة تطبيق بنك دم اليمن');
       currentRow++;
       
       if (createdBy != null) {
@@ -317,7 +317,7 @@ class ReportExportUtils {
       // مشاركة الملف
       await Share.shareXFiles(
         [XFile(file.path)],
-        text: 'تقرير من تطبيق بنك الدم - المهرة',
+        text: 'تقرير من تطبيق بنك دم اليمن',
       );
 
       return true;

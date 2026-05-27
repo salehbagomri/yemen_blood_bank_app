@@ -1,6 +1,6 @@
-# 🎉 تقرير إنجاز: نظام معالجة الأخطاء الاحترافي
+﻿# 🎉 تقرير إنجاز: نظام معالجة الأخطاء الاحترافي
 
-**المشروع**: بنك دم محافظة المهرة
+**المشروع**: بنك دم اليمن
 **التاريخ**: 2 ديسمبر 2025
 **الإصدار الجديد**: 2.0.0 (مع نظام معالجة الأخطاء)
 **Build Number**: 2
@@ -209,7 +209,7 @@ await FirebaseErrorLogger.logError(
 | Dependencies جديدة | 2 (Firebase) |
 | Build APK | ✅ 60.0 MB |
 | Firebase Project | ✅ مُهيأ ومُفعّل |
-| Package Name | ✅ موحّد: com.bagomri.mahrahbloodbank |
+| Package Name | ✅ موحّد: com.bagomri.yemenbloodbank |
 
 ---
 
@@ -232,25 +232,25 @@ await FirebaseErrorLogger.logError(
 
 ### ✅ تم التهيئة بالكامل!
 
-**Firebase Project**: `mahrah-blood-bank` (Project ID: `738636158998`)
+**Firebase Project**: `yemen-blood-bank` (Project ID: `738636158998`)
 
 **ملفات التكوين المُضافة:**
 - ✅ `android/app/google-services.json` - Android configuration
 - ✅ `ios/Runner/GoogleService-Info.plist` - iOS configuration
 
-**Package Name**: `com.bagomri.mahrahbloodbank` (تم توحيده في جميع الملفات)
+**Package Name**: `com.bagomri.yemenbloodbank` (تم توحيده في جميع الملفات)
 
 **التحديثات التي تمت:**
 1. ✅ إضافة ملفات Firebase configuration
 2. ✅ تحديث `android/app/build.gradle.kts`:
    - إضافة plugin: `com.google.gms.google-services`
-   - تحديث `applicationId` و `namespace` إلى `com.bagomri.mahrahbloodbank`
+   - تحديث `applicationId` و `namespace` إلى `com.bagomri.yemenbloodbank`
    - تحديث `versionCode` إلى 2
    - تحديث `versionName` إلى "2.0.0"
 3. ✅ تحديث `android/settings.gradle.kts`:
    - إضافة Google Services plugin
 4. ✅ نقل `MainActivity.kt` إلى البنية الجديدة:
-   - من: `com/mahrah/mahrah_blood_bank/`
+   - من: `com/mahrah/yemen_blood_bank/`
    - إلى: `com/bagomri/mahrahbloodbank/`
 5. ✅ تحديث package declaration في `MainActivity.kt`
 6. ✅ بناء APK جديد بنجاح مع Firebase مُفعّل
@@ -338,7 +338,7 @@ adb install build\app\outputs\flutter-apk\app-release.apk
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**
 بواسطة **Saleh Bagomri** - [www.bagomri.com](https://www.bagomri.com)
 
 **التاريخ**: 2 ديسمبر 2025

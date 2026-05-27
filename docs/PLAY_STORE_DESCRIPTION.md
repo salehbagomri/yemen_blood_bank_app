@@ -1,17 +1,17 @@
-# 📱 وصف التطبيق للمتاجر - Play Store Description
+﻿# 📱 وصف التطبيق للمتاجر - Play Store Description
 
 ## 🏷️ العنوان القصير (Short Title)
-**بنك دم المهرة - Mahrah Blood Bank**
+**بنك دم اليمن - Yemen Blood Bank**
 
 ---
 
 ## 📋 الوصف الكامل بالعربية (Arabic Description)
 
-### 🩸 بنك دم المهرة - تطبيق ينقذ الأرواح
+### 🩸 بنك دم اليمن - تطبيق ينقذ الأرواح
 
 **ما هو التطبيق؟**
 
-بنك دم المهرة هو تطبيق مجاني يربط المتبرعين بالدم مع المحتاجين في محافظة المهرة، اليمن. التطبيق يوفر منصة سهلة وسريعة للبحث عن متبرعين حسب فصيلة الدم والمديرية، مما يساعد على إنقاذ الأرواح في حالات الطوارئ.
+بنك دم اليمن هو تطبيق مجاني يربط المتبرعين بالدم مع المحتاجين في اليمن، اليمن. التطبيق يوفر منصة سهلة وسريعة للبحث عن متبرعين حسب فصيلة الدم والمديرية، مما يساعد على إنقاذ الأرواح في حالات الطوارئ.
 
 **من يستفيد من التطبيق؟**
 
@@ -54,28 +54,28 @@
 - تقارير وتحليلات
 - تصدير البيانات (Excel, PDF)
 
-**لماذا بنك دم المهرة؟**
+**لماذا بنك دم اليمن؟**
 
 🎯 مجاني بالكامل - لا توجد أي رسوم أو اشتراكات
 🔒 آمن وموثوق - حماية كاملة لبيانات المتبرعين
 ⚡ سريع وسهل - واجهة بسيطة وسلسة
 🌙 تصميم عصري - ألوان مريحة للعين
-🇾🇪 صُنع في اليمن - بحب لأهالي المهرة
+🇾🇪 صُنع في اليمن - بحب لأهالي اليمن
 
 **رسالتنا:**
 نسعى لبناء مجتمع متكافل يساند بعضه البعض، حيث يمكن لكل شخص أن يكون سبباً في إنقاذ حياة إنسان. التبرع بالدم ليس مجرد عمل خيري، بل هو استثمار في الحياة وإنقاذ للأرواح.
 
-**معاً ننقذ الأرواح في المهرة** 💙
+**معاً ننقذ الأرواح في اليمن** 💙
 
 ---
 
 ## 📋 Full Description in English
 
-### 🩸 Mahrah Blood Bank - Saving Lives Together
+### 🩸 Yemen Blood Bank - Saving Lives Together
 
 **What is this app?**
 
-Mahrah Blood Bank is a free application that connects blood donors with those in need in Mahrah Governorate, Yemen. The app provides an easy and fast platform to search for donors by blood type and district, helping save lives in emergencies.
+Yemen Blood Bank is a free application that connects blood donors with those in need in Yemen Governorate, Yemen. The app provides an easy and fast platform to search for donors by blood type and district, helping save lives in emergencies.
 
 **Who benefits from the app?**
 
@@ -118,18 +118,18 @@ Mahrah Blood Bank is a free application that connects blood donors with those in
 - Reports and analytics
 - Data export (Excel, PDF)
 
-**Why Mahrah Blood Bank?**
+**Why Yemen Blood Bank?**
 
 🎯 Completely free - No fees or subscriptions
 🔒 Safe and reliable - Complete protection of donor data
 ⚡ Fast and easy - Simple and smooth interface
 🌙 Modern design - Eye-friendly colors
-🇾🇪 Made in Yemen - With love for the people of Mahrah
+🇾🇪 Made in Yemen - With love for the people of Yemen
 
 **Our Mission:**
 We seek to build a supportive community where everyone can be a reason to save a human life. Blood donation is not just a charitable act, but an investment in life and saving souls.
 
-**Together We Save Lives in Mahrah** 💙
+**Together We Save Lives in Yemen** 💙
 
 ---
 
@@ -171,7 +171,7 @@ blood bank, mahrah, yemen, blood donation, donors, blood types, emergency, save 
 **الموقع الإلكتروني:** https://www.bagomri.com
 **واتساب:** +967 735 325 614
 
-**سياسة الخصوصية:** https://salehbagomri.github.io/mahrah-blood-bank-privacy/
+**سياسة الخصوصية:** https://salehbagomri.github.io/yemen-blood-bank-privacy/
 
 ---
 
@@ -201,4 +201,4 @@ blood bank, mahrah, yemen, blood donation, donors, blood types, emergency, save 
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**

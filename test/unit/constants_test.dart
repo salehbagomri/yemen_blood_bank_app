@@ -4,15 +4,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mahrah_blood_bank/constants/app_strings.dart';
-import 'package:mahrah_blood_bank/constants/app_colors.dart';
+import 'package:yemen_blood_bank/constants/app_strings.dart';
+import 'package:yemen_blood_bank/constants/app_colors.dart';
 
 void main() {
   // ══════════════════════════════════════════════════════════════════
   group('AppStrings', () {
     test('اسم التطبيق صحيح', () {
-      expect(AppStrings.appName, equals('بنك دم المهرة'));
-      expect(AppStrings.appNameEnglish, equals('Mahrah Blood Bank'));
+      expect(AppStrings.appName, equals('بنك دم اليمن'));
+      expect(AppStrings.appNameEnglish, equals('Yemen Blood Bank'));
     });
 
     test('قائمة المديريات تحتوي على 9 مديريات', () {

@@ -237,7 +237,7 @@ class ExportService {
                     padding: const pw.EdgeInsets.all(10),
                     color: PdfColors.green,
                     child: pw.Text(
-                      'تقرير المتبرعين - بنك دم المهرة',
+                      'تقرير المتبرعين - بنك دم اليمن',
                       style: pw.TextStyle(
                         fontSize: 18,
                         fontWeight: pw.FontWeight.bold,
@@ -374,7 +374,7 @@ class ExportService {
                   padding: const pw.EdgeInsets.all(15),
                   color: PdfColors.blue,
                   child: pw.Text(
-                    'تقرير الإحصائيات - بنك دم المهرة',
+                    'تقرير الإحصائيات - بنك دم اليمن',
                     style: pw.TextStyle(
                       fontSize: 20,
                       fontWeight: pw.FontWeight.bold,

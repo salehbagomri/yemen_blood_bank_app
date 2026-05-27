@@ -1,4 +1,4 @@
-# ⚠️ مشكلة App Bundle - Troubleshooting Guide
+﻿# ⚠️ مشكلة App Bundle - Troubleshooting Guide
 
 **التاريخ:** 4 ديسمبر 2025
 **الإصدار:** 2.0.0
@@ -17,7 +17,7 @@ Invalid dex file indices, expecting file 'classes?.dex' but found 'classes2.dex'
 ### الخطأ 2: Gradle Daemon Crash
 ```
 Gradle build daemon disappeared unexpectedly (it may have been killed or may have crashed)
-JVM crash log found: file:///d:/mahrah_blood_bank_app/android/hs_err_pid107256.log
+JVM crash log found: file:///d:/yemen_blood_bank_app/android/hs_err_pid107256.log
 ```
 
 ---
@@ -48,7 +48,7 @@ flutter build apk --release
 2. افتح Terminal جديد
 3. نفّذ:
    ```bash
-   cd d:\mahrah_blood_bank_app
+   cd d:\yemen_blood_bank_app
    flutter clean
    cd android && ./gradlew clean && cd ..
    flutter pub get
@@ -242,4 +242,4 @@ build\app\outputs\flutter-apk\app-release.apk
 **👨‍💻 المطور:** صالح باقمري
 **📧 البريد:** s.bagomri@gmail.com
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**

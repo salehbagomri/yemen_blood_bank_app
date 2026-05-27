@@ -1,4 +1,4 @@
-# 🔥 دليل إعداد Firebase - Firebase Setup Guide
+﻿# 🔥 دليل إعداد Firebase - Firebase Setup Guide
 
 **تاريخ: 3 ديسمبر 2025**
 
@@ -15,7 +15,7 @@ https://console.firebase.google.com
 
 #### ب. اختر مشروعك أو أنشئ مشروع جديد:
 - إذا لم يكن لديك مشروع، اضغط **"Add project"**
-- اسم المشروع المقترح: `Mahrah Blood Bank`
+- اسم المشروع المقترح: `Yemen Blood Bank`
 
 #### ج. أضف تطبيق Android:
 
@@ -25,8 +25,8 @@ https://console.firebase.google.com
 ```
 📱 معلومات التطبيق:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Android package name:  com.bagomri.mahrahbloodbank
-App nickname (اختياري): Mahrah Blood Bank
+Android package name:  com.bagomri.yemenbloodbank
+App nickname (اختياري): Yemen Blood Bank
 Debug signing SHA-1:   [اتركه فارغاً الآن]
 ```
 
@@ -75,7 +75,7 @@ D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34
 
 **📂 المسار الصحيح:**
 ```
-d:\mahrah_blood_bank_app\android\app\google-services.json
+d:\yemen_blood_bank_app\android\app\google-services.json
 ```
 
 **⚠️ مهم جداً:**
@@ -97,7 +97,7 @@ d:\mahrah_blood_bank_app\android\app\google-services.json
       "client_info": {
         "mobilesdk_app_id": "1:...:android:...",
         "android_client_info": {
-          "package_name": "com.bagomri.mahrahbloodbank"
+          "package_name": "com.bagomri.yemenbloodbank"
         }
       },
       ...
@@ -106,7 +106,7 @@ d:\mahrah_blood_bank_app\android\app\google-services.json
 }
 ```
 
-تأكد أن `package_name` هو: `com.bagomri.mahrahbloodbank`
+تأكد أن `package_name` هو: `com.bagomri.yemenbloodbank`
 
 ---
 
@@ -121,8 +121,8 @@ d:\mahrah_blood_bank_app\android\app\google-services.json
 ```
 📱 معلومات التطبيق:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-iOS bundle ID:      com.bagomri.mahrahbloodbank
-App nickname:       Mahrah Blood Bank
+iOS bundle ID:      com.bagomri.yemenbloodbank
+App nickname:       Yemen Blood Bank
 App Store ID:       [اتركه فارغاً الآن]
 ```
 
@@ -130,7 +130,7 @@ App Store ID:       [اتركه فارغاً الآن]
 1. اضغط **"Download GoogleService-Info.plist"**
 2. ضع الملف في:
 ```
-d:\mahrah_blood_bank_app\ios\Runner\GoogleService-Info.plist
+d:\yemen_blood_bank_app\ios\Runner\GoogleService-Info.plist
 ```
 
 ---
@@ -291,4 +291,4 @@ D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34
 **👨‍💻 المطور**: صالح باقمري
 **📧 البريد**: s.bagomri@gmail.com
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**

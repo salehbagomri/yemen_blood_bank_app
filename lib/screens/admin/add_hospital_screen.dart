@@ -87,7 +87,7 @@ class _AddHospitalScreenState extends State<AddHospitalScreen> {
                     CustomTextField(
                       controller: _nameController,
                       label: 'اسم المستشفى',
-                      hint: 'مثال: مستشفى الغيضة العام',
+                      hint: 'مثال: مستشفى الجمهوري العام',
                       icon: Icons.local_hospital,
                       validator: (value) =>
                           Validators.validateNotEmpty(value, 'اسم المستشفى'),

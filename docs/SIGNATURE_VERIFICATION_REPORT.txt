@@ -1,6 +1,6 @@
-═══════════════════════════════════════════════════════════════════
+﻿═══════════════════════════════════════════════════════════════════
          تقرير التحقق من توقيع APK - Signature Verification
-              تطبيق بنك دم المهرة - Mahrah Blood Bank App
+              تطبيق بنك دم اليمن - Yemen Blood Bank App
 ═══════════════════════════════════════════════════════════════════
 
 📅 تاريخ التحقق: 3 ديسمبر 2025 - الساعة 03:24 صباحاً
@@ -20,14 +20,14 @@
 
 👤 المالك (Owner):
    CN (الاسم): Saleh Bagomri
-   OU (الوحدة): Mahrah Blood Bank
-   O (المنظمة): Mahrah Blood Bank App
+   OU (الوحدة): Yemen Blood Bank
+   O (المنظمة): Yemen Blood Bank App
    L (المدينة): Aden
    ST (المحافظة): Aden
    C (الدولة): YE
 
 👤 المُصدر (Issuer):
-   CN=Saleh Bagomri, OU=Mahrah Blood Bank, O=Mahrah Blood Bank App, L=Aden, ST=Aden, C=YE
+   CN=Saleh Bagomri, OU=Yemen Blood Bank, O=Yemen Blood Bank App, L=Aden, ST=Aden, C=YE
    (Self-signed certificate - شهادة موقعة ذاتياً)
 
 🔢 الرقم التسلسلي: 66c787341f4beb6e
@@ -100,8 +100,8 @@
          📱 معلومات التطبيق - Application Information
 ═══════════════════════════════════════════════════════════════════
 
-📱 اسم التطبيق: بنك دم المهرة
-📦 Package ID: com.bagomri.mahrahbloodbank
+📱 اسم التطبيق: بنك دم اليمن
+📦 Package ID: com.bagomri.yemenbloodbank
 🔢 Version Name: 2.0.0
 🔢 Version Code: 2
 💾 APK Size: 65 MB
@@ -165,6 +165,6 @@
 
 ✅ تم إنشاء هذا التقرير تلقائياً بواسطة Claude Code
 📅 التاريخ: 3 ديسمبر 2025
-💙 صُنع بحب لأهالي المهرة
+💙 صُنع بحب لأهالي اليمن
 
 ═══════════════════════════════════════════════════════════════════

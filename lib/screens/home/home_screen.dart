@@ -304,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// فتح صفحة تقييم التطبيق على Play Store
   Future<void> _rateApp() async {
-    final packageName = 'com.bagomri.mahrahbloodbank';
+    final packageName = 'com.bagomri.yemenbloodbank';
     final Uri playStoreUri = Uri.parse(
       'https://play.google.com/store/apps/details?id=$packageName',
     );
@@ -325,8 +325,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// مشاركة التطبيق
   Future<void> _shareApp() async {
-    const String appName = 'بنك دم المهرة';
-    const String packageName = 'com.bagomri.mahrahbloodbank';
+    const String appName = 'بنك دم اليمن';
+    const String packageName = 'com.bagomri.yemenbloodbank';
     const String playStoreUrl =
         'https://play.google.com/store/apps/details?id=$packageName';
 
@@ -342,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
 📥 حمّل التطبيق الآن:
 $playStoreUrl
 
-💙 معاً ننقذ الأرواح في المهرة''';
+💙 معاً ننقذ الأرواح في اليمن''';
 
     await Share.share(shareText);
   }
@@ -350,7 +350,7 @@ $playStoreUrl
   /// فتح سياسة الخصوصية
   Future<void> _openPrivacyPolicy() async {
     final Uri privacyUrl = Uri.parse(
-      'https://salehbagomri.github.io/mahrah-blood-bank-privacy/',
+      'https://salehbagomri.github.io/yemen-blood-bank-privacy/',
     );
 
     if (await canLaunchUrl(privacyUrl)) {
@@ -390,7 +390,7 @@ $playStoreUrl
           ),
           const SizedBox(height: 16),
 
-          // النص الرئيسي: صنع بحب ❤️ لأهالي المهرة
+          // النص الرئيسي: صنع بحب ❤️ لأهالي اليمن
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -406,7 +406,7 @@ $playStoreUrl
               const Icon(Icons.favorite, color: Colors.red, size: 16),
               const SizedBox(width: 6),
               Text(
-                'لأهالي المهرة',
+                'لأهالي اليمن',
                 style: TextStyle(
                   color: Colors.grey.shade600,
                   fontSize: 13,
@@ -699,7 +699,7 @@ class _StatisticsSlide extends StatelessWidget {
             const SizedBox(height: 16),
             // العنوان الرئيسي
             const Text(
-              'أبطال المهرة',
+              'أبطال اليمن',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,

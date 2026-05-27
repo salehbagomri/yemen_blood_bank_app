@@ -1,6 +1,6 @@
-# 🔥 تقرير تهيئة Firebase Crashlytics
+﻿# 🔥 تقرير تهيئة Firebase Crashlytics
 
-**المشروع**: بنك دم محافظة المهرة
+**المشروع**: بنك دم اليمن
 **التاريخ**: 3 ديسمبر 2025
 **الإصدار**: 2.0.0
 
@@ -16,10 +16,10 @@
 
 | البند | القيمة |
 |------|--------|
-| **Project Name** | `mahrah-blood-bank` |
-| **Project ID** | `mahrah-blood-bank` |
+| **Project Name** | `yemen-blood-bank` |
+| **Project ID** | `yemen-blood-bank` |
 | **Project Number** | `738636158998` |
-| **Package Name** | `com.bagomri.mahrahbloodbank` |
+| **Package Name** | `com.bagomri.yemenbloodbank` |
 | **Firebase Console** | [console.firebase.google.com](https://console.firebase.google.com) |
 
 ---
@@ -51,12 +51,12 @@
 
 **قبل:**
 ```
-com.mahrah.mahrah_blood_bank
+com.mahrah.yemen_blood_bank
 ```
 
 **بعد:**
 ```
-com.bagomri.mahrahbloodbank
+com.bagomri.yemenbloodbank
 ```
 
 **الملفات المُحدثة:**
@@ -80,10 +80,10 @@ plugins {
 }
 
 android {
-    namespace = "com.bagomri.mahrahbloodbank" // ← محدّث
+    namespace = "com.bagomri.yemenbloodbank" // ← محدّث
 
     defaultConfig {
-        applicationId = "com.bagomri.mahrahbloodbank" // ← محدّث
+        applicationId = "com.bagomri.yemenbloodbank" // ← محدّث
         versionCode = 2 // ← محدّث من 1
         versionName = "2.0.0" // ← محدّث من "1.0.0"
     }
@@ -112,7 +112,7 @@ plugins {
 
 **الموقع القديم:**
 ```
-android/app/src/main/kotlin/com/mahrah/mahrah_blood_bank/MainActivity.kt
+android/app/src/main/kotlin/com/mahrah/yemen_blood_bank/MainActivity.kt
 ```
 
 **الموقع الجديد:**
@@ -122,7 +122,7 @@ android/app/src/main/kotlin/com/bagomri/mahrahbloodbank/MainActivity.kt
 
 **المحتوى:**
 ```kotlin
-package com.bagomri.mahrahbloodbank // ← محدّث
+package com.bagomri.yemenbloodbank // ← محدّث
 
 import io.flutter.embedding.android.FlutterActivity
 
@@ -230,7 +230,7 @@ await FirebaseErrorLogger.logError(
 ### 1. الوصول إلى Dashboard
 
 1. افتح [Firebase Console](https://console.firebase.google.com)
-2. اختر المشروع: **mahrah-blood-bank**
+2. اختر المشروع: **yemen-blood-bank**
 3. من القائمة الجانبية → **Crashlytics**
 
 ### 2. ما ستجده في Dashboard
@@ -356,7 +356,7 @@ FirebaseErrorLogger.testCrash();
 - يرسل الأخطاء تلقائياً إلى Firebase Console
 
 ✅ **Package Name موحّد**
-- `com.bagomri.mahrahbloodbank` في جميع الملفات
+- `com.bagomri.yemenbloodbank` في جميع الملفات
 - لا تعارض بين Firebase config و Android config
 
 ✅ **APK جاهز للنشر**
@@ -407,7 +407,7 @@ https://firebase.flutter.dev/docs/crashlytics/overview
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**
 بواسطة **Saleh Bagomri** - [www.bagomri.com](https://www.bagomri.com)
 
 **التاريخ**: 3 ديسمبر 2025

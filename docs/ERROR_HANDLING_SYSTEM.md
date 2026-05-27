@@ -1,4 +1,4 @@
-# 🛡️ نظام معالجة الأخطاء الاحترافي - بنك دم المهرة
+﻿# 🛡️ نظام معالجة الأخطاء الاحترافي - بنك دم اليمن
 
 **التاريخ**: 2 ديسمبر 2025
 **الإصدار**: 2.0.0
@@ -289,8 +289,8 @@ if (provider.hasError) {
 
 ### ✅ التهيئة مكتملة!
 
-**Firebase Project**: `mahrah-blood-bank`
-**Package Name**: `com.bagomri.mahrahbloodbank`
+**Firebase Project**: `yemen-blood-bank`
+**Package Name**: `com.bagomri.yemenbloodbank`
 
 **1. ملفات Firebase المُضافة:**
 
@@ -306,8 +306,8 @@ plugins {
 }
 
 android {
-    namespace = "com.bagomri.mahrahbloodbank"
-    applicationId = "com.bagomri.mahrahbloodbank"
+    namespace = "com.bagomri.yemenbloodbank"
+    applicationId = "com.bagomri.yemenbloodbank"
 }
 ```
 
@@ -447,5 +447,5 @@ print(connected); // يجب أن يطبع: false
 
 ---
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**
 بواسطة **Saleh Bagomri** - [www.bagomri.com](https://www.bagomri.com)

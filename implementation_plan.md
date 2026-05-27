@@ -1,4 +1,4 @@
-# خطة تنفيذ 7 تحسينات لتطبيق بنك دم المهرة
+﻿# خطة تنفيذ 7 تحسينات لتطبيق بنك دم اليمن
 
 ## ملخص عام
 
@@ -30,9 +30,9 @@ graph LR
 
 | الملف القديم (يُحذف) | الملف المحسّن (يبقى) |
 |---|---|
-| [manage_donors_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/admin/manage_donors_screen.dart) (424 سطر) | [enhanced_manage_donors_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/admin/enhanced_manage_donors_screen.dart) (627 سطر) |
-| [admin_dashboard_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/admin/admin_dashboard_screen.dart) | [enhanced_admin_dashboard_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/admin/enhanced_admin_dashboard_screen.dart) |
-| [manage_hospitals_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/admin/manage_hospitals_screen.dart) | [enhanced_manage_hospitals_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/admin/enhanced_manage_hospitals_screen.dart) |
+| [manage_donors_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/admin/manage_donors_screen.dart) (424 سطر) | [enhanced_manage_donors_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/admin/enhanced_manage_donors_screen.dart) (627 سطر) |
+| [admin_dashboard_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/admin/admin_dashboard_screen.dart) | [enhanced_admin_dashboard_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/admin/enhanced_admin_dashboard_screen.dart) |
+| [manage_hospitals_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/admin/manage_hospitals_screen.dart) | [enhanced_manage_hospitals_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/admin/enhanced_manage_hospitals_screen.dart) |
 
 ### الخطوات
 1. فحص أي ملف يستدعي الشاشات القديمة (`grep` imports)
@@ -57,14 +57,14 @@ graph LR
 إنشاء ملف مركزي للمسارات باستخدام Named Routes ثم الانتقال إلى `GoRouter` لاحقاً.
 
 ### الخطوات
-1. إنشاء [app_router.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/config/app_router.dart) — يحتوي كل المسارات كـ Named Routes
+1. إنشاء [app_router.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/config/app_router.dart) — يحتوي كل المسارات كـ Named Routes
 2. إضافة Route Guards — حماية شاشات الأدمن والمستشفيات
-3. تحديث [main.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/main.dart) لاستخدام `onGenerateRoute`
+3. تحديث [main.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/main.dart) لاستخدام `onGenerateRoute`
 4. استبدال كل `Navigator.push(MaterialPageRoute(...))` بـ `Navigator.pushNamed(context, route)`
 
 ### الملفات المتأثرة
 - **[NEW]** `lib/config/app_router.dart`
-- **[MODIFY]** [lib/main.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/main.dart) — إضافة `onGenerateRoute`
+- **[MODIFY]** [lib/main.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/main.dart) — إضافة `onGenerateRoute`
 - **[MODIFY]** ~10 ملفات شاشات — استبدال `Navigator.push` بـ `pushNamed`
 
 ---
@@ -80,17 +80,17 @@ graph LR
 إضافة Service Locator (`GetIt`) مع Caching في الـ Providers.
 
 ### الخطوات
-1. إضافة `get_it` في [pubspec.yaml](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/pubspec.yaml)
-2. إنشاء [service_locator.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/config/service_locator.dart) — تسجيل كل الـ Services كـ Singletons
+1. إضافة `get_it` في [pubspec.yaml](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/pubspec.yaml)
+2. إنشاء [service_locator.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/config/service_locator.dart) — تسجيل كل الـ Services كـ Singletons
 3. تحديث الـ Providers لاستخدام `GetIt` بدلاً من `new Service()`
 4. إضافة Caching بسيط في `DonorProvider` و `StatisticsProvider`
-5. تحديث [main.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/main.dart) لتهيئة `GetIt` عند البداية
+5. تحديث [main.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/main.dart) لتهيئة `GetIt` عند البداية
 
 ### الملفات المتأثرة
 - **[NEW]** `lib/config/service_locator.dart`
-- **[MODIFY]** [pubspec.yaml](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/pubspec.yaml) — إضافة `get_it`
-- **[MODIFY]** [lib/main.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/main.dart) — تهيئة GetIt
-- **[MODIFY]** 4 ملفات Providers — [auth_provider.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/providers/auth_provider.dart), [donor_provider.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/providers/donor_provider.dart), [statistics_provider.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/providers/statistics_provider.dart), [dashboard_provider.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/providers/dashboard_provider.dart)
+- **[MODIFY]** [pubspec.yaml](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/pubspec.yaml) — إضافة `get_it`
+- **[MODIFY]** [lib/main.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/main.dart) — تهيئة GetIt
+- **[MODIFY]** 4 ملفات Providers — [auth_provider.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/providers/auth_provider.dart), [donor_provider.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/providers/donor_provider.dart), [statistics_provider.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/providers/statistics_provider.dart), [dashboard_provider.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/providers/dashboard_provider.dart)
 
 ---
 
@@ -103,30 +103,30 @@ graph LR
 استخدام `hive` للتخزين المحلي مع استراتيجية "Cache First, Network Second".
 
 ### الخطوات
-1. إضافة `hive` و `hive_flutter` في [pubspec.yaml](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/pubspec.yaml)
-2. إنشاء [cache_service.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/services/cache_service.dart):
+1. إضافة `hive` و `hive_flutter` في [pubspec.yaml](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/pubspec.yaml)
+2. إنشاء [cache_service.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/services/cache_service.dart):
    - تخزين نتائج البحث الأخيرة
    - تخزين الإحصائيات
    - تخزين قائمة المتبرعين المحلية
-3. إنشاء [connectivity_service.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/services/connectivity_service.dart) — مراقبة حالة الاتصال
+3. إنشاء [connectivity_service.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/services/connectivity_service.dart) — مراقبة حالة الاتصال
 4. تحديث `DonorProvider` — بحث محلي أولاً ثم تحديث من السيرفر
 5. إضافة بانر "لا يوجد اتصال" في الشاشة الرئيسية
 
 ### الملفات المتأثرة
 - **[NEW]** `lib/services/cache_service.dart`
 - **[NEW]** `lib/services/connectivity_service.dart`
-- **[MODIFY]** [pubspec.yaml](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/pubspec.yaml) — إضافة hive
-- **[MODIFY]** [lib/main.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/main.dart) — تهيئة Hive
-- **[MODIFY]** [lib/providers/donor_provider.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/providers/donor_provider.dart) — cache-first logic
-- **[MODIFY]** [lib/providers/statistics_provider.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/providers/statistics_provider.dart) — cache statistics
-- **[MODIFY]** [lib/screens/home/home_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/home/home_screen.dart) — connectivity banner
+- **[MODIFY]** [pubspec.yaml](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/pubspec.yaml) — إضافة hive
+- **[MODIFY]** [lib/main.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/main.dart) — تهيئة Hive
+- **[MODIFY]** [lib/providers/donor_provider.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/providers/donor_provider.dart) — cache-first logic
+- **[MODIFY]** [lib/providers/statistics_provider.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/providers/statistics_provider.dart) — cache statistics
+- **[MODIFY]** [lib/screens/home/home_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/home/home_screen.dart) — connectivity banner
 
 ---
 
 ## المهمة 5: تحسين البحث ⏱️ ~3 ساعات
 
 ### المشكلة
-البحث الحالي في [search_donors_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/donor/search_donors_screen.dart) بسيط — dropdown فقط بدون بحث بالاسم أو أزرار سريعة.
+البحث الحالي في [search_donors_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/donor/search_donors_screen.dart) بسيط — dropdown فقط بدون بحث بالاسم أو أزرار سريعة.
 
 ### الحل
 - إضافة بحث بالاسم ورقم الهاتف
@@ -135,18 +135,18 @@ graph LR
 - فلتر حسب الجنس
 
 ### الخطوات
-1. إعادة تصميم [search_donors_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/donor/search_donors_screen.dart):
+1. إعادة تصميم [search_donors_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/donor/search_donors_screen.dart):
    - شريط بحث نصي (اسم / رقم هاتف)
-   - 8 أزرار فصائل الدم كـ [FilterChip](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/admin/enhanced_manage_donors_screen.dart#494-528) (بضغطة واحدة)
+   - 8 أزرار فصائل الدم كـ [FilterChip](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/admin/enhanced_manage_donors_screen.dart#494-528) (بضغطة واحدة)
    - Dropdown للمديرية (يبقى كما هو)
    - Dropdown لترتيب النتائج
    - فلتر الجنس
-2. تحديث [searchDonors()](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/services/donor_service.dart#12-48) في [donor_service.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/services/donor_service.dart) لدعم البحث بالاسم
+2. تحديث [searchDonors()](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/services/donor_service.dart#12-48) في [donor_service.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/services/donor_service.dart) لدعم البحث بالاسم
 
 ### الملفات المتأثرة
-- **[MODIFY]** [lib/screens/donor/search_donors_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/donor/search_donors_screen.dart) — إعادة تصميم كامل
-- **[MODIFY]** [lib/services/donor_service.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/services/donor_service.dart) — دالة بحث بالاسم
-- **[MODIFY]** [lib/providers/donor_provider.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/providers/donor_provider.dart) — حالة الفلاتر
+- **[MODIFY]** [lib/screens/donor/search_donors_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/donor/search_donors_screen.dart) — إعادة تصميم كامل
+- **[MODIFY]** [lib/services/donor_service.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/services/donor_service.dart) — دالة بحث بالاسم
+- **[MODIFY]** [lib/providers/donor_provider.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/providers/donor_provider.dart) — حالة الفلاتر
 
 ---
 
@@ -162,10 +162,10 @@ graph LR
 - انتقال سلس للإحصائيات
 
 ### الخطوات
-1. إنشاء [page_transitions.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/utils/page_transitions.dart) — انتقالات مخصصة (Fade, Slide)
+1. إنشاء [page_transitions.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/utils/page_transitions.dart) — انتقالات مخصصة (Fade, Slide)
 2. تحديث `app_router.dart` لاستخدام الانتقالات المخصصة
-3. إضافة `Hero` tags في [expandable_donor_card.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/widgets/expandable_donor_card.dart)
-4. إنشاء [shimmer_loading.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/widgets/shimmer_loading.dart) — Shimmer placeholder للقوائم
+3. إضافة `Hero` tags في [expandable_donor_card.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/widgets/expandable_donor_card.dart)
+4. إنشاء [shimmer_loading.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/widgets/shimmer_loading.dart) — Shimmer placeholder للقوائم
 5. استبدال `LoadingWidget` بـ Shimmer في شاشات البحث والإدارة
 6. إضافة `AnimatedSwitcher` في عداد الإحصائيات
 
@@ -173,9 +173,9 @@ graph LR
 - **[NEW]** `lib/utils/page_transitions.dart`
 - **[NEW]** `lib/widgets/shimmer_loading.dart`
 - **[MODIFY]** `lib/config/app_router.dart` — انتقالات مخصصة
-- **[MODIFY]** [lib/widgets/expandable_donor_card.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/widgets/expandable_donor_card.dart) — Hero animations
-- **[MODIFY]** [lib/screens/home/widgets/statistics_section.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/home/widgets/statistics_section.dart) — animated counters
-- **[MODIFY]** [lib/screens/donor/search_donors_screen.dart](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/lib/screens/donor/search_donors_screen.dart) — shimmer loading
+- **[MODIFY]** [lib/widgets/expandable_donor_card.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/widgets/expandable_donor_card.dart) — Hero animations
+- **[MODIFY]** [lib/screens/home/widgets/statistics_section.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/home/widgets/statistics_section.dart) — animated counters
+- **[MODIFY]** [lib/screens/donor/search_donors_screen.dart](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/lib/screens/donor/search_donors_screen.dart) — shimmer loading
 
 ---
 
@@ -199,7 +199,7 @@ graph LR
 
 ### الملفات المتأثرة
 - **[NEW]** 5 ملفات اختبار
-- **[MODIFY]** [pubspec.yaml](file:///d:/flutterprojects/mahrah_blood_bank_app_V1.0.0/mahrah_blood_bank_app/pubspec.yaml) — dev_dependencies
+- **[MODIFY]** [pubspec.yaml](file:///d:/flutterprojects/yemen_blood_bank_app_V1.0.0/yemen_blood_bank_app/pubspec.yaml) — dev_dependencies
 
 ---
 

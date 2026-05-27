@@ -1,4 +1,4 @@
-# ⚠️ تحديث Firebase مطلوب - Firebase Update Required
+﻿# ⚠️ تحديث Firebase مطلوب - Firebase Update Required
 
 **تاريخ: 3 ديسمبر 2025**
 
@@ -36,7 +36,7 @@ SHA-256: 34:48:32:C9:CD:5E:90:D4:42:28:40:63:BA:C3:14:50:F4:8D:C8:77:8D:CE:6F:D5
 ### الخطوة 1️⃣: اذهب إلى Firebase Console
 
 ```
-https://console.firebase.google.com/project/mahrah-blood-bank
+https://console.firebase.google.com/project/yemen-blood-bank
 ```
 
 ### الخطوة 2️⃣: افتح إعدادات التطبيق
@@ -44,7 +44,7 @@ https://console.firebase.google.com/project/mahrah-blood-bank
 1. من القائمة اليسرى، اضغط على ⚙️ **Settings**
 2. اختر **Project settings**
 3. اسحب للأسفل إلى قسم **"Your apps"**
-4. ابحث عن التطبيق: **com.bagomri.mahrahbloodbank**
+4. ابحث عن التطبيق: **com.bagomri.yemenbloodbank**
 
 ### الخطوة 3️⃣: أضف البصمات الجديدة
 
@@ -75,7 +75,7 @@ D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34
 1. في نفس الصفحة، اضغط **"Download google-services.json"**
 2. استبدل الملف القديم بالجديد:
    ```
-   d:\mahrah_blood_bank_app\android\app\google-services.json
+   d:\yemen_blood_bank_app\android\app\google-services.json
    ```
 
 ### الخطوة 5️⃣: أعد بناء التطبيق
@@ -99,7 +99,7 @@ flutter build apk --release
   "oauth_client": [
     {
       "android_info": {
-        "package_name": "com.bagomri.mahrahbloodbank",
+        "package_name": "com.bagomri.yemenbloodbank",
         "certificate_hash": "d6cd53f165d06a5ed72e10b6b26edd5b6bd8c134"
       }
     }
@@ -138,7 +138,7 @@ flutter build apk --release
 ## ✅ قائمة التحقق
 
 - [ ] فتحت Firebase Console
-- [ ] وجدت التطبيق: com.bagomri.mahrahbloodbank
+- [ ] وجدت التطبيق: com.bagomri.yemenbloodbank
 - [ ] أضفت SHA-1: D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34
 - [ ] أضفت SHA-256: 34:48:32:C9:CD:5E:90:D4:42:28:40:63:BA:C3:14:50:F4:8D:C8:77:8D:CE:6F:D5:52:14:4B:D8:FC:96:6F:33
 - [ ] حملت google-services.json الجديد
@@ -184,4 +184,4 @@ flutter build apk --release
 **👨‍💻 المطور**: صالح باقمري
 **📧 البريد**: s.bagomri@gmail.com
 
-💙 **صُنع بحب لأهالي المهرة**
+💙 **صُنع بحب لأهالي اليمن**
