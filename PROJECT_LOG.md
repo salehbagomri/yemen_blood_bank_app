@@ -29,14 +29,14 @@
 - **الملفات:** `lib/screens/hospital/manage_donors_hospital_screen.dart`, `lib/screens/admin/manage_donors_screen.dart`
 - **السبب/الدافع:** بلاغ خطأ من المستخدم على الجهاز (RenderFlex overflowed by 19 pixels).
 - **اختبار:** `flutter analyze` = 0/0. يحتاج تأكيد بصري على الجهاز.
-- **Commit:** `pending`
+- **Commit:** `2b4a4a4`
 
 ### 2026-05-28 — [chore] تفعيل التأكيد التلقائي للبريد في Supabase Auth
 - **الوصف:** ضبط `mailer_autoconfirm = true` في إعدادات Supabase Auth (عبر Management API). كان `false` مع حد `rate_limit_email_sent = 2/ساعة` على البريد المدمج، مما سبّب خطأ "email rate limit exceeded" عند إضافة مستشفى (لأن `auth.signUp` يرسل بريد تأكيد).
 - **الملفات:** لا كود — تغيير إعداد خادمي فقط.
 - **السبب/الدافع:** الأدمن ينشئ حساب المستشفى ويسلّم كلمة المرور يدوياً، فتأكيد البريد غير ضروري. لا يوجد تسجيل ذاتي عام (المستخدمون يضيفون متبرعين بلا حساب)، فأثر الأمان ضئيل.
 - **اختبار:** أُكِّد التغيير عبر API (mailer_autoconfirm=True). يحتاج المستخدم تأكيد نجاح إضافة مستشفى من التطبيق.
-- **Commit:** `pending`
+- **Commit:** `2b4a4a4`
 
 ### 2026-05-28 — [feat] المرحلة 3: تبسيط تجربة المستخدم العادي
 - **الوصف:** شاشة البحث تستخدم الآن معامل `governorate` المفهرس (بحث بالمحافظة وحدها يعمل، والمديرية تضييق اختياري) مع تحديث نصوص الإرشاد. عدّاد النتائج يعرض "وُجد X متبرعاً في محافظة Y". توضيح صيغة الهاتف في إضافة متبرع: بادئة `+967` ونص مساعد "9 أرقام تبدأ بـ 7". دليل تعريفي (Onboarding) من 3 صفحات يظهر أول تشغيل فقط (flag في shared_preferences) مدموج في مسار splash. إضافة `helperText`/`prefixText` لـ CustomTextField.
