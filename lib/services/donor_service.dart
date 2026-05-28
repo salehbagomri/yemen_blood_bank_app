@@ -12,10 +12,12 @@ class DonorService {
   /// البحث عن متبرعين
   ///
   /// [bloodType] - فصيلة الدم المطلوبة
-  /// [district] - المديرية المطلوبة
+  /// [governorate] - المحافظة المطلوبة (تُرجع كل مديرياتها)
+  /// [district] - المديرية المطلوبة (تطابق دقيق اختياري)
   /// [availableOnly] - البحث عن المتبرعين المتاحين فقط
   Future<List<DonorModel>> searchDonors({
     String? bloodType,
+    String? governorate,
     String? district,
     bool availableOnly = true,
   }) async {
@@ -30,6 +32,7 @@ class DonorService {
                   'p_blood_type': bloodType,
                   'p_district': district,
                   'p_available_only': availableOnly,
+                  'p_governorate': governorate,
                 },
               )
               .select();
@@ -74,6 +77,7 @@ class DonorService {
             'phone_number_3': donor.phoneNumber3,
             'blood_type': donor.bloodType,
             'district': donor.district,
+            'governorate': donor.governorate,
             'age': donor.age,
             'gender': donor.gender,
             'notes': donor.notes,
@@ -103,6 +107,7 @@ class DonorService {
             'phone_number_3': donor.phoneNumber3,
             'blood_type': donor.bloodType,
             'district': donor.district,
+            'governorate': donor.governorate,
             'age': donor.age,
             'gender': donor.gender,
             'notes': donor.notes,
@@ -274,6 +279,52 @@ class DonorService {
     }
   }
 
+  /// الحصول على متبرعي محافظة معينة (لعرض إدارة المستشفى)
+  Future<List<DonorModel>> getDonorsByGovernorate(
+    String governorate, {
+    int? limit,
+  }) async {
+    try {
+      var query = _client
+          .from('donors')
+          .select()
+          .eq('governorate', governorate)
+          .order('created_at', ascending: false);
+
+      if (limit != null) {
+        query = query.limit(limit);
+      }
+
+      final response = await query;
+
+      return (response as List)
+          .map((json) => DonorModel.fromJson(json as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      throw Exception('فشل الحصول على متبرعي المحافظة: ${e.toString()}');
+    }
+  }
+
+  /// إحصائيات مجمّعة حسب المحافظة (خادمياً عبر RPC بدل الجلب الكامل)
+  /// [governorate] = null → كل المحافظات (للأدمن)؛ محافظة محددة → صف واحد
+  /// تُرجع قائمة: {governorate, total, available, suspended}
+  Future<List<Map<String, dynamic>>> getGovernorateStats({
+    String? governorate,
+  }) async {
+    try {
+      final response = await _client.rpc(
+        'get_governorate_stats',
+        params: {'p_governorate': governorate},
+      );
+
+      return (response as List)
+          .map((row) => Map<String, dynamic>.from(row as Map))
+          .toList();
+    } catch (e) {
+      throw Exception('فشل الحصول على إحصائيات المحافظات: ${e.toString()}');
+    }
+  }
+
   /// البحث بالاسم أو رقم الهاتف (يدعم البحث في جميع الأرقام)
   Future<List<DonorModel>> searchByNameOrPhone(String query) async {
     try {
@@ -298,43 +349,27 @@ class DonorService {
     }
   }
 
-  /// الحصول على عدد المتبرعين حسب فصيلة الدم
+  /// الحصول على عدد المتبرعين حسب فصيلة الدم (تجميع خادمي GROUP BY)
   Future<Map<String, int>> getDonorCountByBloodType() async {
     try {
-      final response = await _client
-          .from('donors')
-          .select('blood_type')
-          .eq('is_active', true);
-
-      final Map<String, int> counts = {};
-
-      for (var donor in response as List) {
-        final bloodType = donor['blood_type'] as String;
-        counts[bloodType] = (counts[bloodType] ?? 0) + 1;
-      }
-
-      return counts;
+      final rows = await _client.rpc('get_bloodtype_stats') as List;
+      return {
+        for (var row in rows)
+          row['blood_type'] as String: (row['cnt'] as num).toInt(),
+      };
     } catch (e) {
       throw Exception('فشل الحصول على الإحصائيات: ${e.toString()}');
     }
   }
 
-  /// الحصول على عدد المتبرعين حسب المديرية
+  /// الحصول على عدد المتبرعين حسب المديرية (تجميع خادمي GROUP BY)
   Future<Map<String, int>> getDonorCountByDistrict() async {
     try {
-      final response = await _client
-          .from('donors')
-          .select('district')
-          .eq('is_active', true);
-
-      final Map<String, int> counts = {};
-
-      for (var donor in response as List) {
-        final district = donor['district'] as String;
-        counts[district] = (counts[district] ?? 0) + 1;
-      }
-
-      return counts;
+      final rows = await _client.rpc('get_district_stats') as List;
+      return {
+        for (var row in rows)
+          row['district'] as String: (row['cnt'] as num).toInt(),
+      };
     } catch (e) {
       throw Exception('فشل الحصول على الإحصائيات: ${e.toString()}');
     }
@@ -378,19 +413,11 @@ class DonorService {
     }
   }
 
-  /// الحصول على عدد المناطق المغطاة (distinct districts)
+  /// الحصول على عدد المناطق المغطاة (distinct districts) عبر التجميع الخادمي
   Future<int> getCoveredDistrictsCount() async {
     try {
-      final response = await _client
-          .from('donors')
-          .select('district')
-          .eq('is_active', true);
-
-      final districts = (response as List)
-          .map((e) => e['district'] as String)
-          .toSet();
-
-      return districts.length;
+      final rows = await _client.rpc('get_district_stats') as List;
+      return rows.length;
     } catch (e) {
       throw Exception('فشل الحصول على عدد المناطق: ${e.toString()}');
     }

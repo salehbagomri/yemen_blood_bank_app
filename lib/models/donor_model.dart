@@ -7,6 +7,7 @@ class DonorModel {
   final String? phoneNumber3; // رقم هاتف إضافي 2
   final String bloodType;
   final String district;
+  final String governorate; // المحافظة — تُشتق من district إن لم تُمرَّر
   final int age;
   final String gender; // male or female
   final String? notes;
@@ -25,7 +26,8 @@ class DonorModel {
     this.phoneNumber2,
     this.phoneNumber3,
     required this.bloodType,
-    required this.district,
+    required String district,
+    String? governorate,
     required this.age,
     required this.gender,
     this.notes,
@@ -36,7 +38,10 @@ class DonorModel {
     required this.updatedAt,
     this.addedBy,
     this.isActive = true,
-  });
+  })  : district = district,
+        governorate = (governorate != null && governorate.isNotEmpty)
+            ? governorate
+            : district.split(' - ').first;
 
   /// تحويل من JSON إلى Model
   factory DonorModel.fromJson(Map<String, dynamic> json) {
@@ -48,6 +53,7 @@ class DonorModel {
       phoneNumber3: json['phone_number_3'] as String?,
       bloodType: json['blood_type'] as String,
       district: json['district'] as String,
+      governorate: json['governorate'] as String?,
       age: json['age'] as int,
       gender: json['gender'] as String,
       notes: json['notes'] as String?,
@@ -77,6 +83,7 @@ class DonorModel {
       'phone_number_3': phoneNumber3,
       'blood_type': bloodType,
       'district': district,
+      'governorate': governorate,
       'age': age,
       'gender': gender,
       'notes': notes,
@@ -111,6 +118,7 @@ class DonorModel {
     String? phoneNumber3,
     String? bloodType,
     String? district,
+    String? governorate,
     int? age,
     String? gender,
     String? notes,
@@ -130,6 +138,7 @@ class DonorModel {
       phoneNumber3: phoneNumber3 ?? this.phoneNumber3,
       bloodType: bloodType ?? this.bloodType,
       district: district ?? this.district,
+      governorate: governorate ?? this.governorate,
       age: age ?? this.age,
       gender: gender ?? this.gender,
       notes: notes ?? this.notes,

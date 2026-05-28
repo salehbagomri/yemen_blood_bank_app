@@ -227,7 +227,12 @@ class _AdvancedSearchScreenState extends State<AdvancedSearchScreen> {
       }
 
       if (_selectedDistrict != null) {
-        results = results.where((d) => d.district == _selectedDistrict).toList();
+        // مطابقة المحافظة الكاملة أو مديرية محددة (متسقة مع شاشات الإدارة)
+        results = results
+            .where((d) =>
+                d.district == _selectedDistrict ||
+                d.district.startsWith('$_selectedDistrict - '))
+            .toList();
       }
 
       if (_selectedGender != null) {

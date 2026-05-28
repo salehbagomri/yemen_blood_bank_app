@@ -32,44 +32,33 @@ class StatisticsService {
 
       final totalDonors = totalDonorsResponse.count;
 
-      // أكثر فصيلة متوفرة
-      final bloodTypeResponse = await _client
-          .from('donors')
-          .select('blood_type')
-          .eq('is_active', true);
-
-      final Map<String, int> bloodTypeCount = {};
-      for (var donor in bloodTypeResponse as List) {
-        final bloodType = donor['blood_type'] as String;
-        bloodTypeCount[bloodType] = (bloodTypeCount[bloodType] ?? 0) + 1;
-      }
+      // أكثر فصيلة متوفرة — تجميع خادمي (GROUP BY) بدل جلب كل الصفوف
+      final bloodTypeRows = await _client.rpc('get_bloodtype_stats') as List;
+      final Map<String, int> bloodTypeCount = {
+        for (var row in bloodTypeRows)
+          row['blood_type'] as String: (row['cnt'] as num).toInt(),
+      };
 
       String? mostCommonBloodType;
       int mostCommonBloodTypeCount = 0;
       if (bloodTypeCount.isNotEmpty) {
-        final maxEntry = bloodTypeCount.entries
-            .reduce((a, b) => a.value > b.value ? a : b);
+        // الصفوف مرتبة تنازلياً خادمياً، فالأول هو الأكثر
+        final maxEntry = bloodTypeCount.entries.first;
         mostCommonBloodType = maxEntry.key;
         mostCommonBloodTypeCount = maxEntry.value;
       }
 
-      // أكثر مديرية نشاطاً
-      final districtResponse = await _client
-          .from('donors')
-          .select('district')
-          .eq('is_active', true);
-
-      final Map<String, int> districtCount = {};
-      for (var donor in districtResponse as List) {
-        final district = donor['district'] as String;
-        districtCount[district] = (districtCount[district] ?? 0) + 1;
-      }
+      // أكثر مديرية نشاطاً — تجميع خادمي (GROUP BY)
+      final districtRows = await _client.rpc('get_district_stats') as List;
+      final Map<String, int> districtCount = {
+        for (var row in districtRows)
+          row['district'] as String: (row['cnt'] as num).toInt(),
+      };
 
       String? mostActiveDistrict;
       int mostActiveDistrictCount = 0;
       if (districtCount.isNotEmpty) {
-        final maxEntry = districtCount.entries
-            .reduce((a, b) => a.value > b.value ? a : b);
+        final maxEntry = districtCount.entries.first;
         mostActiveDistrict = maxEntry.key;
         mostActiveDistrictCount = maxEntry.value;
       }

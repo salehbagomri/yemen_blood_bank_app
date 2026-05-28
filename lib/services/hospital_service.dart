@@ -49,6 +49,7 @@ class HospitalService {
             'name': hospital.name,
             'email': hospital.email,
             'district': hospital.district,
+            'governorate': hospital.governorate,
             'phone_number': hospital.phoneNumber,
             'address': hospital.address,
             'is_active': hospital.isActive,

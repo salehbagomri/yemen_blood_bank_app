@@ -32,12 +32,13 @@ class DonorProvider with ChangeNotifier {
   /// البحث عن متبرعين (مع كاش البحث)
   Future<void> searchDonors({
     String? bloodType,
+    String? governorate,
     String? district,
     bool availableOnly = true,
   }) async {
     // مفتاح الكاش المستند إلى معاملات البحث
     final cacheKey =
-        'search_${bloodType ?? 'all'}_${district ?? 'all'}_$availableOnly';
+        'search_${bloodType ?? 'all'}_${governorate ?? 'all'}_${district ?? 'all'}_$availableOnly';
 
     _isLoading = true;
     _errorMessage = null;
@@ -56,6 +57,7 @@ class DonorProvider with ChangeNotifier {
       // لا يوجد كاش → نفلتر محلياً من قائمة المتبرعين المحفوظة
       _searchResults = _filterLocalDonors(
         bloodType: bloodType,
+        governorate: governorate,
         district: district,
         availableOnly: availableOnly,
       );
@@ -68,6 +70,7 @@ class DonorProvider with ChangeNotifier {
     try {
       _searchResults = await _donorService.searchDonors(
         bloodType: bloodType,
+        governorate: governorate,
         district: district,
         availableOnly: availableOnly,
       );
@@ -91,15 +94,25 @@ class DonorProvider with ChangeNotifier {
   /// تصفية محلية من الـ cache
   List<DonorModel> _filterLocalDonors({
     String? bloodType,
+    String? governorate,
     String? district,
     bool availableOnly = true,
   }) {
     var list = _donors.where((d) => d.isActive).toList();
     if (availableOnly) list = list.where((d) => !d.isSuspended).toList();
-    if (bloodType != null)
+    if (bloodType != null) {
       list = list.where((d) => d.bloodType == bloodType).toList();
-    if (district != null)
-      list = list.where((d) => d.district == district).toList();
+    }
+    if (governorate != null) {
+      list = list.where((d) => d.governorate == governorate).toList();
+    }
+    if (district != null) {
+      // مطابقة المحافظة الكاملة (district == "محافظة") أو مديرية محددة ("محافظة - مديرية")
+      list = list
+          .where((d) =>
+              d.district == district || d.district.startsWith('$district - '))
+          .toList();
+    }
     return list;
   }
 

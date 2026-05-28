@@ -24,6 +24,14 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-28 — [feat] المرحلة 1: مزامنة طبقة Dart مع البنية الجغرافية + إصلاحات
+- **الوصف:** إضافة حقل `governorate` لـ DonorModel و HospitalModel (مشتق دفاعياً من `district` إن غاب، مع toJson/fromJson/copyWith). تمرير `p_governorate` في `DonorService.searchDonors` + دالتا `getDonorsByGovernorate` و `getGovernorateStats`. تحويل الإحصائيات للتجميع الخادمي عبر RPCs (`get_bloodtype_stats`، `get_district_stats`) في `statistics_service` و`donor_service` بدل جلب كل الصفوف. توحيد الفلترة المحلية على `startsWith` في `donor_provider` و`advanced_search_screen`. حفظ `governorate` في `HospitalService.updateHospital`. إنشاء سياسة INSERT للعامة (anon) على Supabase للسماح بالتسجيل بلا حساب.
+- **الملفات:** `lib/models/donor_model.dart`, `hospital_model.dart`, `lib/services/donor_service.dart`, `statistics_service.dart`, `hospital_service.dart`, `lib/providers/donor_provider.dart`, `lib/screens/hospital/advanced_search_screen.dart`, `docs/sql/phase0_governorate_migration.sql`, `docs/DEVELOPMENT_PLAN.md`
+- **السبب/الدافع:** إكمال التحويل الوطني على طبقة التطبيق بعد إرساء الخلفية. الإحصائيات الخادمية تحل مشكلة عدم التوسع. توحيد الفلترة يصلح خطأ عدم ظهور مديريات المحافظة في وضع عدم الاتصال.
+- **اختبار:** `flutter analyze` = 0 أخطاء (211 info/warning سابقة كما هي)، اختبارات `donor_model_test` (16) ناجحة. RPCs مُنشأة ومُتحقَّق منها خادمياً. لم يُختبر على جهاز بعد.
+- **⚠️ ملاحظة بيانات:** خلال الجلسة لوحظ أن صفوف المتبرعين التجريبية (5) أصبحت 0 رغم بقاء البنية والفهارس وحساب الأدمن. لم يُنفَّذ أي أمر حذف من جانبي. يحتاج تأكيد المستخدم.
+- **Commit:** `pending`
+
 ### 2026-05-28 — [feat] تطبيق المرحلة 0 (الخلفية) على Supabase
 - **الوصف:** تنفيذ القسم (أ) من migration المرحلة 0 مباشرة على قاعدة بيانات Supabase عبر Management API: إضافة عمود `governorate` إلى `donors` و `hospitals`، backfill من حقل `district` (5 صفوف: حضرموت 4، عدن 1)، 3 فهارس، تحديث `search_donors` بمعامل `p_governorate`، ودالة `get_governorate_stats` خادمية. تم التحقق من كل شيء (0 صفوف بلا محافظة).
 - **الملفات:** `docs/sql/phase0_governorate_migration.sql` (تحديث ملاحظات)، `docs/DEVELOPMENT_PLAN.md` (حالة + اكتشافات)

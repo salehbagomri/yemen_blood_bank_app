@@ -94,6 +94,36 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+-- 0.5ب — دالتا تجميع إضافيتان للإحصائيات الخادمية (طُبِّقتا 2026-05-28)
+--        تستخدمهما statistics_service و donor_service بدل جلب كل الصفوف للعدّ.
+CREATE OR REPLACE FUNCTION public.get_bloodtype_stats()
+RETURNS TABLE (blood_type TEXT, cnt BIGINT) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT d.blood_type, COUNT(*)::BIGINT
+  FROM public.donors d WHERE d.is_active = true
+  GROUP BY d.blood_type ORDER BY 2 DESC;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION public.get_district_stats()
+RETURNS TABLE (district TEXT, cnt BIGINT) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT d.district, COUNT(*)::BIGINT
+  FROM public.donors d WHERE d.is_active = true
+  GROUP BY d.district ORDER BY 2 DESC;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 0.7 — سياسة الإدراج العامة: السماح للمستخدم العادي بالتسجيل كمتبرع بلا حساب
+--        (قرار المستخدم 2026-05-28). ضوابط: is_active=true ومنع انتحال ملكية (added_by فارغ).
+--        ⚠️ طُبِّقت فعلياً. كانت الإضافة العامة مرفوضة قبلها (INSERT للمسجّلين فقط).
+DROP POLICY IF EXISTS "Public can self-register as donor" ON public.donors;
+CREATE POLICY "Public can self-register as donor" ON public.donors
+  FOR INSERT TO anon
+  WITH CHECK (is_active = true AND added_by IS NULL);
+
 -- (اختياري للأداء لاحقاً) جعل governorate غير قابل للـ NULL بعد التأكد من اكتمال الـ backfill:
 -- ALTER TABLE public.donors    ALTER COLUMN governorate SET NOT NULL;
 -- ALTER TABLE public.hospitals ALTER COLUMN governorate SET NOT NULL;

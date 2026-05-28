@@ -4,6 +4,7 @@ class HospitalModel {
   final String name;
   final String email;
   final String district;
+  final String governorate; // المحافظة — تُشتق من district إن لم تُمرَّر
   final String? phoneNumber;
   final String? address;
   final bool isActive; // حساب نشط أم معطل
@@ -14,13 +15,17 @@ class HospitalModel {
     required this.id,
     required this.name,
     required this.email,
-    required this.district,
+    required String district,
+    String? governorate,
     this.phoneNumber,
     this.address,
     this.isActive = true,
     required this.createdAt,
     required this.updatedAt,
-  });
+  })  : district = district,
+        governorate = (governorate != null && governorate.isNotEmpty)
+            ? governorate
+            : district.split(' - ').first;
 
   /// تحويل من JSON إلى Model
   factory HospitalModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +34,7 @@ class HospitalModel {
       name: json['name'] as String,
       email: json['email'] as String,
       district: json['district'] as String,
+      governorate: json['governorate'] as String?,
       phoneNumber: json['phone_number'] as String?,
       address: json['address'] as String?,
       isActive: json['is_active'] as bool? ?? true,
@@ -46,6 +52,7 @@ class HospitalModel {
       'name': name,
       'email': email,
       'district': district,
+      'governorate': governorate,
       'phone_number': phoneNumber,
       'address': address,
       'is_active': isActive,
@@ -60,6 +67,7 @@ class HospitalModel {
     String? name,
     String? email,
     String? district,
+    String? governorate,
     String? phoneNumber,
     String? address,
     bool? isActive,
@@ -71,6 +79,7 @@ class HospitalModel {
       name: name ?? this.name,
       email: email ?? this.email,
       district: district ?? this.district,
+      governorate: governorate ?? this.governorate,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       address: address ?? this.address,
       isActive: isActive ?? this.isActive,
