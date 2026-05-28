@@ -142,6 +142,8 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                     label: '${AppStrings.phoneNumber} (رئيسي)',
                     hint: '777123456',
                     icon: Icons.phone,
+                    prefixText: '+967 ',
+                    helperText: 'أدخل 9 أرقام تبدأ بـ 7 (بدون 00967)',
                     keyboardType: TextInputType.phone,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -158,6 +160,7 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                     label: '${AppStrings.phoneNumber} 2 (${AppStrings.optional})',
                     hint: '777123456',
                     icon: Icons.phone_android,
+                    prefixText: '+967 ',
                     keyboardType: TextInputType.phone,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -173,6 +176,7 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                     label: '${AppStrings.phoneNumber} 3 (${AppStrings.optional})',
                     hint: '777123456',
                     icon: Icons.phone_iphone,
+                    prefixText: '+967 ',
                     keyboardType: TextInputType.phone,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,

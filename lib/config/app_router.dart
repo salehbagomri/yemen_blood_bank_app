@@ -7,6 +7,7 @@ import '../utils/page_transitions.dart';
 
 import '../screens/auth/login_screen.dart';
 import '../screens/home/home_screen.dart';
+import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/donor/add_donor_screen.dart';
 import '../screens/donor/search_donors_screen.dart';
 
@@ -41,6 +42,7 @@ import '../main.dart'; // SplashScreen
 
 class AppRouter {
   static const String splash = '/splash';
+  static const String onboarding = '/onboarding';
   static const String home = '/';
   static const String login = '/login';
 
@@ -85,6 +87,11 @@ class AppRouter {
       case splash:
         return AppPageTransitions.fade(
           const SplashScreen(),
+          settings: settings,
+        );
+      case onboarding:
+        return AppPageTransitions.fade(
+          const OnboardingScreen(),
           settings: settings,
         );
 

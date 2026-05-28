@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-28 — [feat] المرحلة 3: تبسيط تجربة المستخدم العادي
+- **الوصف:** شاشة البحث تستخدم الآن معامل `governorate` المفهرس (بحث بالمحافظة وحدها يعمل، والمديرية تضييق اختياري) مع تحديث نصوص الإرشاد. عدّاد النتائج يعرض "وُجد X متبرعاً في محافظة Y". توضيح صيغة الهاتف في إضافة متبرع: بادئة `+967` ونص مساعد "9 أرقام تبدأ بـ 7". دليل تعريفي (Onboarding) من 3 صفحات يظهر أول تشغيل فقط (flag في shared_preferences) مدموج في مسار splash. إضافة `helperText`/`prefixText` لـ CustomTextField.
+- **الملفات:** `lib/screens/donor/search_donors_screen.dart`, `add_donor_screen.dart`, `lib/screens/onboarding/onboarding_screen.dart` (جديد), `lib/widgets/custom_text_field.dart`, `lib/config/app_router.dart`, `lib/main.dart`, `docs/DEVELOPMENT_PLAN.md`
+- **السبب/الدافع:** تسهيل الاستخدام للمستخدم اليمني العادي. تُخطّيت القوائم القابلة للبحث (3.2) لأن التصميم المتتالي يبقي كل قائمة قصيرة (≤22)، وتوضيح الإيقاف (3.7) ورسائل العربية (3.5) موجودة أصلاً.
+- **اختبار:** `flutter analyze` = 0 أخطاء، 0 تحذيرات. لم يُختبر على جهاز بعد (يُنصح بمسح بيانات التطبيق لرؤية Onboarding).
+- **Commit:** `pending`
+
 ### 2026-05-28 — [feat] المرحلة 2: الحوكمة الجغرافية (تقييد المستشفى بمحافظتها)
 - **الوصف:** `AuthProvider` يحمّل `hospitalGovernorate` عند الدخول (عبر `SupabaseService.getCurrentHospitalGovernorate` الدفاعية). شاشة إدارة متبرعي المستشفى تُقيَّد إلزامياً بمحافظتها مع عنوان "متبرعو محافظة X" وفلتر مديريات المحافظة فقط. لوحة المستشفى تحسب إحصائياتها لمحافظتها عبر مسار مُخصَّص في `DashboardProvider` (استعلام واحد + حساب محلي)، مع عرض المحافظة في الهيدر. تثبيت المحافظة (وقفلها) عند إضافة متبرع من حساب مستشفى. تحديث RPC `add_hospital_bypassing_rls` ليحفظ `governorate`. إعادة تسمية فلتر الأدمن "المديرية"→"المحافظة" (كان يفلتر بالمحافظة أصلاً). إضافة `enabled` لـ CustomDropdown. حذف حقل `_districts` غير المستخدم في edit_hospital_screen.
 - **الملفات:** `lib/services/supabase_service.dart`, `lib/providers/auth_provider.dart`, `dashboard_provider.dart`, `lib/screens/hospital/manage_donors_hospital_screen.dart`, `hospital_dashboard_screen.dart`, `widgets/dashboard_header.dart`, `lib/screens/donor/add_donor_screen.dart`, `lib/screens/admin/manage_donors_screen.dart`, `edit_hospital_screen.dart`, `lib/widgets/custom_dropdown.dart`, `docs/sql/phase0_governorate_migration.sql`, `docs/DEVELOPMENT_PLAN.md`

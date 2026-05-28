@@ -83,15 +83,14 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
     }
 
     setState(() => _hasSearched = true);
-    
-    // إنشاء نص الفرز الجغرافي
-    final searchQueryLocation = _selectedGovernorate != null
-        ? (_selectedSubDistrict != null ? '$_selectedGovernorate - $_selectedSubDistrict' : _selectedGovernorate)
-        : null;
 
+    // المحافظة عبر العمود المفهرس؛ المديرية فقط عند اختيار مديرية محددة
     context.read<DonorProvider>().searchDonors(
       bloodType: _selectedBloodType,
-      district: searchQueryLocation,
+      governorate: _selectedGovernorate,
+      district: _selectedSubDistrict != null
+          ? '$_selectedGovernorate - $_selectedSubDistrict'
+          : null,
       availableOnly: true, // دائماً يُظهر المتاحين فقط
     );
     _animController
@@ -563,7 +562,9 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
                 Icon(Icons.check_circle, color: AppColors.success, size: 16),
                 const SizedBox(width: 5),
                 Text(
-                  '$count متبرع',
+                  _selectedGovernorate != null
+                      ? 'وُجد $count متبرعاً في $_selectedGovernorate'
+                      : 'وُجد $count متبرعاً',
                   style: TextStyle(
                     color: AppColors.success,
                     fontWeight: FontWeight.bold,
@@ -635,7 +636,7 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
           ),
           const SizedBox(height: 8),
           Text(
-            'اختر المديرية أو فصيلة الدم للبحث\nالنتائج تظهر تلقائياً',
+            'اختر المحافظة أو فصيلة الدم للبحث\nالنتائج تظهر تلقائياً',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.textSecondary,
@@ -644,11 +645,11 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
             ),
           ),
           const SizedBox(height: 32),
-          _buildTip(Icons.location_on, 'اختر المديرية للبحث بالموقع'),
+          _buildTip(Icons.map, 'اختر المحافظة وحدها للبحث في كل مديرياتها'),
+          const SizedBox(height: 10),
+          _buildTip(Icons.location_on, 'أضف المديرية لتضييق البحث (اختياري)'),
           const SizedBox(height: 10),
           _buildTip(Icons.touch_app, 'اضغط فصيلة الدم للبحث الفوري'),
-          const SizedBox(height: 10),
-          _buildTip(Icons.tune, 'استخدم الفلاتر الإضافية للتخصيص'),
           const SizedBox(height: 10),
           _buildTip(Icons.wifi_off, 'يعمل بدون إنترنت بالبيانات المحفوظة'),
         ],
