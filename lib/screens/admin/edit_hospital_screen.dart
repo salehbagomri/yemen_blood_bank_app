@@ -28,7 +28,9 @@ class _EditHospitalScreenState extends State<EditHospitalScreen> {
   late final TextEditingController _emailController;
   late final TextEditingController _phoneController;
   late final TextEditingController _passwordController;
-  String? _selectedDistrict;
+  String? _selectedGovernorate;
+  String? _selectedSubDistrict;
+  List<String> _subDistricts = [];
 
   bool _isLoading = false;
   bool _obscurePassword = false;
@@ -44,7 +46,12 @@ class _EditHospitalScreenState extends State<EditHospitalScreen> {
     _emailController = TextEditingController(text: widget.hospital.email);
     _phoneController = TextEditingController(text: widget.hospital.phoneNumber);
     _passwordController = TextEditingController();
-    _selectedDistrict = widget.hospital.district;
+    final parts = widget.hospital.district.split(' - ');
+    _selectedGovernorate = parts[0];
+    _selectedSubDistrict = parts.length > 1 ? parts[1] : null;
+    _subDistricts = _selectedGovernorate != null
+        ? (AppStrings.governorateDistricts[_selectedGovernorate] ?? [])
+        : [];
   }
 
   @override
@@ -61,10 +68,10 @@ class _EditHospitalScreenState extends State<EditHospitalScreen> {
       return;
     }
 
-    if (_selectedDistrict == null) {
+    if (_selectedGovernorate == null || _selectedSubDistrict == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('يرجى اختيار المديرية'),
+          content: Text('يرجى اختيار المحافظة والمديرية'),
           backgroundColor: AppColors.warning,
         ),
       );
@@ -79,7 +86,7 @@ class _EditHospitalScreenState extends State<EditHospitalScreen> {
       final updatedHospital = widget.hospital.copyWith(
         name: _nameController.text.trim(),
         email: _emailController.text.trim(),
-        district: _selectedDistrict!,
+        district: '$_selectedGovernorate${_selectedSubDistrict != null ? ' - $_selectedSubDistrict' : ''}',
         phoneNumber: _phoneController.text.trim().isEmpty
             ? null
             : _phoneController.text.trim(),
@@ -234,18 +241,48 @@ class _EditHospitalScreenState extends State<EditHospitalScreen> {
 
                   const SizedBox(height: 16),
 
-                  // المديرية
+                  // المحافظة
                   CustomDropdown(
-                    label: 'المديرية',
-                    hint: 'اختر المديرية',
-                    value: _selectedDistrict,
-                    items: _districts,
+                    value: _selectedGovernorate,
+                    items: AppStrings.districts,
+                    hint: 'اختر المحافظة',
+                    label: 'المحافظة',
+                    icon: Icons.map,
                     onChanged: (value) {
                       setState(() {
-                        _selectedDistrict = value;
+                        _selectedGovernorate = value;
+                        _selectedSubDistrict = null;
+                        _subDistricts = value != null
+                            ? (AppStrings.governorateDistricts[value] ?? [])
+                            : [];
                       });
                     },
+                    validator: (value) => Validators.validateNotEmpty(
+                      value,
+                      'المحافظة',
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // المديرية
+                  CustomDropdown(
+                    value: _selectedSubDistrict,
+                    items: _subDistricts,
+                    hint: _selectedGovernorate == null
+                        ? 'اختر المحافظة أولاً'
+                        : 'اختر المديرية',
+                    label: 'المديرية',
                     icon: Icons.location_on,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedSubDistrict = value;
+                      });
+                    },
+                    validator: (value) => Validators.validateNotEmpty(
+                      value,
+                      'المديرية',
+                    ),
                   ),
 
                   const SizedBox(height: 16),

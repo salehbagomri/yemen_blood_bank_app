@@ -28,7 +28,9 @@ class _AddHospitalScreenState extends State<AddHospitalScreen> {
   final _passwordController = TextEditingController();
 
   // Selected values
-  String? _selectedDistrict;
+  String? _selectedGovernorate;
+  String? _selectedSubDistrict;
+  List<String> _subDistricts = [];
 
   bool _isLoading = false;
   bool _obscurePassword = true;
@@ -133,20 +135,48 @@ class _AddHospitalScreenState extends State<AddHospitalScreen> {
 
                     const SizedBox(height: 16),
 
-                    // المديرية
+                    // المحافظة
                     CustomDropdown(
-                      value: _selectedDistrict,
+                      value: _selectedGovernorate,
                       items: AppStrings.districts,
-                      hint: 'اختر المديرية',
-                      label: 'المديرية',
-                      icon: Icons.location_city,
+                      hint: 'اختر المحافظة',
+                      label: 'المحافظة',
+                      icon: Icons.map,
                       onChanged: (value) {
                         setState(() {
-                          _selectedDistrict = value;
+                          _selectedGovernorate = value;
+                          _selectedSubDistrict = null;
+                          _subDistricts = value != null
+                              ? (AppStrings.governorateDistricts[value] ?? [])
+                              : [];
                         });
                       },
-                      validator: (value) =>
-                          Validators.validateNotEmpty(value, 'المديرية'),
+                      validator: (value) => Validators.validateNotEmpty(
+                        value,
+                        'المحافظة',
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 16),
+                    
+                    // المديرية
+                    CustomDropdown(
+                      value: _selectedSubDistrict,
+                      items: _subDistricts,
+                      hint: _selectedGovernorate == null
+                          ? 'اختر المحافظة أولاً'
+                          : 'اختر المديرية',
+                      label: 'المديرية',
+                      icon: Icons.location_on,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedSubDistrict = value;
+                        });
+                      },
+                      validator: (value) => Validators.validateNotEmpty(
+                        value,
+                        'المديرية',
+                      ),
                     ),
 
                     const SizedBox(height: 16),
@@ -264,7 +294,7 @@ class _AddHospitalScreenState extends State<AddHospitalScreen> {
           'p_hospital_id': userId,
           'p_name': hospitalName,
           'p_email': hospitalEmail,
-          'p_district': _selectedDistrict!,
+          'p_district': '$_selectedGovernorate${_selectedSubDistrict != null ? ' - $_selectedSubDistrict' : ''}',
           'p_phone_number': _phoneController.text.trim().isEmpty
               ? null
               : _phoneController.text.trim(),

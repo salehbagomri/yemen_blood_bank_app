@@ -539,7 +539,7 @@ class _ManageDonorsHospitalScreenState
     // المديرية
     if (_selectedDistrict != null) {
       filtered = filtered
-          .where((d) => d.district == _selectedDistrict)
+          .where((d) => d.district == _selectedDistrict || d.district.startsWith('$_selectedDistrict - '))
           .toList();
     }
 

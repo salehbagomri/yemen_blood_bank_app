@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
@@ -550,7 +550,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
     // المديرية
     if (_selectedDistrict != null) {
       filtered = filtered
-          .where((d) => d.district == _selectedDistrict)
+          .where((d) => d.district == _selectedDistrict || d.district.startsWith('$_selectedDistrict - '))
           .toList();
     }
 

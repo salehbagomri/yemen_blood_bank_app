@@ -34,7 +34,9 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
   
   // Selected values
   String? _selectedBloodType;
-  String? _selectedDistrict;
+  String? _selectedGovernorate;
+  String? _selectedSubDistrict;
+  List<String> _subDistricts = [];
   String? _selectedGender;
   DateTime? _lastDonationDate; // تاريخ آخر تبرع (اختياري)
   
@@ -184,21 +186,47 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                   
                   const SizedBox(height: 16),
                   
-                  // المديرية
+                  // المحافظة
                   CustomDropdown(
-                    value: _selectedDistrict,
+                    value: _selectedGovernorate,
                     items: AppStrings.districts,
-                    hint: AppStrings.selectDistrict,
-                    label: AppStrings.district,
-                    icon: Icons.location_on,
+                    hint: 'اختر المحافظة',
+                    label: 'المحافظة',
+                    icon: Icons.map,
                     onChanged: (value) {
                       setState(() {
-                        _selectedDistrict = value;
+                        _selectedGovernorate = value;
+                        _selectedSubDistrict = null;
+                        _subDistricts = value != null
+                            ? (AppStrings.governorateDistricts[value] ?? [])
+                            : [];
                       });
                     },
                     validator: (value) => Validators.validateNotEmpty(
                       value,
-                      AppStrings.district,
+                      'المحافظة',
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // المديرية
+                  CustomDropdown(
+                    value: _selectedSubDistrict,
+                    items: _subDistricts,
+                    hint: _selectedGovernorate == null
+                        ? 'اختر المحافظة أولاً'
+                        : 'اختر المديرية',
+                    label: 'المديرية',
+                    icon: Icons.location_on,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedSubDistrict = value;
+                      });
+                    },
+                    validator: (value) => Validators.validateNotEmpty(
+                      value,
+                      'المديرية',
                     ),
                   ),
                   
@@ -466,7 +494,7 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
       phoneNumber2: formattedPhone2,
       phoneNumber3: formattedPhone3,
       bloodType: _selectedBloodType!,
-      district: _selectedDistrict!,
+      district: '$_selectedGovernorate${_selectedSubDistrict != null ? ' - $_selectedSubDistrict' : ''}',
       age: int.parse(_ageController.text),
       gender: Helpers.arabicToGender(_selectedGender!),
       notes: _notesController.text.trim().isEmpty

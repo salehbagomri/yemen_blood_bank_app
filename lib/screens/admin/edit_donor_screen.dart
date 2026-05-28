@@ -39,7 +39,9 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
 
   // Selected values
   late String _selectedBloodType;
-  late String _selectedDistrict;
+  String? _selectedGovernorate;
+  String? _selectedSubDistrict;
+  List<String> _subDistricts = [];
   late String _selectedGender;
 
   // Blood types
@@ -70,7 +72,12 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
     _notesController = TextEditingController(text: widget.donor.notes ?? '');
 
     _selectedBloodType = widget.donor.bloodType;
-    _selectedDistrict = widget.donor.district;
+    final parts = widget.donor.district.split(' - ');
+    _selectedGovernorate = parts[0];
+    _selectedSubDistrict = parts.length > 1 ? parts[1] : null;
+    _subDistricts = _selectedGovernorate != null
+        ? (AppStrings.governorateDistricts[_selectedGovernorate] ?? [])
+        : [];
     // تحويل من إنجليزي إلى عربي
     _selectedGender = widget.donor.gender == 'male' ? 'ذكر' : 'أنثى';
   }
@@ -100,7 +107,7 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
         (_phone3Controller.text.trim().isEmpty ? null : _phone3Controller.text.trim()) !=
             widget.donor.phoneNumber3 ||
         _selectedBloodType != widget.donor.bloodType ||
-        _selectedDistrict != widget.donor.district ||
+        '$_selectedGovernorate${_selectedSubDistrict != null ? ' - $_selectedSubDistrict' : ''}' != widget.donor.district ||
         int.parse(_ageController.text) != widget.donor.age ||
         newGenderEnglish != widget.donor.gender ||
         (_notesController.text.trim().isEmpty ? null : _notesController.text.trim()) !=
@@ -159,7 +166,7 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
             ? null
             : _phone3Controller.text.trim(),
         bloodType: _selectedBloodType,
-        district: _selectedDistrict,
+        district: '$_selectedGovernorate${_selectedSubDistrict != null ? ' - $_selectedSubDistrict' : ''}',
         age: int.parse(_ageController.text),
         gender: _selectedGender == 'ذكر' ? 'male' : 'female', // تحويل إلى إنجليزي
         notes: _notesController.text.trim().isEmpty
@@ -339,21 +346,47 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
 
                     const SizedBox(height: 16),
 
-                    // المديرية
+                    // المحافظة
                     CustomDropdown(
-                      value: _selectedDistrict,
+                      value: _selectedGovernorate,
                       items: AppStrings.districts,
-                      hint: AppStrings.selectDistrict,
-                      label: AppStrings.district,
-                      icon: Icons.location_on,
+                      hint: 'اختر المحافظة',
+                      label: 'المحافظة',
+                      icon: Icons.map,
                       onChanged: (value) {
                         setState(() {
-                          _selectedDistrict = value!;
+                          _selectedGovernorate = value;
+                          _selectedSubDistrict = null;
+                          _subDistricts = value != null
+                              ? (AppStrings.governorateDistricts[value] ?? [])
+                              : [];
                         });
                       },
                       validator: (value) => Validators.validateNotEmpty(
                         value,
-                        AppStrings.district,
+                        'المحافظة',
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 16),
+                    
+                    // المديرية
+                    CustomDropdown(
+                      value: _selectedSubDistrict,
+                      items: _subDistricts,
+                      hint: _selectedGovernorate == null
+                          ? 'اختر المحافظة أولاً'
+                          : 'اختر المديرية',
+                      label: 'المديرية',
+                      icon: Icons.location_on,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedSubDistrict = value;
+                        });
+                      },
+                      validator: (value) => Validators.validateNotEmpty(
+                        value,
+                        'المديرية',
                       ),
                     ),
 
