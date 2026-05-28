@@ -113,14 +113,14 @@ class AppRouter {
           settings: settings,
         );
 
-      // ── الداشبوردات → Scale ─────────────────────────────────────
+      // ── الداشبوردات → Slide معتم (يتفادى ومضة كشف الشاشة الخلفية بعد الدخول) ──
       case adminDashboard:
-        return AppPageTransitions.scaleUp(
+        return AppPageTransitions.slideFromRight(
           const AdminDashboardScreen(),
           settings: settings,
         );
       case hospitalDashboard:
-        return AppPageTransitions.scaleUp(
+        return AppPageTransitions.slideFromRight(
           const HospitalDashboardScreen(),
           settings: settings,
         );
