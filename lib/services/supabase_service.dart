@@ -118,6 +118,30 @@ class SupabaseService {
     }
   }
 
+  /// محافظة حساب المستشفى الحالي (للتقييد الجغرافي على مستوى التطبيق)
+  /// دفاعي: يعتمد عمود governorate، وإن كان فارغاً يشتقه من district.
+  Future<String?> getCurrentHospitalGovernorate() async {
+    if (!isLoggedIn) return null;
+    try {
+      final res = await client
+          .from('hospitals')
+          .select('governorate, district')
+          .eq('id', currentUserId!)
+          .maybeSingle();
+      if (res == null) return null;
+      final gov = res['governorate'] as String?;
+      if (gov != null && gov.isNotEmpty) return gov;
+      final district = res['district'] as String?;
+      if (district != null && district.isNotEmpty) {
+        return district.split(' - ').first;
+      }
+      return null;
+    } catch (e) {
+      debugPrint('خطأ في تحميل محافظة المستشفى: $e');
+      return null;
+    }
+  }
+
   /// الاستماع لتغييرات حالة المصادقة
   Stream<AuthState> get authStateChanges => client.auth.onAuthStateChange;
 }

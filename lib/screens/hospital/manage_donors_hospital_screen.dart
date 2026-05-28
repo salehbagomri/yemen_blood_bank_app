@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../models/donor_model.dart';
+import '../../providers/auth_provider.dart';
 import '../../providers/donor_provider.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/empty_state.dart';
@@ -47,9 +48,14 @@ class _ManageDonorsHospitalScreenState
 
   @override
   Widget build(BuildContext context) {
+    final hospitalGov = context.watch<AuthProvider>().hospitalGovernorate;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.manageDonors),
+        title: Text(
+          hospitalGov != null && hospitalGov.isNotEmpty
+              ? 'متبرعو محافظة $hospitalGov'
+              : AppStrings.manageDonors,
+        ),
         actions: [
           // زر الفلاتر
           IconButton(
@@ -232,8 +238,16 @@ class _ManageDonorsHospitalScreenState
                   ),
                   items: [
                     const DropdownMenuItem(value: null, child: Text('الكل')),
-                    ...AppStrings.districts.map(
-                      (d) => DropdownMenuItem(value: d, child: Text(d)),
+                    // مديريات محافظة المستشفى فقط (القيمة = "المحافظة - المديرية")
+                    ...(AppStrings.governorateDistricts[
+                                context.read<AuthProvider>().hospitalGovernorate] ??
+                            const <String>[])
+                        .map(
+                      (sub) => DropdownMenuItem(
+                        value:
+                            '${context.read<AuthProvider>().hospitalGovernorate} - $sub',
+                        child: Text(sub),
+                      ),
                     ),
                   ],
                   onChanged: (value) =>
@@ -514,6 +528,12 @@ class _ManageDonorsHospitalScreenState
   List<DonorModel> _applyFilters(List<DonorModel> donors) {
     // أولاً: استبعاد المتبرعين المعطلين (تعطيل الحساب خاص بالأدمن فقط)
     var filtered = donors.where((d) => d.isActive).toList();
+
+    // تقييد جغرافي إلزامي: المستشفى ترى متبرعي محافظتها فقط
+    final hospitalGov = context.read<AuthProvider>().hospitalGovernorate;
+    if (hospitalGov != null && hospitalGov.isNotEmpty) {
+      filtered = filtered.where((d) => d.governorate == hospitalGov).toList();
+    }
 
     // البحث النصي
     if (_searchController.text.isNotEmpty) {

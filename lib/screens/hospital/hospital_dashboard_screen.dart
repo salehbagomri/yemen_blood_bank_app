@@ -26,9 +26,10 @@ class _HospitalDashboardScreenState extends State<HospitalDashboardScreen> {
   @override
   void initState() {
     super.initState();
-    // تحميل البيانات عند فتح الشاشة
+    // تحميل البيانات عند فتح الشاشة (مقيّدة بمحافظة المستشفى)
     Future.microtask(() {
-      context.read<DashboardProvider>().loadDashboardData();
+      final gov = context.read<AuthProvider>().hospitalGovernorate;
+      context.read<DashboardProvider>().loadDashboardData(governorate: gov);
     });
   }
 
@@ -37,7 +38,9 @@ class _HospitalDashboardScreenState extends State<HospitalDashboardScreen> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: RefreshIndicator(
-        onRefresh: () => context.read<DashboardProvider>().refreshDashboard(),
+        onRefresh: () => context.read<DashboardProvider>().refreshDashboard(
+              governorate: context.read<AuthProvider>().hospitalGovernorate,
+            ),
         child: Consumer<DashboardProvider>(
           builder: (context, provider, _) {
             if (provider.isLoading) {

@@ -16,6 +16,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
   final _supabaseService = SupabaseService();
   String? _hospitalName;
   String? _hospitalEmail;
+  String? _hospitalGovernorate;
   bool _isLoading = true;
 
   @override
@@ -31,7 +32,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
 
       final response = await _supabaseService.client
           .from('hospitals')
-          .select('name, email')
+          .select('name, email, governorate, district')
           .eq('id', userId)
           .single();
 
@@ -39,6 +40,13 @@ class _DashboardHeaderState extends State<DashboardHeader> {
         setState(() {
           _hospitalName = response['name'] as String?;
           _hospitalEmail = response['email'] as String?;
+          final gov = response['governorate'] as String?;
+          final district = response['district'] as String?;
+          _hospitalGovernorate = (gov != null && gov.isNotEmpty)
+              ? gov
+              : (district != null && district.isNotEmpty
+                  ? district.split(' - ').first
+                  : null);
           _isLoading = false;
         });
       }
@@ -134,6 +142,32 @@ class _DashboardHeaderState extends State<DashboardHeader> {
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
+                    // المحافظة (نطاق المستشفى)
+                    if (_hospitalGovernorate != null) ...[
+                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 13,
+                            color: Colors.white.withOpacity(0.85),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            'محافظة $_hospitalGovernorate',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.85),
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ],
                 ),
               ),

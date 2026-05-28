@@ -10,6 +10,7 @@ class CustomDropdown extends StatelessWidget {
   final IconData? icon;
   final Function(String?) onChanged;
   final String? Function(String?)? validator;
+  final bool enabled;
 
   const CustomDropdown({
     super.key,
@@ -20,6 +21,7 @@ class CustomDropdown extends StatelessWidget {
     this.icon,
     required this.onChanged,
     this.validator,
+    this.enabled = true,
   });
 
   @override
@@ -32,7 +34,7 @@ class CustomDropdown extends StatelessWidget {
           child: Text(item),
         );
       }).toList(),
-      onChanged: onChanged,
+      onChanged: enabled ? onChanged : null,
       validator: validator,
       decoration: InputDecoration(
         labelText: label,

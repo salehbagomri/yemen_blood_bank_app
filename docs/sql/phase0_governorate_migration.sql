@@ -124,6 +124,11 @@ CREATE POLICY "Public can self-register as donor" ON public.donors
   FOR INSERT TO anon
   WITH CHECK (is_active = true AND added_by IS NULL);
 
+-- 0.8 — (المرحلة 2) تحديث دالة إضافة المستشفى لتعبئة عمود governorate تلقائياً
+--        من p_district (طُبِّقت 2026-05-28). نفس التوقيع — لا تغيير في كود Dart.
+--        INSERT ... (..., district, governorate, ...) VALUES (..., p_district,
+--        split_part(p_district, ' - ', 1), ...). راجع pg_get_functiondef للنسخة الكاملة.
+
 -- (اختياري للأداء لاحقاً) جعل governorate غير قابل للـ NULL بعد التأكد من اكتمال الـ backfill:
 -- ALTER TABLE public.donors    ALTER COLUMN governorate SET NOT NULL;
 -- ALTER TABLE public.hospitals ALTER COLUMN governorate SET NOT NULL;

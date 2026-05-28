@@ -10,12 +10,14 @@ class AuthProvider with ChangeNotifier {
 
   User? _currentUser;
   String? _userType; // 'admin' or 'hospital' or null
+  String? _hospitalGovernorate; // محافظة المستشفى (للتقييد الجغرافي)
   bool _isLoading = false;
   String? _errorMessage;
 
   // Getters
   User? get currentUser => _currentUser;
   String? get userType => _userType;
+  String? get hospitalGovernorate => _hospitalGovernorate;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   bool get hasError => _errorMessage != null;
@@ -41,6 +43,7 @@ class AuthProvider with ChangeNotifier {
         _loadUserType();
       } else {
         _userType = null;
+        _hospitalGovernorate = null;
       }
       notifyListeners();
     });
@@ -50,6 +53,13 @@ class AuthProvider with ChangeNotifier {
   Future<void> _loadUserType() async {
     try {
       _userType = await _supabaseService.getUserType();
+      // تحميل محافظة المستشفى لتقييد عرضه جغرافياً
+      if (_userType == 'hospital') {
+        _hospitalGovernorate =
+            await _supabaseService.getCurrentHospitalGovernorate();
+      } else {
+        _hospitalGovernorate = null;
+      }
       notifyListeners();
     } catch (e) {
       debugPrint('خطأ في تحميل نوع المستخدم: $e');
@@ -105,6 +115,7 @@ class AuthProvider with ChangeNotifier {
       await _supabaseService.signOut();
       _currentUser = null;
       _userType = null;
+      _hospitalGovernorate = null;
     } catch (e, stackTrace) {
       _errorMessage = ErrorHandler.getArabicMessage(e);
       ErrorHandler.logError(e, stackTrace);

@@ -223,7 +223,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
                 child: DropdownButtonFormField<String>(
                   initialValue: _selectedDistrict,
                   decoration: InputDecoration(
-                    labelText: 'المديرية',
+                    labelText: 'المحافظة',
                     prefixIcon: const Icon(Icons.location_city, size: 18),
                     filled: true,
                     fillColor: AppColors.background,

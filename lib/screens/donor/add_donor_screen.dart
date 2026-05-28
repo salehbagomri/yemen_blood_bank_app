@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../models/donor_model.dart';
+import '../../providers/auth_provider.dart';
 import '../../providers/donor_provider.dart';
 import '../../utils/validators.dart';
 import '../../utils/helpers.dart';
@@ -47,6 +48,21 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
   
   // Genders
   final List<String> _genders = ['ذكر', 'أنثى'];
+
+  // إذا كان المُضيف مستشفى، تُثبَّت المحافظة على محافظتها
+  bool _governorateLocked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final auth = context.read<AuthProvider>();
+    final gov = auth.hospitalGovernorate;
+    if (auth.isHospital && gov != null && gov.isNotEmpty) {
+      _selectedGovernorate = gov;
+      _subDistricts = AppStrings.governorateDistricts[gov] ?? [];
+      _governorateLocked = true;
+    }
+  }
 
   @override
   void dispose() {
@@ -186,13 +202,16 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                   
                   const SizedBox(height: 16),
                   
-                  // المحافظة
+                  // المحافظة (مثبّتة لحساب المستشفى على محافظته)
                   CustomDropdown(
                     value: _selectedGovernorate,
                     items: AppStrings.districts,
                     hint: 'اختر المحافظة',
-                    label: 'المحافظة',
+                    label: _governorateLocked
+                        ? 'المحافظة (محافظة مستشفاك)'
+                        : 'المحافظة',
                     icon: Icons.map,
+                    enabled: !_governorateLocked,
                     onChanged: (value) {
                       setState(() {
                         _selectedGovernorate = value;
