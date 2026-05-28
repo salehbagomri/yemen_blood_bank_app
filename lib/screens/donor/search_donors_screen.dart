@@ -21,7 +21,9 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
     with SingleTickerProviderStateMixin {
   // حالة البحث
   String? _selectedBloodType;
-  String? _selectedDistrict;
+  String? _selectedGovernorate;
+  String? _selectedSubDistrict;
+  List<String> _subDistricts = [];
   String? _selectedGender;
   String _sortBy = 'name'; // name | district | blood_type
   bool _hasSearched = false;
@@ -73,7 +75,7 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
 
   /// تنفيذ البحث تلقائياً عند تغيير أي فلتر
   void _performSearch() {
-    if (_selectedBloodType == null && _selectedDistrict == null) {
+    if (_selectedBloodType == null && _selectedGovernorate == null) {
       // لا يوجد معيار بحث — امسح النتائج
       setState(() => _hasSearched = false);
       context.read<DonorProvider>().clearSearchResults();
@@ -81,9 +83,15 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
     }
 
     setState(() => _hasSearched = true);
+    
+    // إنشاء نص الفرز الجغرافي
+    final searchQueryLocation = _selectedGovernorate != null
+        ? (_selectedSubDistrict != null ? '$_selectedGovernorate - $_selectedSubDistrict' : _selectedGovernorate)
+        : null;
+
     context.read<DonorProvider>().searchDonors(
       bloodType: _selectedBloodType,
-      district: _selectedDistrict,
+      district: searchQueryLocation,
       availableOnly: true, // دائماً يُظهر المتاحين فقط
     );
     _animController
@@ -109,7 +117,9 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
   void _clearAll() {
     setState(() {
       _selectedBloodType = null;
-      _selectedDistrict = null;
+      _selectedGovernorate = null;
+      _selectedSubDistrict = null;
+      _subDistricts = [];
       _selectedGender = null;
       _sortBy = 'name';
       _hasSearched = false;
@@ -173,14 +183,42 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ---- 1. المديرية ----
+                // ---- 1. المحافظة ----
                 CustomDropdown(
-                  value: _selectedDistrict,
+                  value: _selectedGovernorate,
                   items: AppStrings.districts,
-                  hint: AppStrings.selectDistrict,
-                  label: AppStrings.district,
+                  hint: 'اختر المحافظة',
+                  label: 'المحافظة',
+                  icon: Icons.map,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedGovernorate = value;
+                      _selectedSubDistrict = null;
+                      _subDistricts = value != null
+                          ? (AppStrings.governorateDistricts[value] ?? [])
+                          : [];
+                    });
+                    _performSearch();
+                  },
+                ),
+
+                const SizedBox(height: 14),
+
+                // ---- 2. المديرية ----
+                CustomDropdown(
+                  value: _selectedSubDistrict,
+                  items: _subDistricts,
+                  hint: _selectedGovernorate == null
+                      ? 'اختر المحافظة أولاً'
+                      : 'اختر المديرية (اختياري)',
+                  label: 'المديرية',
                   icon: Icons.location_on,
-                  onChanged: _onDistrictChanged,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedSubDistrict = value;
+                    });
+                    _performSearch();
+                  },
                 ),
 
                 const SizedBox(height: 14),
