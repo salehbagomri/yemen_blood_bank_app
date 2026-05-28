@@ -22,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  // يبقى true بعد نجاح الدخول حتى يكتمل الانتقال — يمنع ومضة عودة النموذج
+  bool _navigating = false;
 
   @override
   void dispose() {
@@ -36,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(title: const Text(AppStrings.login)),
       body: Consumer<AuthProvider>(
         builder: (context, authProvider, _) {
-          if (authProvider.isLoading) {
+          if (authProvider.isLoading || _navigating) {
             return const LoadingWidget(message: 'جاري تسجيل الدخول...');
           }
 
@@ -239,10 +241,12 @@ class _LoginScreenState extends State<LoginScreen> {
     if (success) {
       final authProvider = context.read<AuthProvider>();
 
-      // توجيه المستخدم حسب نوعه
+      // توجيه المستخدم حسب نوعه (مع إبقاء شاشة التحميل حتى الانتقال)
       if (authProvider.isAdmin) {
+        setState(() => _navigating = true);
         Navigator.of(context).pushReplacementNamed(AppRouter.adminDashboard);
       } else if (authProvider.isHospital) {
+        setState(() => _navigating = true);
         Navigator.of(context).pushReplacementNamed(AppRouter.hospitalDashboard);
       } else {
         // في حالة عدم التعرف على نوع المستخدم
