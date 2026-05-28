@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-28 — [chore] تفعيل التأكيد التلقائي للبريد في Supabase Auth
+- **الوصف:** ضبط `mailer_autoconfirm = true` في إعدادات Supabase Auth (عبر Management API). كان `false` مع حد `rate_limit_email_sent = 2/ساعة` على البريد المدمج، مما سبّب خطأ "email rate limit exceeded" عند إضافة مستشفى (لأن `auth.signUp` يرسل بريد تأكيد).
+- **الملفات:** لا كود — تغيير إعداد خادمي فقط.
+- **السبب/الدافع:** الأدمن ينشئ حساب المستشفى ويسلّم كلمة المرور يدوياً، فتأكيد البريد غير ضروري. لا يوجد تسجيل ذاتي عام (المستخدمون يضيفون متبرعين بلا حساب)، فأثر الأمان ضئيل.
+- **اختبار:** أُكِّد التغيير عبر API (mailer_autoconfirm=True). يحتاج المستخدم تأكيد نجاح إضافة مستشفى من التطبيق.
+- **Commit:** `pending`
+
 ### 2026-05-28 — [feat] المرحلة 3: تبسيط تجربة المستخدم العادي
 - **الوصف:** شاشة البحث تستخدم الآن معامل `governorate` المفهرس (بحث بالمحافظة وحدها يعمل، والمديرية تضييق اختياري) مع تحديث نصوص الإرشاد. عدّاد النتائج يعرض "وُجد X متبرعاً في محافظة Y". توضيح صيغة الهاتف في إضافة متبرع: بادئة `+967` ونص مساعد "9 أرقام تبدأ بـ 7". دليل تعريفي (Onboarding) من 3 صفحات يظهر أول تشغيل فقط (flag في shared_preferences) مدموج في مسار splash. إضافة `helperText`/`prefixText` لـ CustomTextField.
 - **الملفات:** `lib/screens/donor/search_donors_screen.dart`, `add_donor_screen.dart`, `lib/screens/onboarding/onboarding_screen.dart` (جديد), `lib/widgets/custom_text_field.dart`, `lib/config/app_router.dart`, `lib/main.dart`, `docs/DEVELOPMENT_PLAN.md`
