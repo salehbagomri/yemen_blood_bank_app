@@ -29,7 +29,7 @@
 - **الملفات:** `lib/services/supabase_service.dart`, `lib/providers/auth_provider.dart`, `dashboard_provider.dart`, `lib/screens/hospital/manage_donors_hospital_screen.dart`, `hospital_dashboard_screen.dart`, `widgets/dashboard_header.dart`, `lib/screens/donor/add_donor_screen.dart`, `lib/screens/admin/manage_donors_screen.dart`, `edit_hospital_screen.dart`, `lib/widgets/custom_dropdown.dart`, `docs/sql/phase0_governorate_migration.sql`, `docs/DEVELOPMENT_PLAN.md`
 - **السبب/الدافع:** تطبيق قرار الحوكمة (مستشفى مقيّدة بمحافظتها + أدمن عام). التقييد على مستوى التطبيق لأن RLS لا يصلح (SELECT عام للبحث الوطني).
 - **اختبار:** `flutter analyze` = 0 أخطاء، 0 تحذيرات (213 info سابقة/تجميلية). لم يُختبر على جهاز بعد (يحتاج حساب مستشفى ببيانات).
-- **Commit:** `pending`
+- **Commit:** `c95dfd5`
 
 ### 2026-05-28 — [feat] المرحلة 1: مزامنة طبقة Dart مع البنية الجغرافية + إصلاحات
 - **الوصف:** إضافة حقل `governorate` لـ DonorModel و HospitalModel (مشتق دفاعياً من `district` إن غاب، مع toJson/fromJson/copyWith). تمرير `p_governorate` في `DonorService.searchDonors` + دالتا `getDonorsByGovernorate` و `getGovernorateStats`. تحويل الإحصائيات للتجميع الخادمي عبر RPCs (`get_bloodtype_stats`، `get_district_stats`) في `statistics_service` و`donor_service` بدل جلب كل الصفوف. توحيد الفلترة المحلية على `startsWith` في `donor_provider` و`advanced_search_screen`. حفظ `governorate` في `HospitalService.updateHospital`. إنشاء سياسة INSERT للعامة (anon) على Supabase للسماح بالتسجيل بلا حساب.
