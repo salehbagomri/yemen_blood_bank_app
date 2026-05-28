@@ -107,11 +107,7 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
     _performSearch();
   }
 
-  /// اختيار المديرية
-  void _onDistrictChanged(String? district) {
-    setState(() => _selectedDistrict = district);
-    _performSearch();
-  }
+
 
   /// مسح كل شيء
   void _clearAll() {
