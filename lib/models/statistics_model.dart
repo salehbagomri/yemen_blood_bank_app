@@ -24,6 +24,17 @@ class StatisticsModel {
     required this.lastUpdated,
   });
 
+  /// توزيع المتبرعين مجمَّعاً حسب المحافظة (يطوي مفاتيح "المحافظة - المديرية")
+  /// أوضح من عرض 224 مديرية في النظرة الوطنية.
+  Map<String, int> get governorateDistribution {
+    final result = <String, int>{};
+    districtDistribution.forEach((key, count) {
+      final gov = key.split(' - ').first;
+      result[gov] = (result[gov] ?? 0) + count;
+    });
+    return result;
+  }
+
   /// تحويل من JSON إلى Model
   factory StatisticsModel.fromJson(Map<String, dynamic> json) {
     return StatisticsModel(

@@ -205,17 +205,17 @@ class _SystemOverviewScreenState extends State<SystemOverviewScreen> {
                     
                     const SizedBox(height: 24),
                     
-                    // توزيع المديريات
-                    _buildSectionTitle('توزيع المديريات'),
+                    // توزيع المحافظات (مجمَّع — أوضح من عرض كل المديريات وطنياً)
+                    _buildSectionTitle('توزيع المحافظات'),
                     Consumer<StatisticsProvider>(
                       builder: (context, provider, _) {
                         final stats = provider.statistics;
                         if (stats == null || stats.districtDistribution.isEmpty) {
                           return const Text('لا توجد بيانات');
                         }
-                        
+
                         return _DistrictDistribution(
-                          distribution: stats.districtDistribution,
+                          distribution: stats.governorateDistribution,
                         );
                       },
                     ),
