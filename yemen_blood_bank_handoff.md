@@ -21,21 +21,37 @@
 * **معرف التطبيق (iOS Bundle ID):** تم التغيير إلى `com.bagomri.yemenbloodbank` في `ios/Runner.xcodeproj/project.pbxproj` (في جميع مواقع الإعداد الستة).
 * **اسم التطبيق الظاهري:** تم تعديله إلى **"بنك دم اليمن"** (بالعربية) و **"Yemen Blood Bank"** (بالإنجليزية) في كافة ملفات التكوين والواجهات (`Info.plist`, `AndroidManifest.xml`, `app_strings.dart`, `about_screen.dart`, إلخ).
 
-### ب. توسيع النطاق الجغرافي (Governorates Expansion)
-* تم تعديل قائمة `districts` في [app_strings.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/constants/app_strings.dart) لتشمل **كافة محافظات اليمن الـ 22** بالترتيب الهجائي.
-* تم تغيير المسميات التوضيحية وتلميحات الواجهات من **"المديرية"** إلى **"المحافظة"** في جميع شاشات الإدخال والبحث والتقارير لتتناسب مع النطاق الوطني الجديد للتطبيق.
+### ب. الهيكلية الجغرافية ثنائية المستويات للمحافظات والمديريات (Two-Tier Geographic Hierarchy)
+* تم إضافة خريطة المديريات الشاملة لكافة الـ 22 محافظة في اليمن في [app_strings.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/constants/app_strings.dart).
+* تم تحويل واجهة الإدخال والتعديل إلى **نظام قوائم منسدلة متتالية ذكية (Cascading Dropdowns)** في خمس شاشات رئيسية:
+  1. [إضافة متبرع (Add Donor Screen)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/donor/add_donor_screen.dart)
+  2. [تعديل متبرع (Edit Donor Screen - للأدمن)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/admin/edit_donor_screen.dart)
+  3. [إضافة مستشفى (Add Hospital Screen)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/admin/add_hospital_screen.dart)
+  4. [تعديل مستشفى (Edit Hospital Screen)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/admin/edit_hospital_screen.dart)
+  5. [شاشة البحث عن المتبرعين (Search Donors Screen)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/donor/search_donors_screen.dart)
+* **ذكاء تخزين وفلترة الموقع (Backward Compatible):**
+  * يتم دمج المحافظة والمديرية وحفظهما معاً كـ `"المحافظة - المديرية"` (مثل: `"حضرموت - المكلا"`) في حقل الـ `district` المفتوح لمنع أي مشاكل توافقية أو تطلب عمليات هجرة في الجداول.
+  * تم تحديث دالة البحث RPC في قاعدة بيانات Supabase لتفهم الفلترة بالمطابقة الجزئية: `district = p_district OR district LIKE p_district || ' - %'` لتسترجع جميع متبرعي المحافظة والمديريات تلقائياً وبسرعة مذهلة!
+  * تم تحديث الفلاتر المحلية لتدعم المطابقة باللاحقة في شاشات إدارة المتبرعين للأدمن والمستشفى.
 
-### ج. مفتاح التوقيع الجديد للجمهور (Yemen Keystore Generation)
+### ج. البرمجة الدفاعية والحماية من الانهيار (Defensive Programming & Null Safety)
+* تم الكشف عن خلل في عدم تطابق حقل `updated_at` في النماذج (حيث كان غير موجود في سكيما الجداول بينما تفرضه النماذج برمجياً وتطالب به كـ `String` غير فارغ).
+* قمنا بحل هذا الخلل جذرياً عن طريق إدخال **منطق حماية برمجي دفاعي (Defensive Fallback)** في المحللات (fromJson) الخاصة بالنماذج البرمجية الثلاثة:
+  * [DonorModel](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/models/donor_model.dart)
+  * [HospitalModel](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/models/hospital_model.dart)
+  * [AdminModel](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/models/admin_model.dart)
+  بحيث إذا أرجعت قاعدة البيانات قيمة فارغة لـ `updated_at` يتجاوزها التطبيق تلقائياً وبسلاسة ويسند قيمة `created_at` بدلاً منها، مما يضمن أن التطبيق **لن ينهار أبداً**!
+
+### د. مفتاح التوقيع الجديد للجمهور (Yemen Keystore Generation)
 تم إنشاء ملف توقيع رقمي جديد بالكامل وخاص باليمن (`yemen-release-key.jks`) وتم إعداده بنجاح في ملف `key.properties` ومزامنته محلياً.
 * **بصمات التوقيع النشطة للتطبيق الجديد:**
   * **SHA-1:** `ED:C7:B3:52:3C:A8:57:D1:71:06:89:19:1C:50:27:F7:54:34:B0:0C`
   * **SHA-256:** `8A:E8:B9:80:F0:1B:64:CC:3C:70:70:C1:07:F7:34:0C:68:73:F7:75:52:09:EF:EA:37:63:39:E3:32:9C:6E:CB`
-* *ملاحظة أمنية:* تم استبعاد ملفات التوقيع محلياً في `.gitignore` لحمايتها. المعلومات التفصيلية موجودة في ملف `KEYSTORE_INFO.txt` في جذر المشروع.
 
-### د. إصلاح تجاوز واجهة المستخدم (UI Overflow Fix)
+### هـ. إصلاح تجاوز واجهة المستخدم (UI Overflow Fix)
 * تم حل مشكلة تجاوز واجهة المستخدم بمقدار `4.5 بكسل` في أسفل بطاقة الإحصائيات للأدمن (`_StatCard` في ملف [admin_statistics_grid.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/admin/widgets/admin_statistics_grid.dart)) عن طريق ضبط نسبة العرض إلى الارتفاع `childAspectRatio` إلى `1.3` وتقليل الحشوات وأحجام الأيقونات والنصوص رأسياً لتلائم الشاشات الصغيرة بشكل مثالي.
 
-### هـ. تحديث بيئة التطوير وملفات IDE (.iml & .idea)
+### و. تحديث بيئة التطوير وملفات IDE (.iml & .idea)
 * تم حذف مراجع التكوين القديمة بالكامل.
 * أنشأنا ملف تكوين جذري [yemen_blood_bank.iml](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/yemen_blood_bank.iml) وملف موديول الأندرويد المحدث [yemen_blood_bank_android.iml](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/android/yemen_blood_bank_android.iml) وربطهما بملف الفهرسة الرئيسي [modules.xml](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/.idea/modules.xml).
 
@@ -51,43 +67,66 @@
 
 ---
 
-## ⚙️ 4. المتمليات اليدوية المتبقية لتشغيل النظام بالكامل (Next Setup Steps)
+## ⚙️ 4. خطوات تهيئة قاعدة بيانات Supabase (Supabase Setup Script)
 
-لإنهاء ربط التطبيق بقاعدة البيانات والخدمات السحابية الجديدة، يرجى التوجيه بتنفيذ المهام التالية:
+لضمان دقة كاملة، يُرجى التأكد من تنفيذ السكريبت التالي لتجهيز قاعدة البيانات لليمن وتعديل قيود الجنس وإضافة حقول التحديث التلقائي:
 
-### الخطوة 1: إنهاء تكوين Firebase
-1. افتح مشروع Firebase Console الجديد الخاص بك.
-2. أضف تطبيق Android بالـ Package Name الجديد: `com.bagomri.yemenbloodbank`.
-3. الصق بصمات التوقيع **SHA-1** و **SHA-256** المذكورة أعلاه في إعدادات التطبيق.
-4. قم بتحميل ملف `google-services.json` الجديد وضعه مباشرة في مجلد: `android/app/google-services.json` (مستبدلاً الملف القديم).
+```sql
+-- 1. تجهيز جداول قاعدة البيانات الأساسية مع تعديل قيد التحقق للجنس (ليطابق الأكواد 'male' و 'female')
+CREATE TABLE IF NOT EXISTS public.donors (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    phone_number TEXT NOT NULL,
+    phone_number_2 TEXT,
+    phone_number_3 TEXT,
+    blood_type TEXT NOT NULL,
+    district TEXT NOT NULL,          -- يمثل "المحافظة - المديرية" في التطبيق الجديد
+    age INTEGER NOT NULL CHECK (age >= 17 AND age <= 70),
+    gender TEXT NOT NULL CHECK (gender IN ('male', 'female')),
+    notes TEXT,
+    is_available BOOLEAN DEFAULT true NOT NULL,
+    last_donation_date TIMESTAMPTZ,
+    suspended_until TIMESTAMPTZ,
+    is_active BOOLEAN DEFAULT true NOT NULL,
+    added_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT now() NOT NULL
+);
 
-### الخطوة 2: تهيئة قاعدة بيانات Supabase
-1. أنشئ مشروعاً جديداً في Supabase باسم `yemen-blood-bank`.
-2. انسخ محتويات ملف السكيما البرمجية الجاهزة [supabase_setup_schema.md](file:///C:/Users/SALEH/.gemini/antigravity-ide/brain/e2a91bba-5d41-4b67-ba6d-c1f2dd234f5e/supabase_setup_schema.md).
-3. افتح الـ **SQL Editor** في لوحة تحكم Supabase، وألصق السكريبت واضغط **Run**.
-4. لتسجيل نفسك كأدمن رئيسي للنظام:
-   * بعد تسجيل حسابك الأول على التطبيق بنجاح، احصل على المعرف الخاص بك (UUID) من Supabase Auth.
-   * نفذ الاستعلام التالي لتعيين حسابك مديراً عاماً في جدول `admins`:
-     ```sql
-     INSERT INTO public.admins (id, name, email) 
-     VALUES ('<YOUR-AUTH-USER-UUID>', 'المدير العام', 's.bagomri@gmail.com');
-     ```
+-- 2. تصحيح قيود التحقق وإضافة أعمدة التحديث (في حال تم الإنشاء مسبقاً)
+ALTER TABLE public.donors DROP CONSTRAINT IF EXISTS donors_gender_check;
+ALTER TABLE public.donors ADD CONSTRAINT donors_gender_check CHECK (gender IN ('male', 'female'));
+ALTER TABLE public.donors ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now() NOT NULL;
+ALTER TABLE public.hospitals ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now() NOT NULL;
+ALTER TABLE public.admins ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now() NOT NULL;
 
-### الخطوة 3: تحديث روابط التكوين النشطة (Active Supabase Config)
-* تأكد من إدراج رابط وقيم مشروع الـ Supabase الجديد الخاص بك في ملف [supabase_config.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/config/supabase_config.dart). 
-* ملاحظة: يمكنك تعطيل بروكسي Cloudflare مؤقتاً بتحديد `useCloudflareWorker = false` لتجربة الاتصال المباشر.
+-- 3. تحديث دالة البحث RPC لتشمل فلترة المديريات المتداخلة والمطابقة الجزئية
+CREATE OR REPLACE FUNCTION public.search_donors(
+    p_blood_type TEXT,
+    p_district TEXT,
+    p_available_only BOOLEAN
+)
+RETURNS SETOF public.donors AS $$
+BEGIN
+    RETURN QUERY
+    SELECT *
+    FROM public.donors
+    WHERE is_active = true
+      AND (p_blood_type IS NULL OR blood_type = p_blood_type)
+      AND (p_district IS NULL OR district = p_district OR district LIKE p_district || ' - %')
+      AND (NOT p_available_only OR (suspended_until IS NULL OR suspended_until < now()));
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+```
 
 ---
 
 ## 📝 5. نصائح وتوجيهات للوكلاء والمطورين المستقبليين (Tips for Future Agents)
-* **قاعدة التسميات الجغرافية:** المحافظات مخزنة كـ `district` في قاعدة البيانات وفي الكود لأسباب تاريخية وتوافقية. عند الرغبة في التعديل الجغرافي، يرجى دائماً تعديل القائمة في [app_strings.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/constants/app_strings.dart).
-* **التجمع والاختبار:** للتحقق من سلامة الأكواد والـ lints في أي وقت، قم بتشغيل:
+* **التشغيل النظيف للأكواد:** بسبب تغيير اسم الحزمة محلياً، يجب أولاً **إلغاء تثبيت التطبيق تماماً من هاتفك** ثم تنفيذ رن كامل ونظيف:
   ```powershell
-  flutter analyze
-  ```
-  وللتشغيل في وضع التطوير:
-  ```powershell
+  flutter clean
   flutter run
   ```
+* **تعديل المحافظات والمديريات:** المديريات مخزنة برمجياً في `AppStrings.governorateDistricts` في [app_strings.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/constants/app_strings.dart). عند الرغبة في التوسيع أو التعديل، يرجى التعديل مباشرة في تلك الخريطة (Map) لتنعكس تلقائياً في كافة الشاشات والواجهات!
 
-هذا المشروع منظم ومرتب للغاية، ومعماريته النظيفة تجعل إضافة أي ميزات جديدة (مثل إرسال إشعارات FCM، أو تحسين شاشات إحصائيات المحافظات) مهمة غاية في السهولة واليسر! 🩸🚀
+هذا المشروع منظم ومرتب للغاية، ومعماريته النظيفة تجعل إضافة أي ميزات جديدة مهمة غاية في السهولة واليسر! 🩸🇾🇪🚀
