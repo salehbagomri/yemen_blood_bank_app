@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-28 — [fix] إصلاح تجاوز (overflow) في قوائم الفلاتر المنسدلة
+- **الوصف:** إضافة `isExpanded: true` لقائمة "المديرية" في شاشة إدارة متبرعي المستشفى (كانت تتجاوز 19px لأن قيم "المحافظة - المديرية" أطول من العرض)، ووقائياً لقائمة "المحافظة" في شاشة إدارة متبرعي الأدمن. الآن يُقصُّ النص (ellipsis) بدل التجاوز.
+- **الملفات:** `lib/screens/hospital/manage_donors_hospital_screen.dart`, `lib/screens/admin/manage_donors_screen.dart`
+- **السبب/الدافع:** بلاغ خطأ من المستخدم على الجهاز (RenderFlex overflowed by 19 pixels).
+- **اختبار:** `flutter analyze` = 0/0. يحتاج تأكيد بصري على الجهاز.
+- **Commit:** `pending`
+
 ### 2026-05-28 — [chore] تفعيل التأكيد التلقائي للبريد في Supabase Auth
 - **الوصف:** ضبط `mailer_autoconfirm = true` في إعدادات Supabase Auth (عبر Management API). كان `false` مع حد `rate_limit_email_sent = 2/ساعة` على البريد المدمج، مما سبّب خطأ "email rate limit exceeded" عند إضافة مستشفى (لأن `auth.signUp` يرسل بريد تأكيد).
 - **الملفات:** لا كود — تغيير إعداد خادمي فقط.

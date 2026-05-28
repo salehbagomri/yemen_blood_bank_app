@@ -222,6 +222,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
               Expanded(
                 child: DropdownButtonFormField<String>(
                   initialValue: _selectedDistrict,
+                  isExpanded: true,
                   decoration: InputDecoration(
                     labelText: 'المحافظة',
                     prefixIcon: const Icon(Icons.location_city, size: 18),

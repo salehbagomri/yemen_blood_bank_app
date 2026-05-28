@@ -221,6 +221,7 @@ class _ManageDonorsHospitalScreenState
               Expanded(
                 child: DropdownButtonFormField<String>(
                   initialValue: _selectedDistrict,
+                  isExpanded: true,
                   decoration: InputDecoration(
                     labelText: 'المديرية',
                     prefixIcon: const Icon(Icons.location_city, size: 18),
