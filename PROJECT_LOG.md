@@ -29,7 +29,7 @@
 - **الملفات:** `lib/screens/donor/search_donors_screen.dart`, `add_donor_screen.dart`, `lib/screens/onboarding/onboarding_screen.dart` (جديد), `lib/widgets/custom_text_field.dart`, `lib/config/app_router.dart`, `lib/main.dart`, `docs/DEVELOPMENT_PLAN.md`
 - **السبب/الدافع:** تسهيل الاستخدام للمستخدم اليمني العادي. تُخطّيت القوائم القابلة للبحث (3.2) لأن التصميم المتتالي يبقي كل قائمة قصيرة (≤22)، وتوضيح الإيقاف (3.7) ورسائل العربية (3.5) موجودة أصلاً.
 - **اختبار:** `flutter analyze` = 0 أخطاء، 0 تحذيرات. لم يُختبر على جهاز بعد (يُنصح بمسح بيانات التطبيق لرؤية Onboarding).
-- **Commit:** `pending`
+- **Commit:** `6813b77`
 
 ### 2026-05-28 — [feat] المرحلة 2: الحوكمة الجغرافية (تقييد المستشفى بمحافظتها)
 - **الوصف:** `AuthProvider` يحمّل `hospitalGovernorate` عند الدخول (عبر `SupabaseService.getCurrentHospitalGovernorate` الدفاعية). شاشة إدارة متبرعي المستشفى تُقيَّد إلزامياً بمحافظتها مع عنوان "متبرعو محافظة X" وفلتر مديريات المحافظة فقط. لوحة المستشفى تحسب إحصائياتها لمحافظتها عبر مسار مُخصَّص في `DashboardProvider` (استعلام واحد + حساب محلي)، مع عرض المحافظة في الهيدر. تثبيت المحافظة (وقفلها) عند إضافة متبرع من حساب مستشفى. تحديث RPC `add_hospital_bypassing_rls` ليحفظ `governorate`. إعادة تسمية فلتر الأدمن "المديرية"→"المحافظة" (كان يفلتر بالمحافظة أصلاً). إضافة `enabled` لـ CustomDropdown. حذف حقل `_districts` غير المستخدم في edit_hospital_screen.
