@@ -59,7 +59,9 @@ class DonorModel {
           ? DateTime.parse(json['suspended_until'] as String)
           : null,
       createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'] as String)
+          : (json['created_at'] != null ? DateTime.parse(json['created_at'] as String) : DateTime.now()),
       addedBy: json['added_by'] as String?,
       isActive: json['is_active'] as bool? ?? true,
     );
