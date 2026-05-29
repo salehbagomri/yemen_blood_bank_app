@@ -5,6 +5,7 @@ import '../../constants/app_strings.dart';
 import '../../models/donor_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/donor_provider.dart';
+import '../../providers/location_provider.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/empty_state.dart';
 import '../../widgets/expandable_donor_card.dart';
@@ -240,9 +241,10 @@ class _ManageDonorsHospitalScreenState
                   items: [
                     const DropdownMenuItem(value: null, child: Text('الكل')),
                     // مديريات محافظة المستشفى فقط (القيمة = "المحافظة - المديرية")
-                    ...(AppStrings.governorateDistricts[
-                                context.read<AuthProvider>().hospitalGovernorate] ??
-                            const <String>[])
+                    ...context
+                        .watch<LocationProvider>()
+                        .districtsOf(
+                            context.read<AuthProvider>().hospitalGovernorate)
                         .map(
                       (sub) => DropdownMenuItem(
                         value:

@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/foundation.dart';
 import '../models/donor_model.dart';
 import '../models/statistics_model.dart';
+import '../models/location_model.dart';
 
 /// خدمة التخزين المحلي باستخدام Hive
 /// استراتيجية: Cache First, Network Second
@@ -10,6 +11,9 @@ class CacheService {
   static const String _donorsBoxName = 'donors_cache';
   static const String _statsBoxName = 'statistics_cache';
   static const String _searchBoxName = 'search_cache';
+  static const String _locationsBoxName = 'locations_cache';
+
+  static const String _locationsKey = 'active_locations';
 
   static const String _donorsKey = 'all_donors';
   static const String _donorsTimestampKey = 'donors_timestamp';
@@ -22,6 +26,7 @@ class CacheService {
     await Hive.openBox<String>(_donorsBoxName);
     await Hive.openBox<String>(_statsBoxName);
     await Hive.openBox<String>(_searchBoxName);
+    await Hive.openBox<String>(_locationsBoxName);
     debugPrint('✅ CacheService: Hive initialized');
   }
 
@@ -165,6 +170,33 @@ class CacheService {
           .toList();
     } catch (e) {
       debugPrint('❌ CacheService: Error reading search results: $e');
+      return null;
+    }
+  }
+
+  // ==================== Locations Cache ====================
+
+  /// حفظ المناطق المفعّلة محلياً
+  Future<void> saveLocations(LocationData data) async {
+    try {
+      final box = Hive.box<String>(_locationsBoxName);
+      await box.put(_locationsKey, jsonEncode(data.toJson()));
+    } catch (e) {
+      debugPrint('❌ CacheService: Error saving locations: $e');
+    }
+  }
+
+  /// جلب المناطق المفعّلة من الكاش
+  LocationData? getCachedLocations() {
+    try {
+      final box = Hive.box<String>(_locationsBoxName);
+      final jsonString = box.get(_locationsKey);
+      if (jsonString == null) return null;
+      return LocationData.fromJson(
+        jsonDecode(jsonString) as Map<String, dynamic>,
+      );
+    } catch (e) {
+      debugPrint('❌ CacheService: Error reading locations: $e');
       return null;
     }
   }

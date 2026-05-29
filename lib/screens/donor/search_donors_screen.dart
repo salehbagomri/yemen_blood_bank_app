@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../providers/donor_provider.dart';
+import '../../providers/location_provider.dart';
 import '../../widgets/custom_dropdown.dart';
 import '../../widgets/expandable_donor_card.dart';
 import '../../widgets/shimmer_loading.dart';
@@ -181,7 +182,7 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
                 // ---- 1. المحافظة ----
                 CustomDropdown(
                   value: _selectedGovernorate,
-                  items: AppStrings.districts,
+                  items: context.watch<LocationProvider>().activeGovernorates,
                   hint: 'اختر المحافظة',
                   label: 'المحافظة',
                   icon: Icons.map,
@@ -190,7 +191,7 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
                       _selectedGovernorate = value;
                       _selectedSubDistrict = null;
                       _subDistricts = value != null
-                          ? (AppStrings.governorateDistricts[value] ?? [])
+                          ? context.read<LocationProvider>().districtsOf(value)
                           : [];
                     });
                     _performSearch();

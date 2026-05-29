@@ -7,6 +7,7 @@ import '../services/statistics_service.dart';
 import '../services/supabase_service.dart';
 import '../services/cache_service.dart';
 import '../services/connectivity_service.dart';
+import '../services/location_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -22,4 +23,5 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<HospitalService>(() => HospitalService());
   getIt.registerLazySingleton<ReportService>(() => ReportService());
   getIt.registerLazySingleton<StatisticsService>(() => StatisticsService());
+  getIt.registerLazySingleton<LocationService>(() => LocationService());
 }

@@ -222,6 +222,16 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           color: AppColors.success,
           onTap: () => _navigateTo(AppRouter.adminSystemOverview),
         ),
+        const SizedBox(height: 12),
+
+        // إدارة المناطق
+        AdminActionCard(
+          title: 'إدارة المناطق',
+          subtitle: 'تفعيل/إيقاف المحافظات وإدارة المديريات',
+          icon: Icons.map,
+          color: AppColors.info,
+          onTap: () => _navigateTo(AppRouter.adminManageLocations),
+        ),
       ],
     );
   }

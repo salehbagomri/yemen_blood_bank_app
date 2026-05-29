@@ -14,6 +14,7 @@ import 'providers/auth_provider.dart';
 import 'providers/donor_provider.dart';
 import 'providers/statistics_provider.dart';
 import 'providers/dashboard_provider.dart';
+import 'providers/location_provider.dart';
 import 'utils/firebase_error_logger.dart';
 import 'config/app_router.dart';
 import 'config/service_locator.dart';
@@ -85,6 +86,7 @@ class YemenBloodBankApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DonorProvider()),
         ChangeNotifierProvider(create: (_) => StatisticsProvider()),
         ChangeNotifierProvider(create: (_) => DashboardProvider()),
+        ChangeNotifierProvider(create: (_) => LocationProvider()..load()),
       ],
       child: MaterialApp(
         title: AppStrings.appName,

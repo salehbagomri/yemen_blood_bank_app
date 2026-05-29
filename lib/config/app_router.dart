@@ -20,6 +20,7 @@ import '../screens/admin/edit_donor_screen.dart';
 import '../screens/admin/report_detail_screen.dart';
 import '../screens/admin/review_reports_screen.dart';
 import '../screens/admin/system_overview_screen.dart';
+import '../screens/admin/manage_locations_screen.dart';
 
 import '../screens/hospital/hospital_dashboard_screen.dart';
 import '../screens/hospital/manage_donors_hospital_screen.dart';
@@ -58,6 +59,7 @@ class AppRouter {
   static const String adminReportDetail = '/admin/report_detail';
   static const String adminReviewReports = '/admin/review_reports';
   static const String adminSystemOverview = '/admin/system_overview';
+  static const String adminManageLocations = '/admin/manage_locations';
 
   static const String hospitalDashboard = '/hospital/dashboard';
   static const String hospitalManageDonors = '/hospital/manage_donors';
@@ -173,6 +175,11 @@ class AppRouter {
       case adminSystemOverview:
         return AppPageTransitions.slideFromRight(
           const SystemOverviewScreen(),
+          settings: settings,
+        );
+      case adminManageLocations:
+        return AppPageTransitions.slideFromRight(
+          const ManageLocationsScreen(),
           settings: settings,
         );
 

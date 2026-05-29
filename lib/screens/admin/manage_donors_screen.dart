@@ -4,6 +4,7 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../models/donor_model.dart';
 import '../../providers/donor_provider.dart';
+import '../../providers/location_provider.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/empty_state.dart';
 import '../../config/app_router.dart';
@@ -240,7 +241,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
                   ),
                   items: [
                     const DropdownMenuItem(value: null, child: Text('الكل')),
-                    ...AppStrings.districts.map(
+                    ...context.watch<LocationProvider>().activeGovernorates.map(
                       (d) => DropdownMenuItem(value: d, child: Text(d)),
                     ),
                   ],

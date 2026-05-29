@@ -24,6 +24,14 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-29 — [feat] إدارة المناطق المفعّلة (Admin-Managed Locations)
+- **الوصف:** نقل المحافظات/المديريات إلى قاعدة البيانات ليتحكم بها الأدمن (للإطلاق التدريجي). جدولان `governorates` (22، تفعيل/إيقاف) و`districts` (161، إضافة/تفعيل/تعديل-مقيَّد) على Supabase + seed من AppStrings + RLS (قراءة عامة، كتابة للأدمن) + دالة `district_in_use()`. طبقة Dart: `LocationModel`، `LocationService` (CRUD/toggle مع حارس الاستخدام)، `LocationProvider` (Cache-First في Hive، احتياطي AppStrings offline). شاشة أدمن جديدة "إدارة المناطق" + مسار + بطاقة في لوحة الأدمن. تحويل 8 شاشات قوائم منسدلة من `AppStrings` إلى `LocationProvider` (شاشات التعديل تدمج القيمة الحالية إن كانت موقوفة).
+- **الملفات:** `lib/models/location_model.dart`, `lib/services/location_service.dart`, `lib/providers/location_provider.dart`, `lib/screens/admin/manage_locations_screen.dart` (جديدة)، + `service_locator.dart`, `main.dart`, `cache_service.dart`, `app_router.dart`, `admin_dashboard_screen.dart`, `add_donor_screen.dart`, `edit_donor_screen.dart`, `add_hospital_screen.dart`, `edit_hospital_screen.dart`, `search_donors_screen.dart`, `manage_donors_screen.dart`, `manage_donors_hospital_screen.dart`, `advanced_search_screen.dart`, `docs/sql/phase6_locations.sql`
+- **السبب/الدافع:** تمكين الإطلاق التدريجي (محافظة واحدة أولاً ثم توسعة) دون تحديث التطبيق، مع حماية البيانات (منع تعديل/حذف مديرية مستخدمة لأنها تكسر حقل donors.district).
+- **اختبار:** `flutter analyze` = 0/0. الخلفية مُطبَّقة ومُتحقَّقة (22 محافظة، 161 مديرية، Arabic سليم). لم يُختبر على جهاز بعد.
+- **ملاحظة تقنية:** إرسال Arabic عبر Management API يتطلب جسم UTF-8 bytes (الترميز الافتراضي في PowerShell يفسد العربية إلى '?').
+- **Commit:** `pending`
+
 ### 2026-05-29 — [docs] إعادة تعيين الإصدار + تحديث handoff بالبنية الوطنية
 - **الوصف:** إعادة تعيين `version` في pubspec من `1.0.3+6` (تطبيق المهرة القديم) إلى **`1.0.0+1`** لأن الحزمة الجديدة تطبيق جديد على المتجر. تحديث شامل لـ `yemen_blood_bank_handoff.md` ليعكس: عمود `governorate` المفهرس، نموذج الحوكمة (مستشفى مقيّدة بمحافظتها + تقييد على مستوى التطبيق لا RLS)، الدوال الخادمية الثلاث، سياسة anon-insert، `mailer_autoconfirm`، Onboarding، صيغة الهاتف، وإصلاحات الومضة/overflow؛ مع تحديث قسم Schema للإشارة إلى ملف SQL القانوني وروابط الوثائق الحية.
 - **الملفات:** `pubspec.yaml`, `yemen_blood_bank_handoff.md`

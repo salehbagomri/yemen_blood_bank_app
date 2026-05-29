@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../constants/app_colors.dart';
-import '../../constants/app_strings.dart';
+import '../../providers/location_provider.dart';
 import '../../utils/validators.dart';
 import '../../utils/error_handler.dart';
 import '../../widgets/custom_text_field.dart';
@@ -138,7 +139,7 @@ class _AddHospitalScreenState extends State<AddHospitalScreen> {
                     // المحافظة
                     CustomDropdown(
                       value: _selectedGovernorate,
-                      items: AppStrings.districts,
+                      items: context.watch<LocationProvider>().activeGovernorates,
                       hint: 'اختر المحافظة',
                       label: 'المحافظة',
                       icon: Icons.map,
@@ -147,7 +148,7 @@ class _AddHospitalScreenState extends State<AddHospitalScreen> {
                           _selectedGovernorate = value;
                           _selectedSubDistrict = null;
                           _subDistricts = value != null
-                              ? (AppStrings.governorateDistricts[value] ?? [])
+                              ? context.read<LocationProvider>().districtsOf(value)
                               : [];
                         });
                       },

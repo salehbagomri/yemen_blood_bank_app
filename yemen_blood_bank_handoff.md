@@ -99,6 +99,8 @@
 * **دوال إحصائية:** `get_governorate_stats(p_governorate)`, `get_bloodtype_stats()`, `get_district_stats()`.
 * **`add_hospital_bypassing_rls(...)`:** يُنشئ صف المستشفى ويملأ `governorate` من `p_district` تلقائياً.
 * **RLS:** قراءة `donors` عامة للنشطين؛ INSERT للعامة (anon) بضوابط + للمستشفى/الأدمن؛ UPDATE بالملكية (`added_by`) أو الأدمن؛ DELETE للأدمن.
+* **`governorates` / `districts` (إدارة المناطق المفعّلة):** جدولان يتحكم بهما الأدمن لإظهار/إخفاء المناطق (إطلاق تدريجي). `governorates(name, is_active, sort_order)` و`districts(id, governorate, name, is_active)`. RLS: قراءة عامة، كتابة للأدمن. دالة `district_in_use(gov,name)` تمنع تعديل/حذف مديرية مستخدمة. السكربت: [docs/sql/phase6_locations.sql](./docs/sql/phase6_locations.sql). في التطبيق: `LocationService`/`LocationProvider` (Cache-First، احتياطي `AppStrings` offline)، وشاشة الأدمن `manage_locations_screen.dart`. **كل القوائم المنسدلة الجغرافية تقرأ من `LocationProvider` لا من `AppStrings` مباشرة.**
+* **⚠️ إرسال Arabic عبر Management API:** يجب إرسال جسم الطلب كـ UTF-8 bytes (`[Text.Encoding]::UTF8.GetBytes($json)`)؛ الترميز الافتراضي في PowerShell 5.1 يفسد العربية إلى `?`.
 
 > ملاحظة: أي تعديل لاحق على السكيما يُوثَّق في ملف الـ SQL أعلاه وفي هذا القسم.
 

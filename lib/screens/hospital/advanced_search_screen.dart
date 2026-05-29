@@ -4,6 +4,7 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../models/donor_model.dart';
 import '../../providers/donor_provider.dart';
+import '../../providers/location_provider.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/empty_state.dart';
 import '../../widgets/donor_card.dart';
@@ -106,7 +107,9 @@ class _AdvancedSearchScreenState extends State<AdvancedSearchScreen> {
               labelText: 'المديرية',
               prefixIcon: Icon(Icons.location_city),
             ),
-            items: AppStrings.districts
+            items: context
+                .watch<LocationProvider>()
+                .activeGovernorates
                 .map((district) => DropdownMenuItem(
                       value: district,
                       child: Text(district),

@@ -8,6 +8,7 @@ import '../../constants/app_strings.dart';
 import '../../models/donor_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/donor_provider.dart';
+import '../../providers/location_provider.dart';
 import '../../utils/validators.dart';
 import '../../utils/helpers.dart';
 import '../../widgets/custom_text_field.dart';
@@ -59,7 +60,7 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
     final gov = auth.hospitalGovernorate;
     if (auth.isHospital && gov != null && gov.isNotEmpty) {
       _selectedGovernorate = gov;
-      _subDistricts = AppStrings.governorateDistricts[gov] ?? [];
+      _subDistricts = context.read<LocationProvider>().districtsOf(gov);
       _governorateLocked = true;
     }
   }
@@ -209,7 +210,7 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                   // المحافظة (مثبّتة لحساب المستشفى على محافظته)
                   CustomDropdown(
                     value: _selectedGovernorate,
-                    items: AppStrings.districts,
+                    items: context.watch<LocationProvider>().activeGovernorates,
                     hint: 'اختر المحافظة',
                     label: _governorateLocked
                         ? 'المحافظة (محافظة مستشفاك)'
@@ -221,7 +222,7 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                         _selectedGovernorate = value;
                         _selectedSubDistrict = null;
                         _subDistricts = value != null
-                            ? (AppStrings.governorateDistricts[value] ?? [])
+                            ? context.read<LocationProvider>().districtsOf(value)
                             : [];
                       });
                     },

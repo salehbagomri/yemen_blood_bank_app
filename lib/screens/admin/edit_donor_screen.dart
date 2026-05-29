@@ -6,6 +6,7 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../models/donor_model.dart';
 import '../../providers/donor_provider.dart';
+import '../../providers/location_provider.dart';
 import '../../utils/validators.dart';
 import '../../utils/error_handler.dart';
 import '../../widgets/custom_text_field.dart';
@@ -76,10 +77,18 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
     _selectedGovernorate = parts[0];
     _selectedSubDistrict = parts.length > 1 ? parts[1] : null;
     _subDistricts = _selectedGovernorate != null
-        ? (AppStrings.governorateDistricts[_selectedGovernorate] ?? [])
+        ? context.read<LocationProvider>().districtsOf(_selectedGovernorate)
         : [];
     // تحويل من إنجليزي إلى عربي
     _selectedGender = widget.donor.gender == 'male' ? 'ذكر' : 'أنثى';
+  }
+
+  /// يضمن ظهور القيمة الحالية للسجل حتى لو أصبحت المنطقة موقوفة
+  List<String> _withCurrent(List<String> list, String? current) {
+    if (current == null || current.isEmpty || list.contains(current)) {
+      return list;
+    }
+    return [current, ...list];
   }
 
   @override
@@ -349,7 +358,10 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
                     // المحافظة
                     CustomDropdown(
                       value: _selectedGovernorate,
-                      items: AppStrings.districts,
+                      items: _withCurrent(
+                        context.watch<LocationProvider>().activeGovernorates,
+                        _selectedGovernorate,
+                      ),
                       hint: 'اختر المحافظة',
                       label: 'المحافظة',
                       icon: Icons.map,
@@ -358,7 +370,7 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
                           _selectedGovernorate = value;
                           _selectedSubDistrict = null;
                           _subDistricts = value != null
-                              ? (AppStrings.governorateDistricts[value] ?? [])
+                              ? context.read<LocationProvider>().districtsOf(value)
                               : [];
                         });
                       },
@@ -367,13 +379,13 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
                         'المحافظة',
                       ),
                     ),
-                    
+
                     const SizedBox(height: 16),
-                    
+
                     // المديرية
                     CustomDropdown(
                       value: _selectedSubDistrict,
-                      items: _subDistricts,
+                      items: _withCurrent(_subDistricts, _selectedSubDistrict),
                       hint: _selectedGovernorate == null
                           ? 'اختر المحافظة أولاً'
                           : 'اختر المديرية',
