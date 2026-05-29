@@ -24,10 +24,10 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
-### 2026-05-30 — [fix] إصلاح فشل تحديث بيانات المستشفى من قِبل المدير
-- **الوصف:** كان تحديث بيانات المستشفى يفشل بخطأ `PGRST204: Could not find the 'is_active' column of 'hospitals'` لأن `updateHospital` في `HospitalService` يُرسل عمود `is_active` غير الموجود في جدول `hospitals`. أُزيل العمود من الـ update payload، وعُطِّلت `toggleHospitalStatus` مؤقتاً، وأُزيل فلتر `is_active` من `getActiveHospitals`. أيضاً أُضيف تمرير `governorate` المحدّثة في `copyWith` بشاشة التعديل (كانت تبقى بالقيمة القديمة)، وأُصلح `copyWith` في `HospitalModel` للتفريق بين "لم يُمرَّر" و"null" للحقول الاختيارية. كذلك أُصلح overflow بـ 0.9px في `_buildStatItem` بشاشة إدارة المستشفيات (لف النص بـ `Flexible` + تقليل المسافة).
-- **الملفات:** `lib/services/hospital_service.dart`, `lib/screens/admin/edit_hospital_screen.dart`, `lib/models/hospital_model.dart`, `lib/screens/admin/manage_hospitals_screen.dart`
-- **السبب/الدافع:** بلاغ المستخدم: تحديث بيانات المستشفى يفشل + overflow في شاشة إدارة المستشفيات. التحقق المباشر من سكيما DB أكّد عدم وجود عمود `is_active` في `hospitals`.
+### 2026-05-30 — [fix] إصلاح تحديث بيانات المستشفى + كارد قابل للطي
+- **الوصف:** (1) إصلاح خطأ `PGRST204: is_active column not found` بإزالة العمود غير الموجود من الاستعلام. (2) إضافة `governorate` المفقودة في `copyWith`. (3) إصلاح `copyWith` للحقول الاختيارية (sentinel pattern). (4) إصلاح overflow بـ 0.9px في إحصائيات إدارة المستشفيات. (5) تحويل `EnhancedHospitalCard` من `StatelessWidget` إلى `StatefulWidget` قابل للطي/الفتح مثل `AdminDonorCard` — الهيدر (اسم + مديرية + حالة) ظاهر دائماً، والتفاصيل (بريد/هاتف/تاريخ) + الإجراءات (تعديل/حذف/نسخ) تظهر عند الضغط. استبدال `withOpacity()` بـ `withValues(alpha:)` في الكارد.
+- **الملفات:** `lib/services/hospital_service.dart`, `lib/screens/admin/edit_hospital_screen.dart`, `lib/models/hospital_model.dart`, `lib/screens/admin/manage_hospitals_screen.dart`, `lib/screens/admin/widgets/enhanced_hospital_card.dart`
+- **السبب/الدافع:** بلاغات المستخدم: فشل تحديث المستشفى + overflow + طلب تحسين الكارد ليكون قابل للطي.
 - **اختبار:** `flutter analyze` = 0 أخطاء. فحص أعمدة DB عبر Management API.
 
 ### 2026-05-30 — [fix] إخفاء رمز الدولة (+967) من عرض أرقام الهواتف في كل التطبيق

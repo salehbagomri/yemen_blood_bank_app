@@ -4,8 +4,8 @@ import '../../../constants/app_colors.dart';
 import '../../../models/hospital_model.dart';
 import '../../../utils/helpers.dart';
 
-/// بطاقة مستشفى محسّنة واحترافية
-class EnhancedHospitalCard extends StatelessWidget {
+/// بطاقة مستشفى محسّنة قابلة للطي/الفتح (مثل بطاقة المتبرع)
+class EnhancedHospitalCard extends StatefulWidget {
   final HospitalModel hospital;
   final VoidCallback onTap;
   final VoidCallback onToggleStatus;
@@ -22,165 +22,49 @@ class EnhancedHospitalCard extends StatelessWidget {
   });
 
   @override
+  State<EnhancedHospitalCard> createState() => _EnhancedHospitalCardState();
+}
+
+class _EnhancedHospitalCardState extends State<EnhancedHospitalCard> {
+  bool _isExpanded = false;
+
+  @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 12),
+      elevation: _isExpanded ? 4 : 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: hospital.isActive
-              ? AppColors.success.withOpacity(0.2)
-              : AppColors.error.withOpacity(0.2),
-          width: 1,
+          color: widget.hospital.isActive
+              ? AppColors.success.withValues(alpha: 0.2)
+              : AppColors.error.withValues(alpha: 0.2),
+          width: _isExpanded ? 2 : 1,
         ),
       ),
       child: InkWell(
-        onTap: onTap,
+        onTap: () => setState(() => _isExpanded = !_isExpanded),
         borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
-              Row(
-                children: [
-                  // أيقونة المستشفى
-                  Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: hospital.isActive
-                            ? [AppColors.primary, AppColors.primaryDark]
-                            : [
-                                AppColors.textSecondary,
-                                AppColors.textSecondary,
-                              ],
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(
-                      Icons.local_hospital,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
+              // الهيدر — ظاهر دائماً
+              _buildHeader(context),
 
-                  // معلومات أساسية
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                hospital.name,
-                                style: Theme.of(context).textTheme.titleLarge
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            _buildStatusBadge(),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.calendar_today,
-                              size: 12,
-                              color: AppColors.textSecondary,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              'منذ ${Helpers.formatDateTime(hospital.createdAt)}',
-                              style: Theme.of(context).textTheme.bodySmall
-                                  ?.copyWith(
-                                    color: AppColors.textSecondary,
-                                    fontSize: 11,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-              const Divider(height: 1),
-              const SizedBox(height: 16),
-
-              // معلومات الاتصال
-              _buildInfoRow(
-                context,
-                Icons.email,
-                'البريد الإلكتروني',
-                hospital.email,
-                onCopy: () => _copyToClipboard(context, hospital.email),
-              ),
-              if (hospital.phoneNumber != null) ...[
+              // التفاصيل والإجراءات — تظهر عند الفتح
+              if (_isExpanded) ...[
+                const SizedBox(height: 16),
+                const Divider(height: 1),
+                const SizedBox(height: 16),
+                _buildDetails(context),
+                const SizedBox(height: 16),
+                const Divider(height: 1),
                 const SizedBox(height: 12),
-                _buildInfoRow(
-                  context,
-                  Icons.phone,
-                  'رقم الهاتف',
-                  Helpers.displayPhoneNumber(hospital.phoneNumber!),
-                  onCopy: () => _copyToClipboard(
-                    context,
-                    Helpers.displayPhoneNumber(hospital.phoneNumber!),
-                  ),
-                ),
+                _buildActions(context),
               ],
-              const SizedBox(height: 12),
-              _buildInfoRow(
-                context,
-                Icons.location_on,
-                'المديرية',
-                hospital.district,
-              ),
-
-              const SizedBox(height: 16),
-              const Divider(height: 1),
-              const SizedBox(height: 12),
-
-              // الإجراءات
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  _buildActionChip(
-                    context,
-                    label: hospital.isActive ? 'تعطيل' : 'تفعيل',
-                    icon: hospital.isActive ? Icons.block : Icons.check_circle,
-                    color: hospital.isActive
-                        ? AppColors.warning
-                        : AppColors.success,
-                    onTap: onToggleStatus,
-                  ),
-                  _buildActionChip(
-                    context,
-                    label: 'تعديل',
-                    icon: Icons.edit,
-                    color: AppColors.info,
-                    onTap: onEdit,
-                  ),
-                  _buildActionChip(
-                    context,
-                    label: 'حذف',
-                    icon: Icons.delete,
-                    color: AppColors.error,
-                    onTap: onDelete,
-                  ),
-                ],
-              ),
             ],
           ),
         ),
@@ -188,35 +72,203 @@ class EnhancedHospitalCard extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusBadge() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: hospital.isActive
-            ? AppColors.success.withOpacity(0.1)
-            : AppColors.error.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: hospital.isActive
-              ? AppColors.success.withOpacity(0.3)
-              : AppColors.error.withOpacity(0.3),
+  /// الهيدر: أيقونة + اسم + المديرية + شارة الحالة + سهم الطي
+  Widget _buildHeader(BuildContext context) {
+    return Row(
+      children: [
+        // أيقونة المستشفى
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: widget.hospital.isActive
+                  ? [AppColors.primary, AppColors.primaryDark]
+                  : [AppColors.textSecondary, AppColors.textSecondary],
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Icon(
+            Icons.local_hospital,
+            color: Colors.white,
+            size: 24,
+          ),
         ),
+        const SizedBox(width: 12),
+
+        // معلومات أساسية
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.hospital.name,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Icon(
+                    _isExpanded ? Icons.expand_less : Icons.expand_more,
+                    color: AppColors.textSecondary,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 14,
+                    color: AppColors.textSecondary,
+                  ),
+                  const SizedBox(width: 4),
+                  Flexible(
+                    child: Text(
+                      widget.hospital.district,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        // شارة الحالة
+        _buildStatusBadge(),
+      ],
+    );
+  }
+
+  /// التفاصيل: البريد، الهاتف، المديرية، تاريخ الإنشاء
+  Widget _buildDetails(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildInfoRow(
+          context,
+          Icons.email,
+          'البريد الإلكتروني',
+          widget.hospital.email,
+          onCopy: () => _copyToClipboard(context, widget.hospital.email),
+        ),
+        if (widget.hospital.phoneNumber != null) ...[
+          const SizedBox(height: 10),
+          _buildInfoRow(
+            context,
+            Icons.phone,
+            'رقم الهاتف',
+            Helpers.displayPhoneNumber(widget.hospital.phoneNumber!),
+            onCopy: () => _copyToClipboard(
+              context,
+              Helpers.displayPhoneNumber(widget.hospital.phoneNumber!),
+            ),
+          ),
+        ],
+        const SizedBox(height: 10),
+        _buildInfoRow(
+          context,
+          Icons.location_on,
+          'المديرية',
+          widget.hospital.district,
+        ),
+        const SizedBox(height: 10),
+        _buildInfoRow(
+          context,
+          Icons.calendar_today,
+          'تاريخ الإنشاء',
+          Helpers.formatDateTime(widget.hospital.createdAt),
+        ),
+      ],
+    );
+  }
+
+  /// إجراءات الأدمن
+  Widget _buildActions(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'إجراءات الأدمن',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            _buildActionChip(
+              context,
+              label: 'تعديل',
+              icon: Icons.edit,
+              color: AppColors.info,
+              onTap: widget.onEdit,
+            ),
+            _buildActionChip(
+              context,
+              label: 'حذف',
+              icon: Icons.delete,
+              color: AppColors.error,
+              onTap: widget.onDelete,
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // زر نسخ جميع البيانات
+        OutlinedButton.icon(
+          onPressed: () => _copyAllData(context),
+          icon: const Icon(Icons.content_copy, size: 18),
+          label: const Text('نسخ جميع البيانات'),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: AppColors.info,
+            side: BorderSide(color: AppColors.info.withValues(alpha: 0.5)),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatusBadge() {
+    final isActive = widget.hospital.isActive;
+    final color = isActive ? AppColors.success : AppColors.error;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            hospital.isActive ? Icons.check_circle : Icons.cancel,
+            isActive ? Icons.check_circle : Icons.cancel,
             size: 14,
-            color: hospital.isActive ? AppColors.success : AppColors.error,
+            color: color,
           ),
           const SizedBox(width: 4),
           Text(
-            hospital.isActive ? 'نشط' : 'معطل',
+            isActive ? 'نشط' : 'معطل',
             style: TextStyle(
-              color: hospital.isActive ? AppColors.success : AppColors.error,
+              color: color,
               fontWeight: FontWeight.bold,
-              fontSize: 12,
+              fontSize: 11,
             ),
           ),
         ],
@@ -237,7 +289,7 @@ class EnhancedHospitalCard extends StatelessWidget {
           width: 32,
           height: 32,
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, size: 16, color: AppColors.primary),
@@ -257,9 +309,9 @@ class EnhancedHospitalCard extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 value,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -290,9 +342,9 @@ class EnhancedHospitalCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: color.withOpacity(0.3)),
+          border: Border.all(color: color.withValues(alpha: 0.3)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -320,6 +372,23 @@ class EnhancedHospitalCard extends StatelessWidget {
         content: Text('تم نسخ: $text'),
         backgroundColor: AppColors.success,
         duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _copyAllData(BuildContext context) {
+    final data = '''
+الاسم: ${widget.hospital.name}
+البريد: ${widget.hospital.email}
+${widget.hospital.phoneNumber != null ? 'الهاتف: ${Helpers.displayPhoneNumber(widget.hospital.phoneNumber!)}\n' : ''}المديرية: ${widget.hospital.district}
+تاريخ الإنشاء: ${Helpers.formatDateTime(widget.hospital.createdAt)}
+''';
+
+    Clipboard.setData(ClipboardData(text: data));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('تم نسخ جميع البيانات'),
+        backgroundColor: AppColors.success,
       ),
     );
   }
