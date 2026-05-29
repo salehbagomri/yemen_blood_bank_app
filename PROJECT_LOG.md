@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-29 — [feat] إضافة رابط "شروط الاستخدام" داخل التطبيق + صفحات خصوصية/شروط رسمية
+- **الوصف:** إضافة عنصر "شروط الاستخدام" لقائمة الإعدادات في الرئيسية (بجانب سياسة الخصوصية) يفتح `https://salehbagomri.github.io/yemen-blood-bank-privacy/terms.html`. وفي مستودع `yemen-blood-bank-privacy` المنفصل: إنشاء صفحة شروط الاستخدام وإعادة تصميم صفحتَي الخصوصية والشروط بأسلوب رسمي بلا أيقونات (مقتبَس من قالب tamm)، بخط التطبيق IBM Plex Sans Arabic، ثنائية اللغة مع فهرس جانبي.
+- **الملفات:** `lib/screens/home/home_screen.dart` (هذا المستودع) + `index.html`/`terms.html`/`TERMS.md` في مستودع الخصوصية.
+- **السبب/الدافع:** متطلب نشر (سياسة خصوصية + شروط استخدام) وربطهما داخل التطبيق.
+- **اختبار:** `flutter analyze` = 0/0. الصفحات على GitHub Pages.
+- **Commit:** `pending`
+
 ### 2026-05-29 — [feat] إدارة المناطق المفعّلة (Admin-Managed Locations)
 - **الوصف:** نقل المحافظات/المديريات إلى قاعدة البيانات ليتحكم بها الأدمن (للإطلاق التدريجي). جدولان `governorates` (22، تفعيل/إيقاف) و`districts` (161، إضافة/تفعيل/تعديل-مقيَّد) على Supabase + seed من AppStrings + RLS (قراءة عامة، كتابة للأدمن) + دالة `district_in_use()`. طبقة Dart: `LocationModel`، `LocationService` (CRUD/toggle مع حارس الاستخدام)، `LocationProvider` (Cache-First في Hive، احتياطي AppStrings offline). شاشة أدمن جديدة "إدارة المناطق" + مسار + بطاقة في لوحة الأدمن. تحويل 8 شاشات قوائم منسدلة من `AppStrings` إلى `LocationProvider` (شاشات التعديل تدمج القيمة الحالية إن كانت موقوفة).
 - **الملفات:** `lib/models/location_model.dart`, `lib/services/location_service.dart`, `lib/providers/location_provider.dart`, `lib/screens/admin/manage_locations_screen.dart` (جديدة)، + `service_locator.dart`, `main.dart`, `cache_service.dart`, `app_router.dart`, `admin_dashboard_screen.dart`, `add_donor_screen.dart`, `edit_donor_screen.dart`, `add_hospital_screen.dart`, `edit_hospital_screen.dart`, `search_donors_screen.dart`, `manage_donors_screen.dart`, `manage_donors_hospital_screen.dart`, `advanced_search_screen.dart`, `docs/sql/phase6_locations.sql`

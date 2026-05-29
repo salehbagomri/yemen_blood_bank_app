@@ -144,6 +144,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+                const PopupMenuItem(
+                  value: 'terms',
+                  child: Row(
+                    children: [
+                      Icon(Icons.description_outlined, color: AppColors.info),
+                      SizedBox(width: 12),
+                      Text('شروط الاستخدام'),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -299,6 +309,9 @@ class _HomeScreenState extends State<HomeScreen> {
       case 'privacy':
         _openPrivacyPolicy();
         break;
+      case 'terms':
+        _openTermsOfUse();
+        break;
     }
   }
 
@@ -355,6 +368,17 @@ $playStoreUrl
 
     if (await canLaunchUrl(privacyUrl)) {
       await launchUrl(privacyUrl, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  /// فتح شروط الاستخدام
+  Future<void> _openTermsOfUse() async {
+    final Uri termsUrl = Uri.parse(
+      'https://salehbagomri.github.io/yemen-blood-bank-privacy/terms.html',
+    );
+
+    if (await canLaunchUrl(termsUrl)) {
+      await launchUrl(termsUrl, mode: LaunchMode.externalApplication);
     }
   }
 
