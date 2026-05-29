@@ -5,9 +5,10 @@
 ---
 
 ## 📋 1. نظرة عامة على المشروع (Project Context)
-* **فكرة المشروع:** تطبيق فلاتر (Flutter) لإدارة متبرعي الدم والربط بين المستشفيات والمتبرعين.
-* **الهدف الرئيسي للمرحلة الحالية:** إعادة تسمية المشروع (Rebranding) بالكامل من **"بنك دم المهرة"** ليصبح **"بنك دم اليمن"**، وتوسيع النطاق ليشمل جميع محافظات اليمن الـ 22 بدلاً من مديريات المهرة فقط، وتوليد مفاتيح توقيع جديدة وقاعدة بيانات جديدة على Supabase.
-* **حالة التطبيق الحالية:** التطبيق يعمل بنجاح بنسبة 100%، وخالٍ تماماً من أخطاء التجميع والواجهات.
+* **فكرة المشروع:** تطبيق فلاتر (Flutter) لإدارة متبرعي الدم والربط بين المستشفيات والمتبرعين على مستوى اليمن.
+* **الإصدار:** `1.0.0+1` — أُعيد تعيينه (كان `1.0.3+6` لتطبيق المهرة القديم) لأن الحزمة الجديدة `com.bagomri.yemenbloodbank` تطبيق جديد كلياً على المتجر. **لا يُرفع الإصدار إلا عند النشر الفعلي.**
+* **التحويل الوطني (مكتمل):** تحوّل المشروع من نطاق محافظة واحدة (المهرة) إلى **اليمن كاملاً (22 محافظة، 224+ مديرية)** عبر 6 مراحل (خلفية، نماذج/خدمات، حوكمة جغرافية، تبسيط UX، أداء، تحقق) — راجع [docs/DEVELOPMENT_PLAN.md](./docs/DEVELOPMENT_PLAN.md) للتفصيل و[PROJECT_LOG.md](./PROJECT_LOG.md) للسجل الزمني.
+* **حالة التطبيق الحالية:** يعمل بنجاح؛ `flutter analyze` = 0 أخطاء/تحذيرات؛ اجتاز اختبار الجهاز للسيناريوهات الأربعة (متبرع، طالب دم، مستشفى، أدمن). التطوير مستمر، والنشر مؤجَّل بقرار المالك.
 
 ---
 
@@ -29,10 +30,11 @@
   3. [إضافة مستشفى (Add Hospital Screen)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/admin/add_hospital_screen.dart)
   4. [تعديل مستشفى (Edit Hospital Screen)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/admin/edit_hospital_screen.dart)
   5. [شاشة البحث عن المتبرعين (Search Donors Screen)](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/donor/search_donors_screen.dart)
-* **ذكاء تخزين وفلترة الموقع (Backward Compatible):**
-  * يتم دمج المحافظة والمديرية وحفظهما معاً كـ `"المحافظة - المديرية"` (مثل: `"حضرموت - المكلا"`) في حقل الـ `district` المفتوح لمنع أي مشاكل توافقية أو تطلب عمليات هجرة في الجداول.
-  * تم تحديث دالة البحث RPC في قاعدة بيانات Supabase لتفهم الفلترة بالمطابقة الجزئية: `district = p_district OR district LIKE p_district || ' - %'` لتسترجع جميع متبرعي المحافظة والمديريات تلقائياً وبسرعة مذهلة!
-  * تم تحديث الفلاتر المحلية لتدعم المطابقة باللاحقة في شاشات إدارة المتبرعين للأدمن والمستشفى.
+* **ذكاء تخزين وفلترة الموقع:**
+  * يُحفظ الموقع المدمج كـ `"المحافظة - المديرية"` (مثل: `"حضرموت - المكلا"`) في حقل `district` (للعرض والتوافق).
+  * **إضافة لاحقة (المرحلة 0):** أُضيف عمود `governorate` مستقل ومفهرس إلى `donors` و`hospitals` (مع backfill من `district`)، فأصبحت فلترة المحافظة عبر العمود المفهرس بدل `LIKE` — أسرع وأنظف للتوسع الوطني.
+  * النماذج تشتق `governorate` دفاعياً من `district` إن غاب العمود.
+  * تم توحيد الفلاتر المحلية على `startsWith` لمطابقة اللاحقة في كل الشاشات ووضع عدم الاتصال.
 
 ### ج. البرمجة الدفاعية والحماية من الانهيار (Defensive Programming & Null Safety)
 * تم الكشف عن خلل في عدم تطابق حقل `updated_at` في النماذج (حيث كان غير موجود في سكيما الجداول بينما تفرضه النماذج برمجياً وتطالب به كـ `String` غير فارغ).
@@ -55,6 +57,24 @@
 * تم حذف مراجع التكوين القديمة بالكامل.
 * أنشأنا ملف تكوين جذري [yemen_blood_bank.iml](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/yemen_blood_bank.iml) وملف موديول الأندرويد المحدث [yemen_blood_bank_android.iml](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/android/yemen_blood_bank_android.iml) وربطهما بملف الفهرسة الرئيسي [modules.xml](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/.idea/modules.xml).
 
+### ز. الحوكمة الجغرافية (Geographic Governance) — جوهر التحويل الوطني
+* **النموذج:** المستشفى **مقيّدة بمحافظتها** (ترى/تدير متبرعي محافظتها فقط)، والأدمن **عام** يرى كل اليمن ويفلتر بالمحافظة.
+* `AuthProvider.hospitalGovernorate` يُحمَّل عند الدخول عبر `SupabaseService.getCurrentHospitalGovernorate` (دفاعي: العمود أو مشتق من `district`).
+* لوحة المستشفى تحسب إحصائياتها لمحافظتها عبر مسار مخصّص في `DashboardProvider` (استعلام `getDonorsByGovernorate` + حساب محلي).
+* عند إضافة متبرع من حساب مستشفى تُثبَّت المحافظة وتُقفل (`CustomDropdown.enabled=false`).
+* **⚠️ التقييد على مستوى التطبيق لا RLS:** سياسة SELECT على `donors` عامة (`is_active=true` لـ public) لأن البحث الوطني يعمل بلا تسجيل، وسياسات RLS تُجمَع بـ OR — فلا يمكن تضييق قراءة المستشفى عبر RLS. لذا التقييد يكون في طبقة Dart.
+
+### ح. سياسات وإعدادات Supabase الإضافية
+* **إدراج عام للمتبرعين (anon):** سياسة `"Public can self-register as donor"` تسمح لغير المسجّل بإضافة متبرع بضوابط `is_active=true AND added_by IS NULL` (المستخدم العادي يضيف بلا حساب).
+* **`mailer_autoconfirm = true`:** لتفادي خطأ "email rate limit exceeded" عند إضافة مستشفى (الأدمن يسلّم كلمة المرور يدوياً، فلا داعي لتأكيد البريد).
+* **دوال خادمية للإحصائيات (GROUP BY):** `get_governorate_stats(p_governorate)`، `get_bloodtype_stats()`، `get_district_stats()` — تحل محل جلب كل الصفوف للعدّ محلياً (تتوسع لآلاف السجلات؛ مُتحقَّق عند 20k صف).
+
+### ط. تبسيط تجربة المستخدم والإصلاحات
+* **بحث بالمحافظة وحدها** (المديرية اختيارية) + عدّاد "وُجد X متبرعاً في محافظة Y".
+* **دليل أول مرة (Onboarding):** [onboarding_screen.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/onboarding/onboarding_screen.dart) — 3 صفحات تظهر أول تشغيل فقط (flag في `shared_preferences`)، مدموجة في مسار splash.
+* **صيغة الهاتف:** بادئة `+967` ونص مساعد "9 أرقام تبدأ بـ 7" في إضافة متبرع.
+* **إصلاحات:** ومضة شاشة الدخول (علامة `_navigating` + انتقال `slideFromRight` للوحات)، وتجاوز (overflow) قوائم الفلاتر (`isExpanded: true`).
+
 ---
 
 ## 🏗️ 3. المعمارية التقنية للمشروع (Technical Architecture)
@@ -67,57 +87,20 @@
 
 ---
 
-## ⚙️ 4. خطوات تهيئة قاعدة بيانات Supabase (Supabase Setup Script)
+## ⚙️ 4. قاعدة بيانات Supabase (Schema & RPCs)
 
-لضمان دقة كاملة، يُرجى التأكد من تنفيذ السكريبت التالي لتجهيز قاعدة البيانات لليمن وتعديل قيود الجنس وإضافة حقول التحديث التلقائي:
+**المرجع الكامل والقابل للتنفيذ:** [docs/sql/phase0_governorate_migration.sql](./docs/sql/phase0_governorate_migration.sql) — يحوي كل التغييرات (مُطبَّقة فعلياً على مشروع `wdvsjpdrlvydoohvvhtx`). للوصول البرمجي راجع ملف `.env` (محمي بـ gitignore) وذاكرة الوكيل.
 
-```sql
--- 1. تجهيز جداول قاعدة البيانات الأساسية مع تعديل قيد التحقق للجنس (ليطابق الأكواد 'male' و 'female')
-CREATE TABLE IF NOT EXISTS public.donors (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    phone_number TEXT NOT NULL,
-    phone_number_2 TEXT,
-    phone_number_3 TEXT,
-    blood_type TEXT NOT NULL,
-    district TEXT NOT NULL,          -- يمثل "المحافظة - المديرية" في التطبيق الجديد
-    age INTEGER NOT NULL CHECK (age >= 17 AND age <= 70),
-    gender TEXT NOT NULL CHECK (gender IN ('male', 'female')),
-    notes TEXT,
-    is_available BOOLEAN DEFAULT true NOT NULL,
-    last_donation_date TIMESTAMPTZ,
-    suspended_until TIMESTAMPTZ,
-    is_active BOOLEAN DEFAULT true NOT NULL,
-    added_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-    created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
-    updated_at TIMESTAMPTZ DEFAULT now() NOT NULL
-);
+ملخص البنية الحالية:
+* **`donors`:** الأعمدة الأساسية + `district TEXT` (المحافظة - المديرية) + **`governorate TEXT` (مفهرس)** + `added_by`/`is_active`/`suspended_until`/تواريخ. قيود: `age 17..70`، `gender IN ('male','female')`.
+* **`hospitals` / `admins`:** المعرّف `id = auth.users.id`. للمستشفى عمود `governorate` (مفهرس).
+* **الفهارس:** `idx_donors_gov`, `idx_donors_gov_blood`, `idx_hospitals_gov`.
+* **`search_donors(p_blood_type, p_district, p_available_only, p_governorate DEFAULT NULL)`:** يفلتر بالمحافظة عبر العمود المفهرس + المديرية بالمطابقة الجزئية، ويُرجع المتاحين عند الطلب. (`SECURITY DEFINER` ⇒ يعمل للبحث العام بلا تسجيل.)
+* **دوال إحصائية:** `get_governorate_stats(p_governorate)`, `get_bloodtype_stats()`, `get_district_stats()`.
+* **`add_hospital_bypassing_rls(...)`:** يُنشئ صف المستشفى ويملأ `governorate` من `p_district` تلقائياً.
+* **RLS:** قراءة `donors` عامة للنشطين؛ INSERT للعامة (anon) بضوابط + للمستشفى/الأدمن؛ UPDATE بالملكية (`added_by`) أو الأدمن؛ DELETE للأدمن.
 
--- 2. تصحيح قيود التحقق وإضافة أعمدة التحديث (في حال تم الإنشاء مسبقاً)
-ALTER TABLE public.donors DROP CONSTRAINT IF EXISTS donors_gender_check;
-ALTER TABLE public.donors ADD CONSTRAINT donors_gender_check CHECK (gender IN ('male', 'female'));
-ALTER TABLE public.donors ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now() NOT NULL;
-ALTER TABLE public.hospitals ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now() NOT NULL;
-ALTER TABLE public.admins ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT now() NOT NULL;
-
--- 3. تحديث دالة البحث RPC لتشمل فلترة المديريات المتداخلة والمطابقة الجزئية
-CREATE OR REPLACE FUNCTION public.search_donors(
-    p_blood_type TEXT,
-    p_district TEXT,
-    p_available_only BOOLEAN
-)
-RETURNS SETOF public.donors AS $$
-BEGIN
-    RETURN QUERY
-    SELECT *
-    FROM public.donors
-    WHERE is_active = true
-      AND (p_blood_type IS NULL OR blood_type = p_blood_type)
-      AND (p_district IS NULL OR district = p_district OR district LIKE p_district || ' - %')
-      AND (NOT p_available_only OR (suspended_until IS NULL OR suspended_until < now()));
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-```
+> ملاحظة: أي تعديل لاحق على السكيما يُوثَّق في ملف الـ SQL أعلاه وفي هذا القسم.
 
 ---
 
@@ -127,6 +110,9 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
   flutter clean
   flutter run
   ```
-* **تعديل المحافظات والمديريات:** المديريات مخزنة برمجياً في `AppStrings.governorateDistricts` في [app_strings.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/constants/app_strings.dart). عند الرغبة في التوسيع أو التعديل، يرجى التعديل مباشرة في تلك الخريطة (Map) لتنعكس تلقائياً في كافة الشاشات والواجهات!
+* **تعديل المحافظات والمديريات:** المديريات مخزنة برمجياً في `AppStrings.governorateDistricts` في [app_strings.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/constants/app_strings.dart). عند الرغبة في التوسيع أو التعديل، يرجى التعديل مباشرة في تلك الخريطة (Map) لتنعكس تلقائياً في كافة الشاشات والواجهات! (عند إضافة متبرعين بمحافظة جديدة، يُملأ `governorate` تلقائياً من `district`.)
+* **الوثائق الحية (اقرأها أولاً):** [CLAUDE.md](./CLAUDE.md) (قواعد العمل الإلزامية) + [PROJECT_LOG.md](./PROJECT_LOG.md) (سجل كل تعديل) + [docs/DEVELOPMENT_PLAN.md](./docs/DEVELOPMENT_PLAN.md) (الخطة وحالتها).
+* **الإصدار:** لا ترفع `version` في `pubspec.yaml` إلا عند النشر الفعلي. القيمة الحالية `1.0.0+1` (أول إصدار للحزمة الجديدة).
+* **الوصول لـ Supabase:** التوكن في `.env` (محمي)؛ التعديلات الخادمية عبر Management API. وثّق أي تغيير سكيما في [docs/sql/](./docs/sql/) والقسم 4 أعلاه.
 
 هذا المشروع منظم ومرتب للغاية، ومعماريته النظيفة تجعل إضافة أي ميزات جديدة مهمة غاية في السهولة واليسر! 🩸🇾🇪🚀

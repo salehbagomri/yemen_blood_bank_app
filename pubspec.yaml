@@ -2,7 +2,7 @@ name: yemen_blood_bank
 description: "بنك دم اليمن - Yemen Blood Bank App"
 publish_to: 'none'
 
-version: 1.0.3+6
+version: 1.0.0+1
 
 environment:
   sdk: ^3.9.2
