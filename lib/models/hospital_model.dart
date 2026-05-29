@@ -1,3 +1,6 @@
+/// قيمة حارسة للتفريق بين "لم يتم تمريرها" و "null"
+const _sentinel = Object();
+
 /// نموذج بيانات المستشفى
 class HospitalModel {
   final String id;
@@ -68,8 +71,8 @@ class HospitalModel {
     String? email,
     String? district,
     String? governorate,
-    String? phoneNumber,
-    String? address,
+    Object? phoneNumber = _sentinel,
+    Object? address = _sentinel,
     bool? isActive,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -80,8 +83,10 @@ class HospitalModel {
       email: email ?? this.email,
       district: district ?? this.district,
       governorate: governorate ?? this.governorate,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      address: address ?? this.address,
+      phoneNumber: phoneNumber == _sentinel
+          ? this.phoneNumber
+          : phoneNumber as String?,
+      address: address == _sentinel ? this.address : address as String?,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,

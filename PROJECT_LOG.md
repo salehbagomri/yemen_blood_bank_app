@@ -24,6 +24,12 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-30 — [fix] إصلاح فشل تحديث بيانات المستشفى من قِبل المدير
+- **الوصف:** كان تحديث بيانات المستشفى يفشل بخطأ `PGRST204: Could not find the 'is_active' column of 'hospitals'` لأن `updateHospital` في `HospitalService` يُرسل عمود `is_active` غير الموجود في جدول `hospitals`. أُزيل العمود من الـ update payload، وعُطِّلت `toggleHospitalStatus` مؤقتاً، وأُزيل فلتر `is_active` من `getActiveHospitals`. أيضاً أُضيف تمرير `governorate` المحدّثة في `copyWith` بشاشة التعديل (كانت تبقى بالقيمة القديمة)، وأُصلح `copyWith` في `HospitalModel` للتفريق بين "لم يُمرَّر" و"null" للحقول الاختيارية.
+- **الملفات:** `lib/services/hospital_service.dart`, `lib/screens/admin/edit_hospital_screen.dart`, `lib/models/hospital_model.dart`
+- **السبب/الدافع:** بلاغ المستخدم: تحديث بيانات المستشفى يفشل. التحقق المباشر من سكيما DB أكّد عدم وجود عمود `is_active` في `hospitals`.
+- **اختبار:** `flutter analyze` = 0 أخطاء. فحص أعمدة DB عبر Management API.
+
 ### 2026-05-30 — [fix] إخفاء رمز الدولة (+967) من عرض أرقام الهواتف في كل التطبيق
 - **الوصف:** إضافة `Helpers.displayPhoneNumber()` تُزيل البادئات `+967`/`00967`/`967` للعرض فقط. طُبِّقت في: expandable_donor_card، donor_card، admin_donor_card (شاشة + نص المشاركة)، enhanced_hospital_card، report_detail_screen (عرض + نص النسخ)، export_service (Excel/PDF)، suspended_donors_screen. أزرار الاتصال/واتساب تبقى بالرقم الكامل.
 - **الملفات:** `lib/utils/helpers.dart` + 7 ملفات عرض.

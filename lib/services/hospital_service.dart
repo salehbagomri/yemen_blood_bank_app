@@ -52,7 +52,6 @@ class HospitalService {
             'governorate': hospital.governorate,
             'phone_number': hospital.phoneNumber,
             'address': hospital.address,
-            'is_active': hospital.isActive,
           })
           .eq('id', hospital.id)
           .select()
@@ -65,19 +64,10 @@ class HospitalService {
   }
 
   /// تعطيل/تفعيل مستشفى
+  /// TODO: عمود is_active غير موجود حالياً في جدول hospitals في Supabase
+  /// يجب إضافته أولاً قبل تفعيل هذه الدالة
   Future<HospitalModel> toggleHospitalStatus(String id, bool isActive) async {
-    try {
-      final response = await _client
-          .from('hospitals')
-          .update({'is_active': isActive})
-          .eq('id', id)
-          .select()
-          .single();
-
-      return HospitalModel.fromJson(response);
-    } catch (e) {
-      throw Exception('فشل تحديث حالة المستشفى: ${ErrorHandler.getArabicMessage(e)}');
-    }
+    throw Exception('خاصية تعطيل/تفعيل المستشفى غير متاحة حالياً');
   }
 
   /// حذف مستشفى (يحذف من Auth أيضاً)
@@ -128,12 +118,13 @@ class HospitalService {
   }
 
   /// الحصول على المستشفيات النشطة فقط
+  /// ملاحظة: عمود is_active غير موجود في جدول hospitals حالياً
+  /// لذا نُرجع جميع المستشفيات مرتبة بالاسم
   Future<List<HospitalModel>> getActiveHospitals() async {
     try {
       final response = await _client
           .from('hospitals')
           .select()
-          .eq('is_active', true)
           .order('name', ascending: true);
 
       return (response as List)

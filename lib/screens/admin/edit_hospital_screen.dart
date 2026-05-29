@@ -94,6 +94,7 @@ class _EditHospitalScreenState extends State<EditHospitalScreen> {
         name: _nameController.text.trim(),
         email: _emailController.text.trim(),
         district: '$_selectedGovernorate${_selectedSubDistrict != null ? ' - $_selectedSubDistrict' : ''}',
+        governorate: _selectedGovernorate,
         phoneNumber: _phoneController.text.trim().isEmpty
             ? null
             : _phoneController.text.trim(),
