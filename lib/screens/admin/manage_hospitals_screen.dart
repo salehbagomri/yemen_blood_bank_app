@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../models/hospital_model.dart';
@@ -247,23 +247,26 @@ class _ManageHospitalsScreenState extends State<ManageHospitalsScreen> {
             ),
             child: Icon(icon, color: color, size: 20),
           ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: color,
+          const SizedBox(width: 8),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
                 ),
-              ),
-              Text(
-                label,
-                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-              ),
-            ],
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),
