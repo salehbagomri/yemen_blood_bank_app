@@ -162,7 +162,7 @@ class _DonorCardElement extends ComponentElement {
                             ),
                             const SizedBox(width: 6),
                             Text(
-                              '$label: $phone',
+                              '$label: ${Helpers.displayPhoneNumber(phone)}',
                               style: const TextStyle(
                                 fontSize: 13,
                                 color: AppColors.textSecondary,

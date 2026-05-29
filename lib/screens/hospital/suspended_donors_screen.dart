@@ -143,7 +143,7 @@ class _SuspendedDonorCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        donor.phoneNumber,
+                        Helpers.displayPhoneNumber(donor.phoneNumber),
                         style: const TextStyle(
                           color: AppColors.textSecondary,
                           fontSize: 14,

@@ -38,6 +38,20 @@ class Helpers {
     return phoneNumber;
   }
 
+  /// تنسيق رقم الهاتف للعرض فقط — بدون رمز الدولة (مثل: +967777123456 → 777123456)
+  /// يُستخدم في كل أماكن عرض الأرقام؛ أما الاتصال/واتساب فيستخدمان الرقم الكامل.
+  static String displayPhoneNumber(String phoneNumber) {
+    var n = phoneNumber.replaceAll(RegExp(r'[\s\-]'), '').trim();
+    if (n.startsWith('+967')) {
+      n = n.substring(4);
+    } else if (n.startsWith('00967')) {
+      n = n.substring(5);
+    } else if (n.startsWith('967') && n.length > 9) {
+      n = n.substring(3);
+    }
+    return n;
+  }
+
   /// إجراء مكالمة هاتفية
   static Future<bool> makePhoneCall(String phoneNumber) async {
     final formattedNumber = formatPhoneNumber(phoneNumber);

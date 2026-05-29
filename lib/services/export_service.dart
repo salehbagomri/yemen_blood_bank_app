@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import '../models/donor_model.dart';
 import '../models/dashboard_statistics_model.dart';
 import '../utils/error_handler.dart';
+import '../utils/helpers.dart';
 
 /// خدمة تصدير التقارير إلى Excel و PDF
 class ExportService {
@@ -68,7 +69,7 @@ class ExportService {
         sheet.appendRow([
           IntCellValue(rowIndex),
           TextCellValue(donor.name),
-          TextCellValue(donor.phoneNumber),
+          TextCellValue(Helpers.displayPhoneNumber(donor.phoneNumber)),
           TextCellValue(donor.bloodType),
           TextCellValue(donor.district),
           IntCellValue(donor.age),
@@ -316,7 +317,7 @@ class ExportService {
                             _buildTableCell(index.toString(), font: arabicFont),
                             _buildTableCell(donor.name, font: arabicFont),
                             _buildTableCell(
-                              donor.phoneNumber,
+                              Helpers.displayPhoneNumber(donor.phoneNumber),
                               font: arabicFont,
                             ),
                             _buildTableCell(donor.bloodType, font: arabicFont),

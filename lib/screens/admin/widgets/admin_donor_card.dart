@@ -119,7 +119,7 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
                   Icon(Icons.phone, size: 14, color: AppColors.textSecondary),
                   const SizedBox(width: 4),
                   Text(
-                    widget.donor.phoneNumber,
+                    Helpers.displayPhoneNumber(widget.donor.phoneNumber),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.textSecondary,
                     ),
@@ -199,7 +199,7 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
           _buildDetailRow(
             Icons.phone_android,
             'رقم 2',
-            widget.donor.phoneNumber2!,
+            Helpers.displayPhoneNumber(widget.donor.phoneNumber2!),
             copyable: true,
           ),
         ],
@@ -208,7 +208,7 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
           _buildDetailRow(
             Icons.phone_iphone,
             'رقم 3',
-            widget.donor.phoneNumber3!,
+            Helpers.displayPhoneNumber(widget.donor.phoneNumber3!),
             copyable: true,
           ),
         ],
@@ -753,8 +753,8 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
         '''
 الاسم: ${widget.donor.name}
 فصيلة الدم: ${widget.donor.bloodType}
-الهاتف 1: ${widget.donor.phoneNumber}
-${widget.donor.phoneNumber2 != null ? 'الهاتف 2: ${widget.donor.phoneNumber2}\n' : ''}${widget.donor.phoneNumber3 != null ? 'الهاتف 3: ${widget.donor.phoneNumber3}\n' : ''}المديرية: ${widget.donor.district}
+الهاتف 1: ${Helpers.displayPhoneNumber(widget.donor.phoneNumber)}
+${widget.donor.phoneNumber2 != null ? 'الهاتف 2: ${Helpers.displayPhoneNumber(widget.donor.phoneNumber2!)}\n' : ''}${widget.donor.phoneNumber3 != null ? 'الهاتف 3: ${Helpers.displayPhoneNumber(widget.donor.phoneNumber3!)}\n' : ''}المديرية: ${widget.donor.district}
 الجنس: ${widget.donor.gender == 'male' ? 'ذكر' : 'أنثى'}
 العمر: ${widget.donor.age} سنة
 الحالة: $status

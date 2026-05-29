@@ -132,9 +132,11 @@ class EnhancedHospitalCard extends StatelessWidget {
                   context,
                   Icons.phone,
                   'رقم الهاتف',
-                  hospital.phoneNumber!,
-                  onCopy: () =>
-                      _copyToClipboard(context, hospital.phoneNumber!),
+                  Helpers.displayPhoneNumber(hospital.phoneNumber!),
+                  onCopy: () => _copyToClipboard(
+                    context,
+                    Helpers.displayPhoneNumber(hospital.phoneNumber!),
+                  ),
                 ),
               ],
               const SizedBox(height: 12),

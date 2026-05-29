@@ -6,6 +6,7 @@ import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../models/donor_model.dart';
 import '../providers/donor_provider.dart';
+import '../utils/helpers.dart';
 
 /// كارد متبرع قابل للطي والتوسع - احترافي
 class ExpandableDonorCard extends StatefulWidget {
@@ -385,7 +386,7 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
               // الرقم
               Expanded(
                 child: Text(
-                  phoneNumber,
+                  Helpers.displayPhoneNumber(phoneNumber),
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,

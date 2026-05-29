@@ -353,7 +353,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             const SizedBox(height: 12),
             _buildInfoRow(
               'الرقم المسجل',
-              widget.report.donorPhoneNumber,
+              Helpers.displayPhoneNumber(widget.report.donorPhoneNumber),
               Icons.phone,
               isPhone: true,
             ),
@@ -361,7 +361,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
               const SizedBox(height: 8),
               _buildInfoRow(
                 'الرقم 2',
-                _donor!.phoneNumber2!,
+                Helpers.displayPhoneNumber(_donor!.phoneNumber2!),
                 Icons.phone,
                 isPhone: true,
               ),
@@ -370,7 +370,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
               const SizedBox(height: 8),
               _buildInfoRow(
                 'الرقم 3',
-                _donor!.phoneNumber3!,
+                Helpers.displayPhoneNumber(_donor!.phoneNumber3!),
                 Icons.phone,
                 isPhone: true,
               ),
@@ -995,7 +995,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
 
 === بيانات المتبرع ===
 الاسم: ${_donor?.name ?? 'غير متوفر'}
-الرقم: ${widget.report.donorPhoneNumber}
+الرقم: ${Helpers.displayPhoneNumber(widget.report.donorPhoneNumber)}
 الفصيلة: ${_donor?.bloodType ?? 'غير متوفر'}
 المديرية: ${_donor?.district ?? 'غير متوفر'}
 الحالة: ${_getDonorStatus()}
