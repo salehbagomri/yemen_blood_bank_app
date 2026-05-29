@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-30 — [fix] إخفاء رمز الدولة (+967) من عرض أرقام الهواتف في كل التطبيق
+- **الوصف:** إضافة `Helpers.displayPhoneNumber()` تُزيل البادئات `+967`/`00967`/`967` للعرض فقط. طُبِّقت في: expandable_donor_card، donor_card، admin_donor_card (شاشة + نص المشاركة)، enhanced_hospital_card، report_detail_screen (عرض + نص النسخ)، export_service (Excel/PDF)، suspended_donors_screen. أزرار الاتصال/واتساب تبقى بالرقم الكامل.
+- **الملفات:** `lib/utils/helpers.dart` + 7 ملفات عرض.
+- **السبب/الدافع:** طلب المستخدم إخفاء رمز الدولة من عرض الأرقام على مستوى التطبيق كاملاً.
+- **اختبار:** `flutter analyze` = 0 أخطاء/تحذيرات.
+- **Commit:** `b5883ae`
+
 ### 2026-05-29 — [feat] إضافة رابط "شروط الاستخدام" داخل التطبيق + صفحات خصوصية/شروط رسمية
 - **الوصف:** إضافة عنصر "شروط الاستخدام" لقائمة الإعدادات في الرئيسية (بجانب سياسة الخصوصية) يفتح `https://salehbagomri.github.io/yemen-blood-bank-privacy/terms.html`. وفي مستودع `yemen-blood-bank-privacy` المنفصل: إنشاء صفحة شروط الاستخدام وإعادة تصميم صفحتَي الخصوصية والشروط بأسلوب رسمي بلا أيقونات (مقتبَس من قالب tamm)، بخط التطبيق IBM Plex Sans Arabic، ثنائية اللغة مع فهرس جانبي.
 - **الملفات:** `lib/screens/home/home_screen.dart` (هذا المستودع) + `index.html`/`terms.html`/`TERMS.md` في مستودع الخصوصية.
