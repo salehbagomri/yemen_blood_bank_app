@@ -29,7 +29,7 @@
 - **الملفات:** `lib/screens/home/home_screen.dart` (هذا المستودع) + `index.html`/`terms.html`/`TERMS.md` في مستودع الخصوصية.
 - **السبب/الدافع:** متطلب نشر (سياسة خصوصية + شروط استخدام) وربطهما داخل التطبيق.
 - **اختبار:** `flutter analyze` = 0/0. الصفحات على GitHub Pages.
-- **Commit:** `pending`
+- **Commit:** `e7b916d`
 
 ### 2026-05-29 — [feat] إدارة المناطق المفعّلة (Admin-Managed Locations)
 - **الوصف:** نقل المحافظات/المديريات إلى قاعدة البيانات ليتحكم بها الأدمن (للإطلاق التدريجي). جدولان `governorates` (22، تفعيل/إيقاف) و`districts` (161، إضافة/تفعيل/تعديل-مقيَّد) على Supabase + seed من AppStrings + RLS (قراءة عامة، كتابة للأدمن) + دالة `district_in_use()`. طبقة Dart: `LocationModel`، `LocationService` (CRUD/toggle مع حارس الاستخدام)، `LocationProvider` (Cache-First في Hive، احتياطي AppStrings offline). شاشة أدمن جديدة "إدارة المناطق" + مسار + بطاقة في لوحة الأدمن. تحويل 8 شاشات قوائم منسدلة من `AppStrings` إلى `LocationProvider` (شاشات التعديل تدمج القيمة الحالية إن كانت موقوفة).
