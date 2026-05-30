@@ -353,7 +353,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
     );
   }
 
-  /// إحصائيات سريعة — تصميم مطابق لشاشة إدارة المستشفيات
+  /// إحصائيات سريعة — شبكة 2×2 لاستيعاب 4 إحصائيات بوضوح
   Widget _buildQuickStats() {
     return Consumer<DonorProvider>(
       builder: (context, provider, _) {
@@ -370,7 +370,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
 
         return Container(
           margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -381,34 +381,44 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
           ),
-          child: Row(
+          child: Column(
             children: [
-              _buildStatItem(
-                icon: Icons.people,
-                label: 'الإجمالي',
-                value: '${filteredDonors.length}',
-                color: AppColors.primary,
+              // الصف الأول
+              Row(
+                children: [
+                  _buildStatItem(
+                    icon: Icons.people,
+                    label: 'الإجمالي',
+                    value: '${filteredDonors.length}',
+                    color: AppColors.primary,
+                  ),
+                  const SizedBox(width: 12),
+                  _buildStatItem(
+                    icon: Icons.check_circle,
+                    label: 'متاح',
+                    value: '$availableCount',
+                    color: AppColors.success,
+                  ),
+                ],
               ),
-              const SizedBox(width: 12),
-              _buildStatItem(
-                icon: Icons.check_circle,
-                label: 'متاح',
-                value: '$availableCount',
-                color: AppColors.success,
-              ),
-              const SizedBox(width: 12),
-              _buildStatItem(
-                icon: Icons.pause_circle,
-                label: 'موقوف',
-                value: '$suspendedCount',
-                color: AppColors.warning,
-              ),
-              const SizedBox(width: 12),
-              _buildStatItem(
-                icon: Icons.block,
-                label: 'معطل',
-                value: '$inactiveCount',
-                color: AppColors.error,
+              const SizedBox(height: 10),
+              // الصف الثاني
+              Row(
+                children: [
+                  _buildStatItem(
+                    icon: Icons.pause_circle,
+                    label: 'موقوف',
+                    value: '$suspendedCount',
+                    color: AppColors.warning,
+                  ),
+                  const SizedBox(width: 12),
+                  _buildStatItem(
+                    icon: Icons.block,
+                    label: 'معطل',
+                    value: '$inactiveCount',
+                    color: AppColors.error,
+                  ),
+                ],
               ),
             ],
           ),
@@ -435,7 +445,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
             ),
             child: Icon(icon, color: color, size: 18),
           ),
-          const SizedBox(width: 6),
+          const SizedBox(width: 8),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,10 +461,9 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
                 Text(
                   label,
                   style: const TextStyle(
-                    fontSize: 11,
+                    fontSize: 12,
                     color: AppColors.textSecondary,
                   ),
-                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
