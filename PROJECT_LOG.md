@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-05-30 — [feat] تحسين تجربة المستخدم: إحصائيات المتبرعين 2×2 وقسم التطوير التلقائي السكرول
+- **الوصف:** (1) إعادة تصميم إحصائيات إدارة المتبرعين لتكون شبكة 2×2 لتفادي تداخل واقتطاع نصوص التصنيفات (الإجمالي، متاح، موقوف، معطل). (2) تحويل قسم التطوير والدعم الفني في شاشة "حول التطبيق" ليكون قابلاً للطي/الفتح. (3) تفعيل السكرول التلقائي لأعلى (Auto-Scroll) عند فتح قسم التطوير ليصبح المحتوى ظاهراً بالكامل تلقائياً دون الحاجة لسكرول يدوي.
+- **الملفات:** `lib/screens/admin/manage_donors_screen.dart`, `lib/screens/info/about_screen.dart`
+- **السبب/الدافع:** ملاحظات المستخدم حول اقتطاع نصوص الإحصائيات الأربعة للمتبرعين، وصعوبة قراءة تفاصيل الدعم الفني دون سكرول يدوي بعد فتحه.
+- **اختبار:** analyze ✅ / يدوي على جهاز ✅.
+- **Commit:** `a2c3269`
+
 ### 2026-05-30 — [fix] إصلاح تحديث بيانات المستشفى + كارد قابل للطي
 - **الوصف:** (1) إصلاح خطأ `PGRST204: is_active column not found` بإزالة العمود غير الموجود من الاستعلام. (2) إضافة `governorate` المفقودة في `copyWith`. (3) إصلاح `copyWith` للحقول الاختيارية (sentinel pattern). (4) إصلاح overflow بـ 0.9px في إحصائيات إدارة المستشفيات. (5) تحويل `EnhancedHospitalCard` من `StatelessWidget` إلى `StatefulWidget` قابل للطي/الفتح مثل `AdminDonorCard` — الهيدر (اسم + مديرية + حالة) ظاهر دائماً، والتفاصيل (بريد/هاتف/تاريخ) + الإجراءات (تعديل/حذف/نسخ) تظهر عند الضغط. (6) توحيد تصميم الإحصائيات السريعة في شاشة إدارة المتبرعين (بطاقة gradient مع مربعات أيقونات) مطابقة لشاشة المستشفيات. (7) إضافة أزرار اتصال/واتساب سريعة في `AdminDonorCard` لكل أرقام المتبرع.
 - **الملفات:** `lib/services/hospital_service.dart`, `lib/screens/admin/edit_hospital_screen.dart`, `lib/models/hospital_model.dart`, `lib/screens/admin/manage_hospitals_screen.dart`, `lib/screens/admin/widgets/enhanced_hospital_card.dart`, `lib/screens/admin/manage_donors_screen.dart`, `lib/screens/admin/widgets/admin_donor_card.dart`
