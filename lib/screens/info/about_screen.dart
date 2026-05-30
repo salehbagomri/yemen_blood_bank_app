@@ -17,8 +17,22 @@ Future<void> _launchUrl(String url) async {
 }
 
 /// شاشة حول التطبيق
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
+
+  @override
+  State<AboutScreen> createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
+  final _scrollController = ScrollController();
+  final _devSectionKey = GlobalKey();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +51,7 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             // 1. Header مع شعار التطبيق
@@ -244,6 +259,7 @@ class AboutScreen extends StatelessWidget {
 
   Widget _buildCollapsibleDeveloperSection() {
     return Container(
+      key: _devSectionKey,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -270,6 +286,22 @@ class AboutScreen extends StatelessWidget {
               color: AppColors.textPrimary,
             ),
           ),
+          onExpansionChanged: (expanded) {
+            if (expanded) {
+              // ننتظر انتهاء الانيميشن ثم نسكرول للقسم
+              Future.delayed(const Duration(milliseconds: 300), () {
+                final ctx = _devSectionKey.currentContext;
+                if (ctx != null) {
+                  Scrollable.ensureVisible(
+                    ctx,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                    alignment: 0.1, // يظهر القسم قرب أعلى الشاشة
+                  );
+                }
+              });
+            }
+          },
           children: [
             _buildDeveloperSection(),
           ],
