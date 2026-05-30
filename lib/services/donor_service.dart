@@ -201,19 +201,12 @@ class DonorService {
   /// إيقاف متبرع لمدة 6 أشهر
   Future<DonorModel> suspendDonorFor6Months(String id) async {
     try {
-      final suspendedUntil = DateTime.now().add(const Duration(days: 180));
+      final response = await _client.rpc(
+        'suspend_donor_by_hospital',
+        params: {'p_donor_id': id},
+      );
 
-      final response = await _client
-          .from('donors')
-          .update({
-            'suspended_until': suspendedUntil.toIso8601String(),
-            'last_donation_date': DateTime.now().toIso8601String(),
-          })
-          .eq('id', id)
-          .select()
-          .single();
-
-      return DonorModel.fromJson(response);
+      return DonorModel.fromJson(response as Map<String, dynamic>);
     } catch (e) {
       throw Exception('فشل إيقاف المتبرع: ${e.toString()}');
     }
