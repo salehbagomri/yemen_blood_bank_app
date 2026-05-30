@@ -25,9 +25,9 @@
 ## 🗂️ السجل (الأحدث أولاً)
 
 ### 2026-05-30 — [fix] إصلاح تحديث بيانات المستشفى + كارد قابل للطي
-- **الوصف:** (1) إصلاح خطأ `PGRST204: is_active column not found` بإزالة العمود غير الموجود من الاستعلام. (2) إضافة `governorate` المفقودة في `copyWith`. (3) إصلاح `copyWith` للحقول الاختيارية (sentinel pattern). (4) إصلاح overflow بـ 0.9px في إحصائيات إدارة المستشفيات. (5) تحويل `EnhancedHospitalCard` من `StatelessWidget` إلى `StatefulWidget` قابل للطي/الفتح مثل `AdminDonorCard` — الهيدر (اسم + مديرية + حالة) ظاهر دائماً، والتفاصيل (بريد/هاتف/تاريخ) + الإجراءات (تعديل/حذف/نسخ) تظهر عند الضغط. استبدال `withOpacity()` بـ `withValues(alpha:)` في الكارد.
-- **الملفات:** `lib/services/hospital_service.dart`, `lib/screens/admin/edit_hospital_screen.dart`, `lib/models/hospital_model.dart`, `lib/screens/admin/manage_hospitals_screen.dart`, `lib/screens/admin/widgets/enhanced_hospital_card.dart`
-- **السبب/الدافع:** بلاغات المستخدم: فشل تحديث المستشفى + overflow + طلب تحسين الكارد ليكون قابل للطي.
+- **الوصف:** (1) إصلاح خطأ `PGRST204: is_active column not found` بإزالة العمود غير الموجود من الاستعلام. (2) إضافة `governorate` المفقودة في `copyWith`. (3) إصلاح `copyWith` للحقول الاختيارية (sentinel pattern). (4) إصلاح overflow بـ 0.9px في إحصائيات إدارة المستشفيات. (5) تحويل `EnhancedHospitalCard` من `StatelessWidget` إلى `StatefulWidget` قابل للطي/الفتح مثل `AdminDonorCard` — الهيدر (اسم + مديرية + حالة) ظاهر دائماً، والتفاصيل (بريد/هاتف/تاريخ) + الإجراءات (تعديل/حذف/نسخ) تظهر عند الضغط. (6) توحيد تصميم الإحصائيات السريعة في شاشة إدارة المتبرعين (بطاقة gradient مع مربعات أيقونات) مطابقة لشاشة المستشفيات. (7) إضافة أزرار اتصال/واتساب سريعة في `AdminDonorCard` لكل أرقام المتبرع.
+- **الملفات:** `lib/services/hospital_service.dart`, `lib/screens/admin/edit_hospital_screen.dart`, `lib/models/hospital_model.dart`, `lib/screens/admin/manage_hospitals_screen.dart`, `lib/screens/admin/widgets/enhanced_hospital_card.dart`, `lib/screens/admin/manage_donors_screen.dart`, `lib/screens/admin/widgets/admin_donor_card.dart`
+- **السبب/الدافع:** بلاغات المستخدم: فشل تحديث المستشفى + overflow + طلب تحسين الكارد ليكون قابل للطي + توحيد تصميم الإحصائيات + إضافة تواصل سريع مع المتبرعين.
 - **اختبار:** `flutter analyze` = 0 أخطاء. فحص أعمدة DB عبر Management API.
 
 ### 2026-05-30 — [fix] إخفاء رمز الدولة (+967) من عرض أرقام الهواتف في كل التطبيق

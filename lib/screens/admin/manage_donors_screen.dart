@@ -353,7 +353,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
     );
   }
 
-  /// إحصائيات سريعة
+  /// إحصائيات سريعة — تصميم مطابق لشاشة إدارة المستشفيات
   Widget _buildQuickStats() {
     return Consumer<DonorProvider>(
       builder: (context, provider, _) {
@@ -369,19 +369,19 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
         final inactiveCount = filteredDonors.where((d) => !d.isActive).length;
 
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [AppColors.primary.withOpacity(0.1), Colors.white],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.primary.withValues(alpha: 0.1),
+                AppColors.primaryDark.withValues(alpha: 0.05),
+              ],
             ),
-            border: Border(
-              bottom: BorderSide(color: AppColors.divider, width: 1),
-            ),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildStatItem(
                 icon: Icons.people,
@@ -389,21 +389,21 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
                 value: '${filteredDonors.length}',
                 color: AppColors.primary,
               ),
-              Container(width: 1, height: 30, color: AppColors.divider),
+              const SizedBox(width: 12),
               _buildStatItem(
                 icon: Icons.check_circle,
                 label: 'متاح',
                 value: '$availableCount',
                 color: AppColors.success,
               ),
-              Container(width: 1, height: 30, color: AppColors.divider),
+              const SizedBox(width: 12),
               _buildStatItem(
                 icon: Icons.pause_circle,
                 label: 'موقوف',
                 value: '$suspendedCount',
                 color: AppColors.warning,
               ),
-              Container(width: 1, height: 30, color: AppColors.divider),
+              const SizedBox(width: 12),
               _buildStatItem(
                 icon: Icons.block,
                 label: 'معطل',
@@ -423,23 +423,44 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
     required String value,
     required Color color,
   }) {
-    return Column(
-      children: [
-        Icon(icon, color: color, size: 20),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: color,
+    return Expanded(
+      child: Row(
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: color, size: 18),
           ),
-        ),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
-        ),
-      ],
+          const SizedBox(width: 6),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

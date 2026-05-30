@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../../constants/app_colors.dart';
@@ -185,6 +186,31 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // أزرار التواصل السريع — الرقم الأساسي
+        _buildPhoneContactRow(
+          'الهاتف الأساسي',
+          widget.donor.phoneNumber,
+        ),
+        if (widget.donor.phoneNumber2 != null) ...[
+          const SizedBox(height: 8),
+          _buildPhoneContactRow(
+            'رقم إضافي 2',
+            widget.donor.phoneNumber2!,
+          ),
+        ],
+        if (widget.donor.phoneNumber3 != null) ...[
+          const SizedBox(height: 8),
+          _buildPhoneContactRow(
+            'رقم إضافي 3',
+            widget.donor.phoneNumber3!,
+          ),
+        ],
+
+        const SizedBox(height: 12),
+        const Divider(height: 1),
+        const SizedBox(height: 12),
+
+        // باقي التفاصيل
         _buildDetailRow(Icons.location_on, 'المديرية', widget.donor.district),
         const SizedBox(height: 8),
         _buildDetailRow(
@@ -194,24 +220,6 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
         ),
         const SizedBox(height: 8),
         _buildDetailRow(Icons.cake, 'العمر', '${widget.donor.age} سنة'),
-        if (widget.donor.phoneNumber2 != null) ...[
-          const SizedBox(height: 8),
-          _buildDetailRow(
-            Icons.phone_android,
-            'رقم 2',
-            Helpers.displayPhoneNumber(widget.donor.phoneNumber2!),
-            copyable: true,
-          ),
-        ],
-        if (widget.donor.phoneNumber3 != null) ...[
-          const SizedBox(height: 8),
-          _buildDetailRow(
-            Icons.phone_iphone,
-            'رقم 3',
-            Helpers.displayPhoneNumber(widget.donor.phoneNumber3!),
-            copyable: true,
-          ),
-        ],
         if (widget.donor.lastDonationDate != null) ...[
           const SizedBox(height: 8),
           _buildDetailRow(
@@ -252,6 +260,79 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
           ),
         ],
       ],
+    );
+  }
+
+  /// صف رقم الهاتف مع أزرار اتصال/واتساب
+  Widget _buildPhoneContactRow(String label, String phoneNumber) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.divider),
+      ),
+      child: Row(
+        children: [
+          // الرقم
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  Helpers.displayPhoneNumber(phoneNumber),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // زر الاتصال
+          SizedBox(
+            height: 32,
+            child: ElevatedButton.icon(
+              onPressed: () => _makePhoneCall(phoneNumber),
+              icon: const Icon(Icons.phone, size: 14),
+              label: const Text('اتصال', style: TextStyle(fontSize: 11)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.success,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                elevation: 0,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 6),
+
+          // زر واتساب
+          SizedBox(
+            height: 32,
+            child: ElevatedButton.icon(
+              onPressed: () => _openWhatsApp(phoneNumber),
+              icon: const Icon(Icons.chat, size: 14),
+              label: const Text('واتساب', style: TextStyle(fontSize: 11)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF25D366),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                elevation: 0,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -793,5 +874,34 @@ ${widget.donor.lastDonationDate != null ? 'آخر تبرع: ${DateFormat('yyyy-M
     if (widget.donor.bloodType.contains('AB')) return AppColors.bloodTypeAB;
     if (widget.donor.bloodType.contains('O')) return AppColors.bloodTypeO;
     return AppColors.primary;
+  }
+
+  /// الاتصال برقم الهاتف
+  void _makePhoneCall(String phoneNumber) async {
+    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
+    }
+  }
+
+  /// فتح واتساب
+  void _openWhatsApp(String phoneNumber) async {
+    String formattedNumber = phoneNumber.replaceAll(RegExp(r'[^\d+]'), '');
+    if (!formattedNumber.startsWith('+')) {
+      formattedNumber = '+967$formattedNumber';
+    }
+
+    final message = Uri.encodeComponent(
+      'السلام عليكم ورحمة الله وبركاته\n'
+      'نأمل منكم التبرع بالدم لإنقاذ حياة إنسان\n'
+      'جزاكم الله خيراً',
+    );
+
+    final Uri whatsappUri =
+        Uri.parse('https://wa.me/$formattedNumber?text=$message');
+
+    if (await canLaunchUrl(whatsappUri)) {
+      await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
+    }
   }
 }
