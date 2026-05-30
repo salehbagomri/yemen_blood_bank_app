@@ -83,10 +83,8 @@ class AboutScreen extends StatelessWidget {
 
                   const SizedBox(height: 24),
 
-                  // 5. التطوير والدعم الفني
-                  _buildSectionTitle('⚙️ التطوير والدعم الفني'),
-                  const SizedBox(height: 12),
-                  _buildDeveloperSection(),
+                  // 5. التطوير والدعم الفني (قابل للطي)
+                  _buildCollapsibleDeveloperSection(),
 
                   const SizedBox(height: 32),
                 ],
@@ -244,22 +242,45 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDeveloperSection() {
+  Widget _buildCollapsibleDeveloperSection() {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.primary.withOpacity(0.03),
-            AppColors.primary.withOpacity(0.08),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.primary.withOpacity(0.15)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
+      child: Theme(
+        data: ThemeData(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          initiallyExpanded: false,
+          tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          childrenPadding: EdgeInsets.zero,
+          leading: const Text('⚙️', style: TextStyle(fontSize: 20)),
+          title: const Text(
+            'التطوير والدعم الفني',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
+            ),
+          ),
+          children: [
+            _buildDeveloperSection(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeveloperSection() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       child: Column(
         children: [
           // عنوان فرعي
