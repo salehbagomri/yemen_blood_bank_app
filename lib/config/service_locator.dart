@@ -9,6 +9,8 @@ import '../services/cache_service.dart';
 import '../services/connectivity_service.dart';
 import '../services/location_service.dart';
 
+import '../services/banner_service.dart';
+
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
@@ -24,4 +26,5 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<ReportService>(() => ReportService());
   getIt.registerLazySingleton<StatisticsService>(() => StatisticsService());
   getIt.registerLazySingleton<LocationService>(() => LocationService());
+  getIt.registerLazySingleton<BannerService>(() => BannerService());
 }

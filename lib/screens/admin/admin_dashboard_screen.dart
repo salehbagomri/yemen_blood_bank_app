@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -231,6 +231,16 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           icon: Icons.map,
           color: AppColors.info,
           onTap: () => _navigateTo(AppRouter.adminManageLocations),
+        ),
+        const SizedBox(height: 12),
+
+        // إدارة البانرات
+        AdminActionCard(
+          title: 'إدارة البانرات',
+          subtitle: 'إدارة البانرات والشرائح الإعلانية في الرئيسية',
+          icon: Icons.photo_library,
+          color: AppColors.primary,
+          onTap: () => _navigateTo(AppRouter.adminManageBanners),
         ),
       ],
     );

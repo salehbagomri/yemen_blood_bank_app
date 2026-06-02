@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
@@ -10,7 +11,7 @@ import '../../config/app_router.dart';
 import '../../config/service_locator.dart';
 import '../../services/connectivity_service.dart';
 import '../../services/update_service.dart';
-import 'package:share_plus/share_plus.dart';
+import 'widgets/home_banner_slider.dart';
 
 /// الصفحة الرئيسية للتطبيق
 class HomeScreen extends StatefulWidget {
@@ -21,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentSlideIndex = 0;
   bool _isOffline = false;
 
   @override
@@ -48,19 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
           context.read<StatisticsProvider>().refreshStatistics();
         }
       }
-    });
-
-    // Auto-play
-    _startAutoPlay();
-  }
-
-  void _startAutoPlay() {
-    Future.delayed(const Duration(seconds: 5), () {
-      if (!mounted) return;
-      setState(() {
-        _currentSlideIndex = (_currentSlideIndex + 1) % 5;
-      });
-      _startAutoPlay();
     });
   }
 
@@ -196,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 16),
 
               // سلايدر التوعية
-              _buildAwarenessSlider(),
+              const HomeBannerSlider(),
 
               const SizedBox(height: 24),
 
@@ -444,282 +431,6 @@ $playStoreUrl
     );
   }
 
-
-
-  /// سلايدر التوعية
-  Widget _buildAwarenessSlider() {
-    return Consumer<StatisticsProvider>(
-      builder: (context, provider, _) {
-        final totalDonors = provider.statistics?.totalDonors ?? 0;
-
-        final slides = [
-          _AwarenessSlide(
-            icon: Icons.favorite,
-            title: 'التبرع بالدم ينقذ الأرواح',
-            description: 'كل تبرع بالدم يمكن أن ينقذ حياة ثلاثة أشخاص',
-            color: Colors.red.shade600,
-          ),
-          _AwarenessSlide(
-            icon: Icons.health_and_safety,
-            title: 'فوائد التبرع بالدم',
-            description: 'التبرع بالدم يحسن صحتك ويجدد خلايا الدم',
-            color: Colors.green.shade600,
-          ),
-          _AwarenessSlide(
-            icon: Icons.timer,
-            title: 'كل 3 ثواني',
-            description: 'يحتاج شخص ما إلى نقل دم كل 3 ثواني',
-            color: Colors.orange.shade600,
-          ),
-          _AwarenessSlide(
-            icon: Icons.people,
-            title: 'كن بطلاً',
-            description: 'انضم لآلاف المتبرعين واصنع الفرق',
-            color: Colors.blue.shade600,
-          ),
-          _StatisticsSlide(totalDonors: totalDonors),
-        ];
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Stack(
-            children: [
-              // السلايدر مع fade transition
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: SizedBox(
-                  height: 240,
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 600),
-                    switchInCurve: Curves.easeIn,
-                    switchOutCurve: Curves.easeOut,
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                    child: Container(
-                      key: ValueKey<int>(_currentSlideIndex),
-                      child: slides[_currentSlideIndex],
-                    ),
-                  ),
-                ),
-              ),
-              // النقاط ملتصقة بالحافة السفلية
-              Positioned(
-                bottom: 6,
-                left: 0,
-                right: 0,
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: AnimatedSmoothIndicator(
-                      activeIndex: _currentSlideIndex,
-                      count: slides.length,
-                      effect: WormEffect(
-                        dotHeight: 8,
-                        dotWidth: 8,
-                        spacing: 6,
-                        activeDotColor: Colors.white,
-                        dotColor: Colors.white.withOpacity(0.5),
-                      ),
-                      onDotClicked: (index) {
-                        setState(() {
-                          _currentSlideIndex = index;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// شريحة توعية
-class _AwarenessSlide extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String description;
-  final Color color;
-
-  const _AwarenessSlide({
-    required this.icon,
-    required this.title,
-    required this.description,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [color, color.withOpacity(0.75)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-            spreadRadius: 0,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(28, 20, 28, 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // الأيقونة مع تأثير
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.25),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Icon(icon, color: Colors.white, size: 44),
-            ),
-            const SizedBox(height: 16),
-            // العنوان
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            // الوصف
-            Text(
-              description,
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.95),
-                fontSize: 15,
-                height: 1.3,
-              ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// شريحة الإحصائيات
-class _StatisticsSlide extends StatelessWidget {
-  final int totalDonors;
-
-  const _StatisticsSlide({required this.totalDonors});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppColors.primary, AppColors.primaryDark],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-            spreadRadius: 0,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(28, 20, 28, 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // أيقونة الوسام
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.25),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.military_tech,
-                color: Colors.white,
-                size: 44,
-              ),
-            ),
-            const SizedBox(height: 16),
-            // العنوان الرئيسي
-            const Text(
-              'أبطال اليمن',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            // الوصف مع العدد
-            Text(
-              'هناك $totalDonors بطل تبرع بدمه لينقذ حياة',
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.95),
-                fontSize: 15,
-                height: 1.3,
-              ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 /// زر إجراء رئيسي
 class _MainActionButton extends StatelessWidget {

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import '../models/donor_model.dart';
 import '../models/statistics_model.dart';
 import '../models/location_model.dart';
+import '../models/banner_model.dart';
 
 /// خدمة التخزين المحلي باستخدام Hive
 /// استراتيجية: Cache First, Network Second
@@ -12,6 +13,7 @@ class CacheService {
   static const String _statsBoxName = 'statistics_cache';
   static const String _searchBoxName = 'search_cache';
   static const String _locationsBoxName = 'locations_cache';
+  static const String _bannersBoxName = 'banners_cache';
 
   static const String _locationsKey = 'active_locations';
 
@@ -19,6 +21,9 @@ class CacheService {
   static const String _donorsTimestampKey = 'donors_timestamp';
   static const String _statsKey = 'statistics';
   static const String _statsTimestampKey = 'stats_timestamp';
+  
+  static const String _bannersKey = 'active_banners';
+  static const String _bannersTimestampKey = 'banners_timestamp';
 
   /// تهيئة Hive (تُستدعى من main.dart)
   static Future<void> initialize() async {
@@ -27,6 +32,7 @@ class CacheService {
     await Hive.openBox<String>(_statsBoxName);
     await Hive.openBox<String>(_searchBoxName);
     await Hive.openBox<String>(_locationsBoxName);
+    await Hive.openBox<String>(_bannersBoxName);
     debugPrint('✅ CacheService: Hive initialized');
   }
 
@@ -201,6 +207,57 @@ class CacheService {
     }
   }
 
+  // ==================== Banners Cache ====================
+
+  /// حفظ البانرات النشطة محلياً
+  Future<void> saveBanners(List<BannerModel> banners) async {
+    try {
+      final box = Hive.box<String>(_bannersBoxName);
+      final jsonList = banners.map((b) => jsonEncode(b.toJson())).toList();
+      await box.put(_bannersKey, jsonEncode(jsonList));
+      await box.put(_bannersTimestampKey, DateTime.now().toIso8601String());
+      debugPrint('💾 CacheService: Saved ${banners.length} banners');
+    } catch (e) {
+      debugPrint('❌ CacheService: Error saving banners: $e');
+    }
+  }
+
+  /// جلب البانرات النشطة من الكاش
+  List<BannerModel>? getCachedBanners() {
+    try {
+      final box = Hive.box<String>(_bannersBoxName);
+      final jsonString = box.get(_bannersKey);
+      if (jsonString == null) return null;
+
+      final jsonList = (jsonDecode(jsonString) as List)
+          .map((e) => e as String)
+          .toList();
+
+      return jsonList
+          .map(
+            (s) => BannerModel.fromJson(jsonDecode(s) as Map<String, dynamic>),
+          )
+          .toList();
+    } catch (e) {
+      debugPrint('❌ CacheService: Error reading banners: $e');
+      return null;
+    }
+  }
+
+  /// هل كاش البانرات حديث؟ (أقل من 30 دقيقة افتراضياً)
+  bool isBannersCacheFresh({Duration maxAge = const Duration(minutes: 30)}) {
+    try {
+      final box = Hive.box<String>(_bannersBoxName);
+      final timestampStr = box.get(_bannersTimestampKey);
+      if (timestampStr == null) return false;
+
+      final timestamp = DateTime.parse(timestampStr);
+      return DateTime.now().difference(timestamp) < maxAge;
+    } catch (e) {
+      return false;
+    }
+  }
+
   // ==================== General ====================
 
   /// مسح كل الكاش
@@ -209,6 +266,7 @@ class CacheService {
       await Hive.box<String>(_donorsBoxName).clear();
       await Hive.box<String>(_statsBoxName).clear();
       await Hive.box<String>(_searchBoxName).clear();
+      await Hive.box<String>(_bannersBoxName).clear();
       debugPrint('🗑️ CacheService: All cache cleared');
     } catch (e) {
       debugPrint('❌ CacheService: Error clearing cache: $e');
