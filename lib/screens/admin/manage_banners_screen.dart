@@ -346,7 +346,7 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                   left: 12,
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(color: Colors.black55, borderRadius: BorderRadius.circular(6)),
+                    decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(6)),
                     child: const Text('بانر صوري 🖼️', style: TextStyle(color: Colors.white, fontSize: 10)),
                   ),
                 ),
@@ -369,7 +369,7 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                     ),
                     Switch(
                       value: banner.isActive,
-                      activeColor: AppColors.success,
+                      activeThumbColor: AppColors.success,
                       onChanged: (val) => _toggleStatus(banner, val),
                     ),
                   ],
@@ -915,7 +915,7 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                 ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
-                  value: _iconName,
+                  initialValue: _iconName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -946,7 +946,7 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                 ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
-                  value: _bgGradient,
+                  initialValue: _bgGradient,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -984,60 +984,35 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
               const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: RadioListTile<String>(
-                      title: const Text('لا شيء', style: TextStyle(fontSize: 12)),
-                      value: 'none',
-                      groupValue: _actionType,
-                      contentPadding: EdgeInsets.zero,
-                      activeColor: AppColors.primary,
-                      onChanged: (val) {
-                        setState(() {
-                          _actionType = val!;
-                          _actionValueController.clear();
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: RadioListTile<String>(
-                      title: const Text('فتح شاشة', style: TextStyle(fontSize: 12)),
-                      value: 'internal_route',
-                      groupValue: _actionType,
-                      contentPadding: EdgeInsets.zero,
-                      activeColor: AppColors.primary,
-                      onChanged: (val) {
-                        setState(() {
-                          _actionType = val!;
-                          _actionValueController.text = '/donor/search';
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: RadioListTile<String>(
-                      title: const Text('رابط خارجي', style: TextStyle(fontSize: 12)),
-                      value: 'external_url',
-                      groupValue: _actionType,
-                      contentPadding: EdgeInsets.zero,
-                      activeColor: AppColors.primary,
-                      onChanged: (val) {
-                        setState(() {
-                          _actionType = val!;
-                          _actionValueController.clear();
-                        });
-                      },
-                    ),
-                  ),
+              DropdownButtonFormField<String>(
+                initialValue: _actionType,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  prefixIcon: const Icon(Icons.touch_app_outlined),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'none', child: Text('لا شيء (بانر للعرض فقط)')),
+                  DropdownMenuItem(value: 'internal_route', child: Text('فتح شاشة داخلية في التطبيق')),
+                  DropdownMenuItem(value: 'external_url', child: Text('فتح رابط إنترنت خارجي')),
                 ],
+                onChanged: (val) {
+                  if (val != null) {
+                    setState(() {
+                      _actionType = val;
+                      _actionValueController.clear();
+                      if (_actionType == 'internal_route') {
+                        _actionValueController.text = '/donor/search';
+                      }
+                    });
+                  }
+                },
               ),
               
               if (_actionType == 'internal_route') ...[
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: _actionValueController.text.isEmpty ? '/donor/search' : _actionValueController.text,
+                  initialValue: _actionValueController.text.isEmpty ? '/donor/search' : _actionValueController.text,
                   decoration: InputDecoration(
                     labelText: 'اختر الشاشة المراد فتحها',
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1137,7 +1112,7 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                 title: const Text('البانر نشط للعرض', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                 subtitle: const Text('إذا كان معطلاً لن يظهر للمستخدمين حتى لو كان ضمن الجدولة', style: TextStyle(fontSize: 12)),
                 value: _isActive,
-                activeColor: AppColors.success,
+                activeThumbColor: AppColors.success,
                 contentPadding: EdgeInsets.zero,
                 onChanged: (val) {
                   setState(() => _isActive = val);

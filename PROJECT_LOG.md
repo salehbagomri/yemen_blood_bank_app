@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-02 — [fix] إصلاح خطأ Colors.black55 وتحديث المحاذير الملغاة في شاشة إدارة البانرات
+- **الوصف:** تصحيح الخطأ الإملائي للون `Colors.black55` إلى `Colors.black54` وتجاوز التحذيرات الخاصة بالمكونات الملغاة (deprecations) باستبدال المعلمة `value` بـ `initialValue` في حقول الاختيار، و`activeColor` بـ `activeThumbColor` في المفاتيح، وتحويل أزرار الراديو للإجراء إلى قائمة منسدلة `DropdownButtonFormField` نظيفة وأكثر توافقاً.
+- **الملفات:** `lib/screens/admin/manage_banners_screen.dart`
+- **السبب/الدافع:** بلاغ المحلل عن خطأ بناء بسبب `Colors.black55` بالإضافة إلى تحذيرات deprecation.
+- **اختبار:** analyze ✅ / يدوي على جهاز ⚠️.
+- **Commit:** `1ebf492`
+
 ### 2026-06-02 — [feat] نظام البانرات المزدوج (صوري ونصي) المدار للأدمن
 - **الوصف:** توسيع نظام البانرات لدعم البانرات النصية بجانب الصورية؛ تم تعديل الجدول في Supabase ليكون مسار الصورة اختيارياً وإضافة حقول للأيقونة (`icon_name`) والتدرج اللوني للخلفية (`bg_gradient`) مع رفع 5 بنرات توعوية وإحصائية كـ seed. تعديل النموذج والخدمة والـ Provider والـ Cache والواجهة الأمامية والأدمن لتمكين التحكم الكامل وتفعيل/إيقاف وتعديل البانرات النصية والصورية.
 - **الملفات:** `docs/sql/phase8_banners_dual_type.sql`, `lib/models/banner_model.dart`, `lib/services/banner_service.dart`, `lib/providers/banner_provider.dart`, `lib/screens/home/widgets/home_banner_slider.dart`, `lib/screens/admin/manage_banners_screen.dart`.
