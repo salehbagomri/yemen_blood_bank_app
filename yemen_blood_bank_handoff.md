@@ -75,6 +75,14 @@
 * **صيغة الهاتف:** بادئة `+967` ونص مساعد "9 أرقام تبدأ بـ 7" في إضافة متبرع.
 * **إصلاحات:** ومضة شاشة الدخول (علامة `_navigating` + انتقال `slideFromRight` للوحات)، وتجاوز (overflow) قوائم الفلاتر (`isExpanded: true`).
 
+### ي. نظام البانرات الديناميكي وسلايدر الصفحة الرئيسية (Dynamic Banners System & New Slider)
+* تم بناء نظام البانرات بالكامل:
+  1. **قاعدة البيانات:** جدول `banners` مع RLS (قراءة عامة، كتابة للأدمن) ومستودع تخزين صور البانرات (`banners` bucket) مع سياسات حماية كاملة للأدمن. السكربت: [docs/sql/phase8_banners.sql](./docs/sql/phase8_banners.sql).
+  2. **النماذج والخدمات:** بناء `BannerModel` مع منطق parsed دفاعي للتواريخ، وبناء `BannerService` لدعم عمليات CRUD ورفع/حذف الصور وإعادة ترتيب البانرات من لوحة الأدمن.
+  3. **التخزين المؤقت (Caching):** إضافة صندوق `banners_cache` في `CacheService` وربطه بالـ `BannerProvider` لتقديم البانرات بنظام Cache-First ودعم العمل التام بلا إنترنت (Offline Mode).
+  4. **لوحة الأدمن:** إضافة شاشة إدارة البانرات كاملة (`manage_banners_screen.dart`) تتيح إضافة بانر جديد، وتعديله، وحذفه، وتغيير حالته، وإعادة ترتيب البانرات بأسهم أعلى/أسفل، مع إرشادات للأبعاد المثالية (1200×600 بكسل، نسبة 2:1، حجم < 2MB). تتيح البانرات تحديد نوع الإجراء عند الضغط (لا شيء، فتح شاشة داخلية مع dropdown، أو فتح رابط خارجي).
+  5. **سلايدر الرئيسية:** استبدال السلايدر القديم الثابت بالكامل بالـ `HomeBannerSlider` التفاعلي الجديد القائم على `PageView.builder` مع تشغيل تلقائي ذكي (يتوقف مؤقتاً عند اللمس ويستأنف بعد 3 ثوانٍ من الإفلات)، وshimmer loading للصور، ونقاط تنقل حديثة `ExpandingDots`؛ وعند غياب البانرات يُعرض السلايدر الاحتياطي التوعوي والإحصائي محلياً بشكل تلقائي.
+
 ---
 
 ## 🏗️ 3. المعمارية التقنية للمشروع (Technical Architecture)
@@ -100,6 +108,8 @@
 * **`add_hospital_bypassing_rls(...)`:** يُنشئ صف المستشفى ويملأ `governorate` من `p_district` تلقائياً.
 * **RLS:** قراءة `donors` عامة للنشطين؛ INSERT للعامة (anon) بضوابط + للمستشفى/الأدمن؛ UPDATE بالملكية (`added_by`) أو الأدمن؛ DELETE للأدمن.
 * **`governorates` / `districts` (إدارة المناطق المفعّلة):** جدولان يتحكم بهما الأدمن لإظهار/إخفاء المناطق (إطلاق تدريجي). `governorates(name, is_active, sort_order)` و`districts(id, governorate, name, is_active)`. RLS: قراءة عامة، كتابة للأدمن. دالة `district_in_use(gov,name)` تمنع تعديل/حذف مديرية مستخدمة. السكربت: [docs/sql/phase6_locations.sql](./docs/sql/phase6_locations.sql). في التطبيق: `LocationService`/`LocationProvider` (Cache-First، احتياطي `AppStrings` offline)، وشاشة الأدمن `manage_locations_screen.dart`. **كل القوائم المنسدلة الجغرافية تقرأ من `LocationProvider` لا من `AppStrings` مباشرة.**
+* **`banners` (نظام البانرات الديناميكي):** الأعمدة: `id` (UUID)، `title TEXT NOT NULL`، `subtitle TEXT`، `image_path TEXT NOT NULL` (مسار الملف في Storage)، `action_type TEXT` (none | internal_route | external_url)، `action_value TEXT`، `sort_order INT`، `is_active BOOLEAN`، `starts_at TIMESTAMPTZ`، `ends_at TIMESTAMPTZ`، وتواريخ `created_at` / `updated_at`. RLS: قراءة عامة للجميع، وتحكم كامل (ALL) للأدمن فقط. السكربت: [docs/sql/phase8_banners.sql](./docs/sql/phase8_banners.sql).
+* **Supabase Storage Bucket `banners`:** مستودع عام لتخزين صور البانرات. سياسات RLS: قراءة عامة للصور للجميع، ورفع وحذف الصور للأدمن فقط.
 * **⚠️ إرسال Arabic عبر Management API:** يجب إرسال جسم الطلب كـ UTF-8 bytes (`[Text.Encoding]::UTF8.GetBytes($json)`)؛ الترميز الافتراضي في PowerShell 5.1 يفسد العربية إلى `?`.
 
 > ملاحظة: أي تعديل لاحق على السكيما يُوثَّق في ملف الـ SQL أعلاه وفي هذا القسم.
