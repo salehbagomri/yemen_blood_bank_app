@@ -430,7 +430,7 @@ $playStoreUrl
       ),
     );
   }
-
+}
 
 /// زر إجراء رئيسي
 class _MainActionButton extends StatelessWidget {
