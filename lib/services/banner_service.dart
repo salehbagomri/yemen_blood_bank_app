@@ -80,11 +80,13 @@ class BannerService {
   Future<BannerModel> createBanner({
     required String title,
     required String? subtitle,
-    required String imagePath,
+    required String? imagePath,
     required String actionType,
     required String? actionValue,
     required int sortOrder,
     required bool isActive,
+    required String? iconName,
+    required String? bgGradient,
     required DateTime? startsAt,
     required DateTime? endsAt,
   }) async {
@@ -99,6 +101,8 @@ class BannerService {
             'action_value': actionValue,
             'sort_order': sortOrder,
             'is_active': isActive,
+            'icon_name': iconName,
+            'bg_gradient': bgGradient,
             'starts_at': startsAt?.toIso8601String(),
             'ends_at': endsAt?.toIso8601String(),
           })
@@ -116,11 +120,13 @@ class BannerService {
     required String id,
     required String title,
     required String? subtitle,
-    required String imagePath,
+    required String? imagePath,
     required String actionType,
     required String? actionValue,
     required int sortOrder,
     required bool isActive,
+    required String? iconName,
+    required String? bgGradient,
     required DateTime? startsAt,
     required DateTime? endsAt,
   }) async {
@@ -135,6 +141,8 @@ class BannerService {
             'action_value': actionValue,
             'sort_order': sortOrder,
             'is_active': isActive,
+            'icon_name': iconName,
+            'bg_gradient': bgGradient,
             'starts_at': startsAt?.toIso8601String(),
             'ends_at': endsAt?.toIso8601String(),
             'updated_at': DateTime.now().toIso8601String(),
@@ -169,13 +177,15 @@ class BannerService {
   }
 
   /// حذف بانر (يحذفه ويحذف صورته)
-  Future<void> deleteBanner(String id, String imagePath) async {
+  Future<void> deleteBanner(String id, String? imagePath) async {
     try {
       // 1. حذف السجل من قاعدة البيانات أولاً
       await _client.from('banners').delete().eq('id', id);
 
-      // 2. حذف الصورة المصاحبة من التخزين
-      await deleteBannerImage(imagePath);
+      // 2. حذف الصورة المصاحبة من التخزين (إن وُجدت)
+      if (imagePath != null && imagePath.isNotEmpty) {
+        await deleteBannerImage(imagePath);
+      }
     } catch (e) {
       throw Exception('فشل حذف البانر: ${ErrorHandler.getArabicMessage(e)}');
     }

@@ -1,15 +1,17 @@
 import '../services/supabase_service.dart';
 
-/// نموذج بيانات البانر الدعائي / الإعلاني
+/// نموذج بيانات البانر الدعائي / الإعلاني (يدعم البانر الصوري والنصي)
 class BannerModel {
   final String id;
   final String title;
   final String? subtitle;
-  final String imagePath; // المسار في Storage (مثال: banners/image.png)
+  final String? imagePath; // المسار في Storage (اختياري للبانرات النصية)
   final String actionType; // none | internal_route | external_url
   final String? actionValue; // مسار الشاشة أو الرابط الخارجي
   final int sortOrder;
   final bool isActive;
+  final String? iconName; // اسم الأيقونة للبانرات النصية (مثل: favorite, timer)
+  final String? bgGradient; // تدرج الخلفية للبانرات النصية (مثل: red, green, orange, blue, crimson)
   final DateTime? startsAt; // تاريخ بدء التفعيل (اختياري)
   final DateTime? endsAt; // تاريخ انتهاء التفعيل (اختياري)
   final DateTime createdAt;
@@ -19,26 +21,31 @@ class BannerModel {
     required this.id,
     required this.title,
     this.subtitle,
-    required this.imagePath,
+    this.imagePath,
     required this.actionType,
     this.actionValue,
     this.sortOrder = 0,
     this.isActive = true,
+    this.iconName,
+    this.bgGradient,
     this.startsAt,
     this.endsAt,
     required this.createdAt,
     required this.updatedAt,
   });
 
-  /// الحصول على رابط الصورة المباشر من Supabase Storage
+  /// الحصول على رابط الصورة المباشر من Supabase Storage (للصورية فقط)
   String get imageUrl {
+    if (imagePath == null || imagePath!.isEmpty) return '';
     try {
-      return SupabaseService().client.storage.from('banners').getPublicUrl(imagePath);
+      return SupabaseService().client.storage.from('banners').getPublicUrl(imagePath!);
     } catch (_) {
-      // إرجاع مسار فارغ في حالة حدوث خطأ أثناء التشغيل المبكر أو الاختبار
       return '';
     }
   }
+
+  /// هل هذا البانر نصي فقط (بدون صورة خلفية)؟
+  bool get isTextBanner => imagePath == null || imagePath!.isEmpty;
 
   /// التحقق من أن البانر فعال ومدرج ضمن الوقت الحالي
   bool get isCurrentlyVisible {
@@ -55,11 +62,13 @@ class BannerModel {
       id: json['id'] as String,
       title: json['title'] as String,
       subtitle: json['subtitle'] as String?,
-      imagePath: json['image_path'] as String,
+      imagePath: json['image_path'] as String?,
       actionType: json['action_type'] as String? ?? 'none',
       actionValue: json['action_value'] as String?,
       sortOrder: (json['sort_order'] as num?)?.toInt() ?? 0,
       isActive: json['is_active'] as bool? ?? true,
+      iconName: json['icon_name'] as String?,
+      bgGradient: json['bg_gradient'] as String?,
       startsAt: json['starts_at'] != null ? DateTime.parse(json['starts_at'] as String) : null,
       endsAt: json['ends_at'] != null ? DateTime.parse(json['ends_at'] as String) : null,
       createdAt: DateTime.parse(json['created_at'] as String),
@@ -80,6 +89,8 @@ class BannerModel {
       'action_value': actionValue,
       'sort_order': sortOrder,
       'is_active': isActive,
+      'icon_name': iconName,
+      'bg_gradient': bgGradient,
       'starts_at': startsAt?.toIso8601String(),
       'ends_at': endsAt?.toIso8601String(),
       'created_at': createdAt.toIso8601String(),
@@ -92,11 +103,13 @@ class BannerModel {
     String? id,
     String? title,
     String? Function()? subtitle,
-    String? imagePath,
+    String? Function()? imagePath,
     String? actionType,
     String? Function()? actionValue,
     int? sortOrder,
     bool? isActive,
+    String? Function()? iconName,
+    String? Function()? bgGradient,
     DateTime? Function()? startsAt,
     DateTime? Function()? endsAt,
     DateTime? createdAt,
@@ -106,11 +119,13 @@ class BannerModel {
       id: id ?? this.id,
       title: title ?? this.title,
       subtitle: subtitle != null ? subtitle() : this.subtitle,
-      imagePath: imagePath ?? this.imagePath,
+      imagePath: imagePath != null ? imagePath() : this.imagePath,
       actionType: actionType ?? this.actionType,
       actionValue: actionValue != null ? actionValue() : this.actionValue,
       sortOrder: sortOrder ?? this.sortOrder,
       isActive: isActive ?? this.isActive,
+      iconName: iconName != null ? iconName() : this.iconName,
+      bgGradient: bgGradient != null ? bgGradient() : this.bgGradient,
       startsAt: startsAt != null ? startsAt() : this.startsAt,
       endsAt: endsAt != null ? endsAt() : this.endsAt,
       createdAt: createdAt ?? this.createdAt,

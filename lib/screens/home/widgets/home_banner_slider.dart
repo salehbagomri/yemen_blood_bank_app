@@ -10,7 +10,7 @@ import '../../../models/banner_model.dart';
 import '../../../providers/banner_provider.dart';
 import '../../../providers/statistics_provider.dart';
 
-/// ويدجت السلايدر الاحترافي للبانرات الديناميكية في الصفحة الرئيسية
+/// ويدجت السلايدر الاحترافي للبانرات الديناميكية في الصفحة الرئيسية (يدعم الصوري والنصي)
 class HomeBannerSlider extends StatefulWidget {
   const HomeBannerSlider({super.key});
 
@@ -141,7 +141,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
                               return _buildDefaultSlide(index, totalDonors);
                             }
                             final banner = banners[index];
-                            return _buildBannerSlide(banner);
+                            return _buildBannerSlide(banner, totalDonors);
                           },
                         ),
                       ),
@@ -191,8 +191,25 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
     );
   }
 
-  /// بناء البانر الديناميكي
-  Widget _buildBannerSlide(BannerModel banner) {
+  /// بناء البانر الديناميكي (يدعم النصي والصوري)
+  Widget _buildBannerSlide(BannerModel banner, int totalDonors) {
+    if (banner.isTextBanner) {
+      // استبدال متغيرات الإحصائيات في النص إذا وُجدت
+      String? description = banner.subtitle;
+      if (description != null && description.contains('{{total_donors}}')) {
+        description = description.replaceAll('{{total_donors}}', totalDonors.toString());
+      }
+      
+      return _buildTextCard(
+        icon: _getIcon(banner.iconName),
+        title: banner.title,
+        description: description ?? '',
+        gradient: _getGradient(banner.bgGradient),
+        onTap: () => _handleBannerTap(banner),
+        hasAction: banner.actionType != 'none',
+      );
+    }
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -270,19 +287,19 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
                   // مؤشر صغير تفاعلي إذا كان للبانر إجراء
                   if (banner.actionType != 'none') ...[
                     const SizedBox(height: 10),
-                    Row(
+                    const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          banner.actionType == 'internal_route' ? 'اضغط للمتابعة' : 'اضغط للمزيد',
-                          style: const TextStyle(
+                          'اضغط للمتابعة',
+                          style: TextStyle(
                             color: Colors.white,
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(width: 4),
-                        const Icon(Icons.arrow_forward, color: Colors.white, size: 12),
+                        SizedBox(width: 4),
+                        Icon(Icons.arrow_forward, color: Colors.white, size: 12),
                       ],
                     ),
                   ],
@@ -297,108 +314,171 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
 
   /// بناء الشرائح الافتراضية
   Widget _buildDefaultSlide(int index, int totalDonors) {
-    // الشرائح الخمسة الافتراضية
     switch (index) {
       case 0:
-        return _buildDefaultCard(
+        return _buildTextCard(
           icon: Icons.favorite,
           title: 'التبرع بالدم ينقذ الأرواح',
           description: 'كل تبرع بالدم يمكن أن ينقذ حياة ثلاثة أشخاص',
-          gradient: const LinearGradient(
-            colors: [Color(0xFFE63946), Color(0xFFB8262F)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: _getGradient('red'),
         );
       case 1:
-        return _buildDefaultCard(
+        return _buildTextCard(
           icon: Icons.health_and_safety,
           title: 'فوائد التبرع بالدم',
           description: 'التبرع بالدم يحسن صحتك ويجدد خلايا الدم ويحفز الدورة الدموية',
-          gradient: const LinearGradient(
-            colors: [Color(0xFF2A9D8F), Color(0xFF264653)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: _getGradient('green'),
         );
       case 2:
-        return _buildDefaultCard(
+        return _buildTextCard(
           icon: Icons.timer,
           title: 'كل 3 ثواني',
           description: 'يحتاج شخص ما إلى نقل دم في مكان ما كل ثلاث ثوانٍ فقط',
-          gradient: const LinearGradient(
-            colors: [Color(0xFFF4A261), Color(0xFFE76F51)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: _getGradient('orange'),
         );
       case 3:
-        return _buildDefaultCard(
+        return _buildTextCard(
           icon: Icons.people,
           title: 'كن بطلاً ومتبرعاً',
           description: 'انضم لآلاف الأبطال المتبرعين بالدم في اليمن واصنع فرقاً حقيقياً',
-          gradient: const LinearGradient(
-            colors: [Color(0xFF457B9D), Color(0xFF1D3557)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: _getGradient('blue'),
         );
       case 4:
-        return _buildDefaultCard(
+        return _buildTextCard(
           icon: Icons.military_tech,
           title: 'أبطال اليمن',
           description: 'هناك $totalDonors بطل تبرع بدمه لينقذ الأرواح في مجتمعنا',
-          gradient: const LinearGradient(
-            colors: [AppColors.primary, AppColors.primaryDark],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: _getGradient('crimson'),
         );
       default:
         return const SizedBox();
     }
   }
 
-  Widget _buildDefaultCard({
+  Widget _buildTextCard({
     required IconData icon,
     required String title,
     required String description,
     required Gradient gradient,
+    VoidCallback? onTap,
+    bool hasAction = false,
   }) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(gradient: gradient),
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: Colors.white, size: 40),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(gradient: gradient),
+          padding: const EdgeInsets.fromLTRB(28, 20, 28, 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, color: Colors.white, size: 36),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                description,
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                  height: 1.4,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              if (hasAction) ...[
+                const SizedBox(height: 8),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'اضغط للمتابعة',
+                      style: TextStyle(color: Colors.white70, fontSize: 10, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(width: 4),
+                    Icon(Icons.arrow_forward, color: Colors.white70, size: 10),
+                  ],
+                ),
+              ],
+            ],
           ),
-          const SizedBox(height: 6),
-          Text(
-            description,
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.9),
-              fontSize: 13,
-              height: 1.4,
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+        ),
       ),
     );
+  }
+
+  /// الحصول على الأيقونة بناءً على الاسم المسجل
+  IconData _getIcon(String? name) {
+    switch (name) {
+      case 'favorite':
+        return Icons.favorite;
+      case 'health_and_safety':
+        return Icons.health_and_safety;
+      case 'timer':
+        return Icons.timer;
+      case 'people':
+        return Icons.people;
+      case 'military_tech':
+        return Icons.military_tech;
+      default:
+        return Icons.info_outline;
+    }
+  }
+
+  /// الحصول على التدرج اللوني بناءً على الاسم المسجل
+  Gradient _getGradient(String? name) {
+    switch (name) {
+      case 'red':
+        return const LinearGradient(
+          colors: [Color(0xFFE63946), Color(0xFFD62828)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'green':
+        return const LinearGradient(
+          colors: [Color(0xFF2A9D8F), Color(0xFF264653)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'orange':
+        return const LinearGradient(
+          colors: [Color(0xFFF4A261), Color(0xFFE76F51)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'blue':
+        return const LinearGradient(
+          colors: [Color(0xFF457B9D), Color(0xFF1D3557)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'crimson':
+      default:
+        return const LinearGradient(
+          colors: [Color(0xFF9E0018), Color(0xFFB8262F)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+    }
   }
 
   /// وميض التحميل (Shimmer)

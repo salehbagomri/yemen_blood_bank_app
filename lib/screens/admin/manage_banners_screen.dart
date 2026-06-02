@@ -10,7 +10,7 @@ import '../../providers/banner_provider.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/custom_text_field.dart';
 
-/// شاشة إدارة البانرات (للأدمن)
+/// شاشة إدارة البانرات (للأدمن) - تدعم البانرات الصورية والنصية
 class ManageBannersScreen extends StatefulWidget {
   const ManageBannersScreen({super.key});
 
@@ -24,7 +24,6 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
   @override
   void initState() {
     super.initState();
-    // تحميل البانرات عند فتح الشاشة
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<BannerProvider>().loadAllBanners();
     });
@@ -94,7 +93,6 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
     
     if (index + direction < 0 || index + direction >= banners.length) return;
 
-    // تبديل البانرات
     final temp = banners[index];
     banners[index] = banners[index + direction];
     banners[index + direction] = temp;
@@ -177,7 +175,7 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'أضف بانرات إعلانية وتوعوية لتظهر في الرئيسية',
+                    'أضف بانرات نصية أو صورية لتظهر في الرئيسية',
                     style: TextStyle(color: AppColors.textHint),
                   ),
                   const SizedBox(height: 24),
@@ -201,13 +199,12 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                // صندوق الإرشادات
                 Card(
                   elevation: 0,
-                  color: AppColors.info.withOpacity(0.08),
+                  color: AppColors.info.withValues(alpha: 0.08),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(color: AppColors.info.withOpacity(0.2)),
+                    side: BorderSide(color: AppColors.info.withValues(alpha: 0.2)),
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(16),
@@ -219,7 +216,7 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                             Icon(Icons.info_outline, color: AppColors.info),
                             SizedBox(width: 8),
                             Text(
-                              'إرشادات صور البانرات:',
+                              'إرشادات البانرات:',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.info,
@@ -229,10 +226,9 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                         ),
                         SizedBox(height: 8),
                         Text(
-                          '• الأبعاد المثالية: 1200 × 600 بكسل (نسبة 2:1).\n'
-                          '• الحجم الأقصى للصورة: 2 ميجابايت.\n'
-                          '• الصيغ المدعومة: PNG, JPG, WebP.\n'
-                          '• الترتيب: اسحب أو استخدم الأسهم لتغيير ترتيب العرض في الرئيسية.',
+                          '• البانر الصوري: يتطلب رفع صورة بنسبة 2:1 (1200×600 بكسل) وأقل من 2MB.\n'
+                          '• البانر النصي: لا يتطلب صورة، فقط حدد أيقونة معبرة وتدرج لوني للخلفية.\n'
+                          '• الترتيب: يمكنك التحكم في أولوية ظهور البانرات باستخدام أسهم الترتيب.',
                           style: TextStyle(fontSize: 13, height: 1.5),
                         ),
                       ],
@@ -241,7 +237,6 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                 ),
                 const SizedBox(height: 16),
                 
-                // قائمة البانرات
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -286,65 +281,77 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // معاينة الصورة
-          Stack(
-            children: [
-              Image.network(
-                banner.imageUrl,
-                height: 140,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    height: 140,
-                    color: AppColors.divider,
-                    child: const Center(
-                      child: Icon(Icons.broken_image_outlined, size: 50, color: AppColors.textHint),
+          // معاينة البانر (صوري أو نصي)
+          if (banner.isTextBanner)
+            Container(
+              height: 140,
+              width: double.infinity,
+              decoration: BoxDecoration(gradient: _getGradient(banner.bgGradient)),
+              child: Stack(
+                children: [
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_getIcon(banner.iconName), color: Colors.white.withValues(alpha: 0.8), size: 36),
+                        const SizedBox(height: 8),
+                        Text(
+                          banner.title,
+                          style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
-                  );
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    height: 140,
-                    color: AppColors.divider,
-                    child: const Center(child: CircularProgressIndicator()),
-                  );
-                },
+                  ),
+                  Positioned(
+                    top: 12,
+                    left: 12,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(color: Colors.black38, borderRadius: BorderRadius.circular(6)),
+                      child: const Text('بانر نصي 📝', style: TextStyle(color: Colors.white, fontSize: 10)),
+                    ),
+                  ),
+                ],
               ),
-              Positioned(
-                top: 12,
-                right: 12,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    'الترتيب: ${banner.sortOrder + 1}',
-                    style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
-                  ),
+            )
+          else
+            Stack(
+              children: [
+                Image.network(
+                  banner.imageUrl,
+                  height: 140,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 140,
+                      color: AppColors.divider,
+                      child: const Center(
+                        child: Icon(Icons.broken_image_outlined, size: 50, color: AppColors.textHint),
+                      ),
+                    );
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      height: 140,
+                      color: AppColors.divider,
+                      child: const Center(child: CircularProgressIndicator()),
+                    );
+                  },
                 ),
-              ),
-              if (!banner.isCurrentlyVisible && banner.isActive)
                 Positioned(
                   top: 12,
                   left: 12,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: AppColors.warning.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Text(
-                      'خارج النطاق الزمني',
-                      style: TextStyle(color: Colors.black, fontSize: 11, fontWeight: FontWeight.bold),
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(color: Colors.black55, borderRadius: BorderRadius.circular(6)),
+                    child: const Text('بانر صوري 🖼️', style: TextStyle(color: Colors.white, fontSize: 10)),
                   ),
                 ),
-            ],
-          ),
+              ],
+            ),
           
           Padding(
             padding: const EdgeInsets.all(16),
@@ -372,6 +379,8 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                   Text(
                     banner.subtitle!,
                     style: const TextStyle(color: AppColors.textSecondary, fontSize: 13),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
                 const SizedBox(height: 12),
@@ -381,16 +390,18 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                   children: [
                     const Icon(Icons.touch_app_outlined, size: 16, color: AppColors.textSecondary),
                     const SizedBox(width: 6),
-                    Text(
-                      actionDesc,
-                      style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                    Expanded(
+                      child: Text(
+                        actionDesc,
+                        style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    const Spacer(),
-                    const Icon(Icons.calendar_today_outlined, size: 16, color: AppColors.textSecondary),
+                    const Icon(Icons.calendar_today_outlined, size: 14, color: AppColors.textSecondary),
                     const SizedBox(width: 6),
                     Text(
                       dateRange,
-                      style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
                     ),
                   ],
                 ),
@@ -398,7 +409,6 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // إعادة الترتيب
                     IconButton(
                       icon: const Icon(Icons.arrow_upward),
                       tooltip: 'نقل لأعلى',
@@ -410,7 +420,6 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                       onPressed: index < totalCount - 1 ? () => _moveBanner(index, 1) : null,
                     ),
                     const Spacer(),
-                    // تعديل وحذف
                     TextButton.icon(
                       onPressed: () => _openBannerForm(banner),
                       icon: const Icon(Icons.edit_outlined, size: 18),
@@ -452,9 +461,61 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
         return route ?? 'غير معروف';
     }
   }
+
+  IconData _getIcon(String? name) {
+    switch (name) {
+      case 'favorite':
+        return Icons.favorite;
+      case 'health_and_safety':
+        return Icons.health_and_safety;
+      case 'timer':
+        return Icons.timer;
+      case 'people':
+        return Icons.people;
+      case 'military_tech':
+        return Icons.military_tech;
+      default:
+        return Icons.info_outline;
+    }
+  }
+
+  Gradient _getGradient(String? name) {
+    switch (name) {
+      case 'red':
+        return const LinearGradient(
+          colors: [Color(0xFFE63946), Color(0xFFD62828)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'green':
+        return const LinearGradient(
+          colors: [Color(0xFF2A9D8F), Color(0xFF264653)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'orange':
+        return const LinearGradient(
+          colors: [Color(0xFFF4A261), Color(0xFFE76F51)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'blue':
+        return const LinearGradient(
+          colors: [Color(0xFF457B9D), Color(0xFF1D3557)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+      case 'crimson':
+      default:
+        return const LinearGradient(
+          colors: [Color(0xFF9E0018), Color(0xFFB8262F)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        );
+    }
+  }
 }
 
-/// ويدجت النموذج لإضافة وتعديل البانر
 class BannerFormSheet extends StatefulWidget {
   final BannerModel? banner;
   final ImagePicker picker;
@@ -480,11 +541,17 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
   late TextEditingController _subtitleController;
   late TextEditingController _actionValueController;
 
+  String _bannerType = 'image'; // image | text
   String _actionType = 'none';
   bool _isActive = true;
   DateTime? _startsAt;
   DateTime? _endsAt;
 
+  // حقول البانر النصي
+  String _iconName = 'favorite';
+  String _bgGradient = 'red';
+
+  // حقول البانر الصوري
   Uint8List? _imageBytes;
   String? _imageName;
   bool _isUploadingImage = false;
@@ -499,20 +566,38 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
     {'value': '/info/contact', 'label': 'تواصل معنا'},
   ];
 
+  final List<Map<String, dynamic>> _textIcons = [
+    {'value': 'favorite', 'label': 'قلب ❤️', 'icon': Icons.favorite},
+    {'value': 'health_and_safety', 'label': 'درع صحي 🛡️', 'icon': Icons.health_and_safety},
+    {'value': 'timer', 'label': 'ساعة/وقت ⏰', 'icon': Icons.timer},
+    {'value': 'people', 'label': 'أبطال متبرعين 👥', 'icon': Icons.people},
+    {'value': 'military_tech', 'label': 'وسام تميز 🎖️', 'icon': Icons.military_tech},
+  ];
+
+  final List<Map<String, dynamic>> _gradients = [
+    {'value': 'red', 'label': 'أحمر داكن 🔴', 'color': Color(0xFFD62828)},
+    {'value': 'green', 'label': 'أخضر مائي 🟢', 'color': Color(0xFF2A9D8F)},
+    {'value': 'orange', 'label': 'برتقالي غروب 🟠', 'color': Color(0xFFE76F51)},
+    {'value': 'blue', 'label': 'أزرق هادئ 🔵', 'color': Color(0xFF457B9D)},
+    {'value': 'crimson', 'label': 'عنابي فخم 🟣', 'color': Color(0xFF9E0018)},
+  ];
+
   @override
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.banner?.title);
     _subtitleController = TextEditingController(text: widget.banner?.subtitle);
     
+    _bannerType = widget.banner != null 
+        ? (widget.banner!.isTextBanner ? 'text' : 'image') 
+        : 'image';
+        
     _actionType = widget.banner?.actionType ?? 'none';
     
-    // إذا كان الإجراء رابط خارجي، نعبئ الحقل بالنص المباشر
     _actionValueController = TextEditingController(
       text: _actionType == 'external_url' ? widget.banner?.actionValue : '',
     );
 
-    // إذا كان الإجراء شاشة داخلية، نتحقق ونحفظ القيمة الافتراضية
     if (_actionType == 'internal_route') {
       _actionValueController.text = widget.banner?.actionValue ?? '/donor/search';
     }
@@ -520,6 +605,11 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
     _isActive = widget.banner?.isActive ?? true;
     _startsAt = widget.banner?.startsAt;
     _endsAt = widget.banner?.endsAt;
+
+    if (_bannerType == 'text') {
+      _iconName = widget.banner?.iconName ?? 'favorite';
+      _bgGradient = widget.banner?.bgGradient ?? 'red';
+    }
   }
 
   @override
@@ -540,7 +630,6 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
       );
 
       if (image != null) {
-        // التحقق من حجم الملف (الحد الأقصى 2 ميجابايت)
         final bytes = await image.readAsBytes();
         if (bytes.lengthInBytes > 2 * 1024 * 1024) {
           widget.onError('حجم الصورة كبير جداً! يجب أن لا يتجاوز 2 ميجابايت.');
@@ -568,25 +657,12 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
       initialDate: initial,
       firstDate: now.subtract(const Duration(days: 365)),
       lastDate: now.add(const Duration(days: 365 * 5)),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.primary,
-              onPrimary: Colors.white,
-              onSurface: AppColors.textPrimary,
-            ),
-          ),
-          child: child!,
-        );
-      },
     );
 
     if (picked != null) {
       setState(() {
         if (isStart) {
           _startsAt = picked;
-          // التحقق من تعارض التواريخ
           if (_endsAt != null && _startsAt!.isAfter(_endsAt!)) {
             _endsAt = _startsAt!.add(const Duration(days: 1));
           }
@@ -603,8 +679,8 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     
-    // التحقق من وجود الصورة في حال إضافة بانر جديد
-    if (widget.banner == null && _imageBytes == null) {
+    // التحقق من وجود الصورة للبانر الصوري الجديد
+    if (_bannerType == 'image' && widget.banner == null && _imageBytes == null) {
       widget.onError('يرجى اختيار صورة للبانر أولاً');
       return;
     }
@@ -613,21 +689,15 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
 
     try {
       final provider = context.read<BannerProvider>();
-      String imagePath = widget.banner?.imagePath ?? '';
+      String? imagePath = _bannerType == 'image' ? (widget.banner?.imagePath ?? '') : null;
 
-      // 1. رفع الصورة الجديدة إن وُجدت
-      if (_imageBytes != null && _imageName != null) {
+      // 1. رفع الصورة الجديدة للبانر الصوري (إذا تغيرت)
+      if (_bannerType == 'image' && _imageBytes != null && _imageName != null) {
         setState(() => _isUploadingImage = true);
         imagePath = await provider.uploadBannerImage(_imageName!, _imageBytes!);
         setState(() => _isUploadingImage = false);
-
-        // حذف الصورة القديمة إذا كان تعديلاً
-        if (widget.banner != null) {
-          await provider.refreshActiveBannersSilently(); // تحديث صامت
-        }
       }
 
-      // القيمة الخاصة بالإجراء
       String? actionVal;
       if (_actionType != 'none') {
         actionVal = _actionValueController.text.trim();
@@ -640,21 +710,21 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
 
       // 2. الحفظ في قاعدة البيانات
       if (widget.banner == null) {
-        // إضافة بانر جديد
         await provider.addBanner(
           title: _titleController.text.trim(),
           subtitle: _subtitleController.text.trim().isEmpty ? null : _subtitleController.text.trim(),
           imagePath: imagePath,
           actionType: _actionType,
           actionValue: actionVal,
-          sortOrder: provider.allBanners.length, // يضاف في النهاية
+          sortOrder: provider.allBanners.length,
           isActive: _isActive,
+          iconName: _bannerType == 'text' ? _iconName : null,
+          bgGradient: _bannerType == 'text' ? _bgGradient : null,
           startsAt: _startsAt,
           endsAt: _endsAt,
         );
         widget.onSuccess('تم إضافة البانر بنجاح');
       } else {
-        // تعديل بانر موجود
         await provider.updateBanner(
           id: widget.banner!.id,
           title: _titleController.text.trim(),
@@ -664,6 +734,8 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
           actionValue: actionVal,
           sortOrder: widget.banner!.sortOrder,
           isActive: _isActive,
+          iconName: _bannerType == 'text' ? _iconName : null,
+          bgGradient: _bannerType == 'text' ? _bgGradient : null,
           startsAt: _startsAt,
           endsAt: _endsAt,
         );
@@ -694,7 +766,6 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // الهيدر
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -710,6 +781,38 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
               ),
               const SizedBox(height: 16),
               
+              // اختيار نوع البانر (صوري أو نصي)
+              const Text(
+                'نوع البانر:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
+              const SizedBox(height: 8),
+              SegmentedButton<String>(
+                segments: const [
+                  ButtonSegment(
+                    value: 'image',
+                    label: Text('بانر صوري 🖼️'),
+                    icon: Icon(Icons.image),
+                  ),
+                  ButtonSegment(
+                    value: 'text',
+                    label: Text('بانر نصي 📝'),
+                    icon: Icon(Icons.text_fields),
+                  ),
+                ],
+                selected: {_bannerType},
+                onSelectionChanged: (Set<String> selection) {
+                  setState(() {
+                    _bannerType = selection.first;
+                  });
+                },
+                style: SegmentedButton.styleFrom(
+                  selectedBackgroundColor: AppColors.primary,
+                  selectedForegroundColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 16),
+
               // حقل العنوان
               CustomTextField(
                 controller: _titleController,
@@ -728,73 +831,151 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
               // حقل الوصف
               CustomTextField(
                 controller: _subtitleController,
-                label: 'الوصف أو النص المساعد (اختياري)',
+                label: _bannerType == 'text' ? 'الوصف أو النص المساعد *' : 'الوصف أو النص المساعد (اختياري)',
                 hint: 'نص إرشادي إضافي يظهر تحت العنوان',
                 icon: Icons.subtitles,
                 maxLines: 2,
+                validator: (val) {
+                  if (_bannerType == 'text' && (val == null || val.trim().isEmpty)) {
+                    return 'الوصف مطلوب للبانرات النصية';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
 
-              // اختيار ومعاينة الصورة
-              const Text(
-                'صورة البانر *',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
-              const SizedBox(height: 8),
-              InkWell(
-                onTap: _isSaving ? null : _pickImage,
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.border),
-                    borderRadius: BorderRadius.circular(12),
-                    color: AppColors.background,
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: _imageBytes != null
-                      ? Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Image.memory(_imageBytes!, fit: BoxFit.cover),
-                            Container(
-                              color: Colors.black.withOpacity(0.3),
-                              child: const Center(
-                                child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
-                              ),
-                            ),
-                          ],
-                        )
-                      : widget.banner != null
-                          ? Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                Image.network(widget.banner!.imageUrl, fit: BoxFit.cover),
-                                Container(
-                                  color: Colors.black.withOpacity(0.3),
-                                  child: const Center(
-                                    child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add_photo_alternate_outlined, size: 40, color: AppColors.textHint),
-                                SizedBox(height: 8),
-                                Text(
-                                  'اختر صورة من الاستوديو',
-                                  style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
-                                ),
-                                Text(
-                                  'النسبة المفضلة 2:1 (مثل: 1200×600 بكسل)',
-                                  style: TextStyle(color: AppColors.textHint, fontSize: 11),
-                                ),
-                              ],
-                            ),
+              // حقول نوع البانر الصوري
+              if (_bannerType == 'image') ...[
+                const Text(
+                  'صورة البانر *',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
-              ),
+                const SizedBox(height: 8),
+                InkWell(
+                  onTap: _isSaving ? null : _pickImage,
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.border),
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.background,
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: _imageBytes != null
+                        ? Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.memory(_imageBytes!, fit: BoxFit.cover),
+                              Container(
+                                color: Colors.black.withValues(alpha: 0.3),
+                                child: const Center(
+                                  child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
+                                ),
+                              ),
+                            ],
+                          )
+                        : (widget.banner != null && widget.banner!.imagePath != null && widget.banner!.imagePath!.isNotEmpty)
+                            ? Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  Image.network(widget.banner!.imageUrl, fit: BoxFit.cover),
+                                  Container(
+                                    color: Colors.black.withValues(alpha: 0.3),
+                                    child: const Center(
+                                      child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add_photo_alternate_outlined, size: 40, color: AppColors.textHint),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    'اختر صورة من الاستوديو',
+                                    style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+                                  ),
+                                  Text(
+                                    'النسبة المفضلة 2:1 (مثل: 1200×600 بكسل)',
+                                    style: TextStyle(color: AppColors.textHint, fontSize: 11),
+                                  ),
+                                ],
+                              ),
+                  ),
+                ),
+              ] 
+              // حقول نوع البانر النصي
+              else ...[
+                // اختيار الأيقونة
+                const Text(
+                  'أيقونة البانر النصي:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  value: _iconName,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    prefixIcon: const Icon(Icons.star_border),
+                  ),
+                  items: _textIcons.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item['value'],
+                      child: Row(
+                        children: [
+                          Icon(item['icon'] as IconData, color: AppColors.primary, size: 20),
+                          const SizedBox(width: 8),
+                          Text(item['label'] as String),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (val) {
+                    if (val != null) setState(() => _iconName = val);
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // اختيار التدرج اللوني للخلفية
+                const Text(
+                  'لون تدرج خلفية البانر:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  value: _bgGradient,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    prefixIcon: const Icon(Icons.palette_outlined),
+                  ),
+                  items: _gradients.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item['value'],
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 16,
+                            height: 16,
+                            decoration: BoxDecoration(
+                              color: item['color'] as Color,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(item['label'] as String),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (val) {
+                    if (val != null) setState(() => _bgGradient = val);
+                  },
+                ),
+              ],
               const SizedBox(height: 20),
 
               // نوع الإجراء عند الضغط
@@ -807,7 +988,7 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                 children: [
                   Expanded(
                     child: RadioListTile<String>(
-                      title: const Text('لا شيء', style: TextStyle(fontSize: 13)),
+                      title: const Text('لا شيء', style: TextStyle(fontSize: 12)),
                       value: 'none',
                       groupValue: _actionType,
                       contentPadding: EdgeInsets.zero,
@@ -822,7 +1003,7 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                   ),
                   Expanded(
                     child: RadioListTile<String>(
-                      title: const Text('فتح شاشة', style: TextStyle(fontSize: 13)),
+                      title: const Text('فتح شاشة', style: TextStyle(fontSize: 12)),
                       value: 'internal_route',
                       groupValue: _actionType,
                       contentPadding: EdgeInsets.zero,
@@ -837,7 +1018,7 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                   ),
                   Expanded(
                     child: RadioListTile<String>(
-                      title: const Text('رابط خارجي', style: TextStyle(fontSize: 13)),
+                      title: const Text('رابط خارجي', style: TextStyle(fontSize: 12)),
                       value: 'external_url',
                       groupValue: _actionType,
                       contentPadding: EdgeInsets.zero,
@@ -853,7 +1034,6 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
                 ],
               ),
               
-              // تفاصيل الإجراء بناءً على النوع
               if (_actionType == 'internal_route') ...[
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
@@ -965,7 +1145,6 @@ class _BannerFormSheetState extends State<BannerFormSheet> {
               ),
               const SizedBox(height: 24),
 
-              // أزرار الحفظ والإلغاء
               Row(
                 children: [
                   Expanded(

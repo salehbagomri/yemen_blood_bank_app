@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-02 — [feat] نظام البانرات المزدوج (صوري ونصي) المدار للأدمن
+- **الوصف:** توسيع نظام البانرات لدعم البانرات النصية بجانب الصورية؛ تم تعديل الجدول في Supabase ليكون مسار الصورة اختيارياً وإضافة حقول للأيقونة (`icon_name`) والتدرج اللوني للخلفية (`bg_gradient`) مع رفع 5 بنرات توعوية وإحصائية كـ seed. تعديل النموذج والخدمة والـ Provider والـ Cache والواجهة الأمامية والأدمن لتمكين التحكم الكامل وتفعيل/إيقاف وتعديل البانرات النصية والصورية.
+- **الملفات:** `docs/sql/phase8_banners_dual_type.sql`, `lib/models/banner_model.dart`, `lib/services/banner_service.dart`, `lib/providers/banner_provider.dart`, `lib/screens/home/widgets/home_banner_slider.dart`, `lib/screens/admin/manage_banners_screen.dart`.
+- **السبب/الدافع:** تمكين المدير من كتابة تنويهات ونصوص توعوية مباشرة بأيقونة وتدرج لوني دون الحاجة لتصميم ورفع صور.
+- **اختبار:** analyze ✅ / يدوي على جهاز ⚠️.
+- **Commit:** `95a6a86`
+
 ### 2026-06-02 — [feat] نظام البانرات الديناميكي المدار للأدمن وسلايدر الرئيسية
 - **الوصف:** بناء نظام البانرات بالكامل: جدول banners وسياسات RLS وbucket تخزين الصور على Supabase. إضافة نماذج البيانات والخدمات والـ Providers مع دعم التخزين المؤقت الكاش (Hive). تصميم شاشة كاملة للأدمن لإدارة البانرات (إضافة، تعديل، حذف، تفعيل، ترتيب، وجدولة زمنية)، وربطها بالصفحة الرئيسية بسلايدر تفاعلي ذكي يدعم السحب والإيقاف المؤقت عند اللمس.
 - **الملفات:** `docs/sql/phase8_banners.sql`, `lib/models/banner_model.dart`, `lib/services/banner_service.dart`, `lib/providers/banner_provider.dart`, `lib/services/cache_service.dart`, `lib/screens/admin/manage_banners_screen.dart`, `lib/screens/home/widgets/home_banner_slider.dart`, `lib/screens/home/home_screen.dart` + 6 ملفات إعدادات وواجهات.

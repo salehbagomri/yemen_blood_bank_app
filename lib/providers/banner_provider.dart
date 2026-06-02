@@ -98,11 +98,13 @@ class BannerProvider with ChangeNotifier {
   Future<void> addBanner({
     required String title,
     required String? subtitle,
-    required String imagePath,
+    required String? imagePath,
     required String actionType,
     required String? actionValue,
     required int sortOrder,
     required bool isActive,
+    required String? iconName,
+    required String? bgGradient,
     required DateTime? startsAt,
     required DateTime? endsAt,
   }) async {
@@ -119,6 +121,8 @@ class BannerProvider with ChangeNotifier {
         actionValue: actionValue,
         sortOrder: sortOrder,
         isActive: isActive,
+        iconName: iconName,
+        bgGradient: bgGradient,
         startsAt: startsAt,
         endsAt: endsAt,
       );
@@ -142,11 +146,13 @@ class BannerProvider with ChangeNotifier {
     required String id,
     required String title,
     required String? subtitle,
-    required String imagePath,
+    required String? imagePath,
     required String actionType,
     required String? actionValue,
     required int sortOrder,
     required bool isActive,
+    required String? iconName,
+    required String? bgGradient,
     required DateTime? startsAt,
     required DateTime? endsAt,
   }) async {
@@ -164,12 +170,14 @@ class BannerProvider with ChangeNotifier {
         actionValue: actionValue,
         sortOrder: sortOrder,
         isActive: isActive,
+        iconName: iconName,
+        bgGradient: bgGradient,
         startsAt: startsAt,
         endsAt: endsAt,
       );
 
       final index = _allBanners.indexWhere((b) => b.id == id);
-      if (index != -index) {
+      if (index != -1) {
         _allBanners[index] = updated;
         _allBanners.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
       }
@@ -203,7 +211,7 @@ class BannerProvider with ChangeNotifier {
   }
 
   /// حذف بانر بالكامل مع صورته (للأدمن)
-  Future<void> deleteBanner(String id, String imagePath) async {
+  Future<void> deleteBanner(String id, String? imagePath) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
