@@ -275,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 12),
 
                     // Footer - معلومات المطور
                     _buildDeveloperFooter(context),
@@ -400,7 +400,7 @@ $playStoreUrl
   /// Footer - معلومات المطور (بدون مربع)
   Widget _buildDeveloperFooter(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.only(top: 8, bottom: 16),
       child: Column(
         children: [
           // خط فاصل صغير
@@ -412,7 +412,7 @@ $playStoreUrl
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
 
           // النص الرئيسي: صنع بحب ❤️ لأهالي اليمن
           Row(
@@ -435,31 +435,6 @@ $playStoreUrl
                   color: Colors.grey.shade600,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 8),
-
-          // اسم المطور مع الرابط (بدون خط ووزن عادي)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'بواسطة',
-                style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
-              ),
-              const SizedBox(width: 4),
-              InkWell(
-                onTap: () => _launchURL('https://www.bagomri.com'),
-                child: Text(
-                  'Saleh Bagomri',
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal,
-                  ),
                 ),
               ),
             ],

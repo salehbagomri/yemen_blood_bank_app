@@ -155,7 +155,7 @@ class _AboutScreenState extends State<AboutScreen> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Text(
-              'الإصدار 1.0.3',
+              'الإصدار 1.0.0',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.white,
