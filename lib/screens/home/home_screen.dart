@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -35,7 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // تحميل الإحصائيات عند فتح التطبيق
     Future.microtask(() {
-      context.read<StatisticsProvider>().loadStatistics();
+      if (mounted) {
+        context.read<StatisticsProvider>().loadStatistics();
+      }
     });
 
     // مراقبة حالة الاتصال
