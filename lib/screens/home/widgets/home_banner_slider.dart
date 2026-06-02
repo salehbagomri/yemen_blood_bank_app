@@ -9,7 +9,6 @@ import '../../../constants/app_colors.dart';
 import '../../../models/banner_model.dart';
 import '../../../providers/banner_provider.dart';
 import '../../../providers/statistics_provider.dart';
-import '../../../config/app_router.dart';
 
 /// ويدجت السلايدر الاحترافي للبانرات الديناميكية في الصفحة الرئيسية
 class HomeBannerSlider extends StatefulWidget {
@@ -158,7 +157,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: AnimatedSmoothIndicator(
@@ -226,8 +225,8 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.1),
-                    Colors.black.withOpacity(0.6),
+                    Colors.black.withValues(alpha: 0.1),
+                    Colors.black.withValues(alpha: 0.6),
                   ],
                 ),
               ),
@@ -258,7 +257,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
                     Text(
                       banner.subtitle!,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                         fontSize: 13,
                         shadows: const [
                           Shadow(color: Colors.black45, offset: Offset(0, 1), blurRadius: 3),
@@ -389,7 +388,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
           Text(
             description,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
               fontSize: 13,
               height: 1.4,
             ),
