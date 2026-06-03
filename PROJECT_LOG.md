@@ -24,6 +24,19 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-03 — [test] تدقيق أمان RLS واختبار اختراق فعلي لعمليات الكتابة
+- **الوصف:** 7 اختبارات اختراق فعلية (بنمط ROLLBACK آمن) على سياسات RLS لجدول donors،
+  بمحاكاة مستشفى حقيقي (ابن سيناء/حضرموت) وزائر anon. غُطّيت: التعديل عبر المحافظات،
+  التعديل داخل المحافظة بلا ملكية، الحذف، تعديل/حذف anon، انتحال added_by، وحراسة
+  دالة suspend_donor_by_hospital (منع خارجي + سماح داخلي). كل النتائج طابقت المتوقَّع.
+  الخلاصة: طبقة الكتابة محكمة رغم أن مفتاح anon علني. توثيق القراءة العامة كقرار
+  معماري مقصود (لا تُضيّق SELECT). توصية Rate Limiting عبر Cloudflare Worker للنشر.
+- **الملفات:** `yemen_blood_bank_handoff.md`, `docs/QUALITY_REFINEMENT_PLAN.md`,
+  `docs/BRIEF_phase4_rls_audit.md`
+- **السبب/الدافع:** المفتاح anon علني ⇒ RLS هو الدفاع الوحيد. تحقّق فعلي لا ورقي.
+- **اختبار:** 7 اختبارات SQL Editor، كلها ROLLBACK، صفر تغيير على البيانات.
+- **Commit:** `<hash>`
+
 ### 2026-06-03 — [fix] تأمين بيانات التوقيع وإزالة الأسرار من المستودع العام
 - **الوصف:** إزالة KEYSTORE_INFO.txt من تعقّب Git (كان يحوي كلمات مرور صريحة)، إنشاء keystore جديد بكلمة مرور جديدة واعتبار القديم محروقاً (التطبيق غير منشور بعد فلا تبعات)، تحديث key.properties، وتوثيق بصمة توقيع واحدة نظيفة. (تأمين مفتاح Supabase anon مؤجَّل لما قبل النشر.)
 - **الملفات:** `.gitignore`, `android/key.properties`, `android/keystore/yemen-release-key-v2.jks` (غير مرفوع), `yemen_blood_bank_handoff.md`, `docs/FIREBASE_SETUP_GUIDE.md`, `docs/SHA_FINGERPRINTS.txt`

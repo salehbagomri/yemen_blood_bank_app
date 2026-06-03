@@ -107,6 +107,17 @@
 * **دوال إحصائية:** `get_governorate_stats(p_governorate)`, `get_bloodtype_stats()`, `get_district_stats()`.
 * **`add_hospital_bypassing_rls(...)`:** يُنشئ صف المستشفى ويملأ `governorate` من `p_district` تلقائياً.
 * **RLS:** قراءة `donors` عامة للنشطين؛ INSERT للعامة (anon) بضوابط + للمستشفى/الأدمن؛ UPDATE بالملكية (`added_by`) أو الأدمن؛ DELETE للأدمن.
+  > 🟢 قرار معماري مقصود + تدقيق أمني (2026-06-03):
+  > - سياسة SELECT على donors عامة (USING is_active=true) عن عمد: البحث الوطني
+  >   بلا تسجيل + عرض المتبرعين + الإحصائيات تقرأ الجدول مباشرة. متوافق مع سياسة
+  >   الخصوصية. ⚠️ لا تُضيّق SELECT دون إعادة هندسة كل دوال القراءة لتمرّ عبر RPCs
+  >   (يكسر لوحة المستشفى/الأدمن/البحث بالاسم/الإحصائيات).
+  > - طبقة الكتابة دُقِّقت باختبار اختراق فعلي (7 اختبارات، ROLLBACK): UPDATE/DELETE
+  >   محصورة بملكية الصف (added_by) أو الأدمن؛ DELETE للأدمن فقط؛ إدراج anon بضوابط
+  >   صارمة (added_by IS NULL، is_active=true) مُتحقَّقة؛ suspend_donor_by_hospital
+  >   تحرس المحافظة. النتيجة: لا تعديل/حذف/انتحال غير مصرّح حتى بالمفتاح العلني.
+  > - الحماية ضد السحب الجماعي للقراءة = Rate Limiting (Cloudflare Worker) عند النشر،
+  >   لا تضييق RLS.
 * **`governorates` / `districts` (إدارة المناطق المفعّلة):** جدولان يتحكم بهما الأدمن لإظهار/إخفاء المناطق (إطلاق تدريجي). `governorates(name, is_active, sort_order)` و`districts(id, governorate, name, is_active)`. RLS: قراءة عامة، كتابة للأدمن. دالة `district_in_use(gov,name)` تمنع تعديل/حذف مديرية مستخدمة. السكربت: [docs/sql/phase6_locations.sql](./docs/sql/phase6_locations.sql). في التطبيق: `LocationService`/`LocationProvider` (Cache-First، احتياطي `AppStrings` offline)، وشاشة الأدمن `manage_locations_screen.dart`. **كل القوائم المنسدلة الجغرافية تقرأ من `LocationProvider` لا من `AppStrings` مباشرة.**
 * **`banners` (نظام البانرات الديناميكي):** الأعمدة: `id` (UUID)، `title TEXT NOT NULL`، `subtitle TEXT`، `image_path TEXT NOT NULL` (مسار الملف في Storage)، `action_type TEXT` (none | internal_route | external_url)، `action_value TEXT`، `sort_order INT`، `is_active BOOLEAN`، `starts_at TIMESTAMPTZ`، `ends_at TIMESTAMPTZ`، وتواريخ `created_at` / `updated_at`. RLS: قراءة عامة للجميع، وتحكم كامل (ALL) للأدمن فقط. السكربت: [docs/sql/phase8_banners.sql](./docs/sql/phase8_banners.sql).
 * **Supabase Storage Bucket `banners`:** مستودع عام لتخزين صور البانرات. سياسات RLS: قراءة عامة للصور للجميع، ورفع وحذف الصور للأدمن فقط.
