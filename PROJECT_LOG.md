@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-03 — [docs] وسم ملف PROJECT_STATUS.md كتقرير تاريخي
+- **الوصف:** إضافة تنبيه في أعلى مستند `docs/PROJECT_STATUS.md` يوضح أن أرقام الإصدار وحالة الجاهزية المذكورة فيه هي أرقام تاريخية سابقة لمراجعة الجودة الحالية، وأن مصدر الإصدار الوحيد هو `pubspec.yaml`.
+- **الملفات:** `docs/PROJECT_STATUS.md`
+- **السبب/الدافع:** تلافي تضارب المعلومات حول إصدار وجاهزية التطبيق.
+- **اختبار:** لا يحتاج (توثيق فقط).
+- **Commit:** `<hash>`
+
 ### 2026-06-03 — [refactor] جعل رقم إصدار التطبيق ديناميكياً وتوحيد مصدر الحقيقة
 - **الوصف:** تعديل شاشة "حول التطبيق" لتقرأ رقم الإصدار ديناميكياً من `pubspec.yaml` باستخدام حزمة `package_info_plus` بدلاً من النص الثابت. إضافة حزمة `package_info_plus` للاعتمادات، وتحديث ملفات التوثيق (`CLAUDE.md`, `RELEASE_PREPARATION_REPORT.md`, `FIREBASE_CONFIGURATION_REPORT.md`) لتوضيح أن `pubspec.yaml` هو المصدر الوحيد والصحيح للإصدار.
 - **الملفات:** `lib/screens/info/about_screen.dart`, `pubspec.yaml`, `CLAUDE.md`, `docs/RELEASE_PREPARATION_REPORT.md`, `docs/FIREBASE_CONFIGURATION_REPORT.md`
