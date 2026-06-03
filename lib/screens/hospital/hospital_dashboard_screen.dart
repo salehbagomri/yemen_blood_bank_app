@@ -28,6 +28,7 @@ class _HospitalDashboardScreenState extends State<HospitalDashboardScreen> {
     super.initState();
     // تحميل البيانات عند فتح الشاشة (مقيّدة بمحافظة المستشفى)
     Future.microtask(() {
+      if (!mounted) return;
       final gov = context.read<AuthProvider>().hospitalGovernorate;
       context.read<DashboardProvider>().loadDashboardData(governorate: gov);
     });

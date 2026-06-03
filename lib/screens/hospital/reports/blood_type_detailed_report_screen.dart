@@ -28,6 +28,7 @@ class _BloodTypeDetailedReportScreenState
     super.initState();
     _loadHospitalName();
     Future.microtask(() {
+      if (!mounted) return;
       context.read<DashboardProvider>().loadDashboardData();
       context.read<DonorProvider>().loadDonors(); // استخدام loadDonors بدلاً من loadAllDonors
     });

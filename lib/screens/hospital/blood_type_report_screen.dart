@@ -19,6 +19,7 @@ class _BloodTypeReportScreenState extends State<BloodTypeReportScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
+      if (!mounted) return;
       context.read<StatisticsProvider>().loadStatistics();
     });
   }

@@ -311,8 +311,9 @@ class _AboutScreenState extends State<AboutScreen> {
             if (expanded) {
               // ننتظر انتهاء الانيميشن ثم نسكرول للقسم
               Future.delayed(const Duration(milliseconds: 300), () {
+                if (!mounted) return;
                 final ctx = _devSectionKey.currentContext;
-                if (ctx != null) {
+                if (ctx != null && ctx.mounted) {
                   Scrollable.ensureVisible(
                     ctx,
                     duration: const Duration(milliseconds: 400),

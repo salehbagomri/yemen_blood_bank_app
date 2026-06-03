@@ -868,6 +868,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
     try {
       // قبول البلاغ
       await _reportService.approveReport(widget.report.id);
+      if (!mounted) return;
 
       // حذف المتبرع
       await context.read<DonorProvider>().deleteDonor(_donor!.id);

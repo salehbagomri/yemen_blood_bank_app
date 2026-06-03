@@ -34,6 +34,7 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
+      if (!mounted) return;
       context.read<DonorProvider>().loadDonors();
     });
   }
@@ -101,7 +102,10 @@ class _ManageDonorsScreenState extends State<ManageDonorsScreen> {
         onPressed: () {
           Navigator.of(context)
               .pushNamed(AppRouter.addDonor)
-              .then((_) => context.read<DonorProvider>().loadDonors());
+              .then((_) {
+                if (!mounted) return;
+                context.read<DonorProvider>().loadDonors();
+              });
         },
         icon: const Icon(Icons.person_add),
         label: const Text('إضافة متبرع'),

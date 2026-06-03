@@ -582,6 +582,7 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
 
     // إذا لم يختر تاريخ، نلغي العملية
     if (selectedDate == null) return;
+    if (!context.mounted) return;
 
     // 2. حساب التواريخ والحالة
     final sixMonthsFromDonation = selectedDate.add(const Duration(days: 180));

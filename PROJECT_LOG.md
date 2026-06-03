@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-03 — [fix] معالجة 12 حالة BuildContext across async gaps
+- **الوصف:** إضافة حراسة mounted/context.mounted للحالات الـ 12 من use_build_context_synchronously، مصنّفة في 4 أنماط: Future.microtask في initState (7)، .then بعد التنقّل (2)، await متعدّد بفحص ناقص (2)، Future.delayed مع GlobalKey (1). لا تغيير في منطق التحميل/التنقّل.
+- **الملفات:** `lib/screens/admin/manage_donors_screen.dart`, `lib/screens/hospital/blood_type_report_screen.dart`, `lib/screens/hospital/hospital_dashboard_screen.dart`, `lib/screens/hospital/manage_donors_hospital_screen.dart`, `lib/screens/hospital/reports/blood_type_detailed_report_screen.dart`, `lib/screens/admin/report_detail_screen.dart`, `lib/screens/info/about_screen.dart`, `lib/widgets/expandable_donor_card.dart`
+- **السبب/الدافع:** مخاطر runtime حقيقية (استخدام context لـ widget قد يكون أُغلق).
+- **اختبار:** analyze: 0 use_build_context_synchronously، الإجمالي 181 info ✅ / يدوي: فتح/إغلاق سريع بلا تعطّل ✅.
+- **Commit:** `<hash>`
+
 ### 2026-06-03 — [perf] جعل إعادة ترتيب البانرات عملية ذرّية عبر RPC
 - **الوصف:** استبدال حلقة UPDATE المتسلسلة (N رحلات شبكة، غير ذرّية) في `banner_service.reorderBanners` بدالة RPC واحدة `reorder_banners(p_ids UUID[])` تحدّث كل الترتيب في معاملة واحدة عبر unnest WITH ORDINALITY، محصورة للأدمن. إضافة حارس في واجهة الإدارة لتعطيل أزرار النقل أثناء جاري التحميل لمنع الضغط المتكرر.
 - **الملفات:** `docs/sql/phase9_reorder_banners.sql` (جديد), `lib/services/banner_service.dart`, `lib/screens/admin/manage_banners_screen.dart`
