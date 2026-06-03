@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../../../models/statistics_model.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
@@ -285,7 +285,7 @@ class _AnimatedCounter extends StatelessWidget {
 
     return AnimatedBuilder(
       animation: anim,
-      builder: (_, __) => Text(
+      builder: (_, _) => Text(
         '${anim.value}',
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
           color: Colors.white,

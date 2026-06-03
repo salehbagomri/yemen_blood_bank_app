@@ -18,15 +18,14 @@ class HospitalModel {
     required this.id,
     required this.name,
     required this.email,
-    required String district,
+    required this.district,
     String? governorate,
     this.phoneNumber,
     this.address,
     this.isActive = true,
     required this.createdAt,
     required this.updatedAt,
-  })  : district = district,
-        governorate = (governorate != null && governorate.isNotEmpty)
+  })  : governorate = (governorate != null && governorate.isNotEmpty)
             ? governorate
             : district.split(' - ').first;
 

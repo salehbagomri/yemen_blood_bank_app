@@ -10,7 +10,7 @@ void main() {
   // ── بيانات اختبار ───────────────────────────────────────────────
   final now = DateTime.now();
 
-  DonorModel _makeAvailableDonor({String? lastDonation}) {
+  DonorModel makeAvailableDonor({String? lastDonation}) {
     return DonorModel(
       id: 'test-id-1',
       name: 'أحمد محمد',
@@ -65,7 +65,7 @@ void main() {
     });
 
     test('toJson يُرجع خريطة صحيحة', () {
-      final donor = _makeAvailableDonor();
+      final donor = makeAvailableDonor();
       final json = donor.toJson();
 
       expect(json['id'], equals('test-id-1'));
@@ -108,7 +108,7 @@ void main() {
   // ══════════════════════════════════════════════════════════════════
   group('DonorModel — isSuspended', () {
     test('يُرجع false إذا لم يكن موقوفاً', () {
-      final donor = _makeAvailableDonor();
+      final donor = makeAvailableDonor();
       expect(donor.isSuspended, isFalse);
     });
 
@@ -152,7 +152,7 @@ void main() {
   // ══════════════════════════════════════════════════════════════════
   group('DonorModel — canDonateNow', () {
     test('يُرجع true إذا كان متاحاً ولم يتبرع من قبل', () {
-      final donor = _makeAvailableDonor();
+      final donor = makeAvailableDonor();
       expect(donor.canDonateNow, isTrue);
     });
 
@@ -160,7 +160,7 @@ void main() {
       final recentDonation = now
           .subtract(const Duration(days: 30))
           .toIso8601String();
-      final donor = _makeAvailableDonor(lastDonation: recentDonation);
+      final donor = makeAvailableDonor(lastDonation: recentDonation);
       expect(donor.canDonateNow, isFalse);
     });
 
@@ -168,7 +168,7 @@ void main() {
       final oldDonation = now
           .subtract(const Duration(days: 200))
           .toIso8601String();
-      final donor = _makeAvailableDonor(lastDonation: oldDonation);
+      final donor = makeAvailableDonor(lastDonation: oldDonation);
       expect(donor.canDonateNow, isTrue);
     });
 
@@ -212,7 +212,7 @@ void main() {
     });
 
     test('يُرجع قائمة برقم واحد إذا لم يكن هناك أرقام إضافية', () {
-      final donor = _makeAvailableDonor();
+      final donor = makeAvailableDonor();
       expect(donor.allPhoneNumbers.length, equals(1));
     });
   });
@@ -220,7 +220,7 @@ void main() {
   // ══════════════════════════════════════════════════════════════════
   group('DonorModel — copyWith', () {
     test('ينسخ النموذج مع تعديل بعض الحقول فقط', () {
-      final original = _makeAvailableDonor();
+      final original = makeAvailableDonor();
       final copy = original.copyWith(name: 'عمر أحمد', age: 32);
 
       // الحقول المعدّلة
@@ -237,7 +237,7 @@ void main() {
   // ══════════════════════════════════════════════════════════════════
   group('DonorModel — daysUntilCanDonate', () {
     test('يُرجع 0 إذا كان يمكنه التبرع الآن', () {
-      final donor = _makeAvailableDonor();
+      final donor = makeAvailableDonor();
       expect(donor.daysUntilCanDonate, equals(0));
     });
 

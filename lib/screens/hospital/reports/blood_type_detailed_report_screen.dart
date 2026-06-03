@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/app_colors.dart';
 import '../../../providers/dashboard_provider.dart';
@@ -8,6 +8,7 @@ import '../../../widgets/loading_widget.dart';
 import '../../../widgets/empty_state.dart';
 import '../../../utils/report_export_utils.dart';
 import '../../../models/donor_model.dart';
+import '../../../models/dashboard_statistics_model.dart';
 
 /// تقرير فصائل الدم المفصّل مع خيارات التصدير
 class BloodTypeDetailedReportScreen extends StatefulWidget {
@@ -113,7 +114,7 @@ class _BloodTypeDetailedReportScreenState
     );
   }
 
-  Widget _buildReportContent(stats, List<DonorModel> donors) {
+  Widget _buildReportContent(DashboardStatisticsModel stats, List<DonorModel> donors) {
     // حساب توزيع فصائل الدم من البيانات الفعلية
     final bloodTypeDistribution = <String, Map<String, int>>{};
     

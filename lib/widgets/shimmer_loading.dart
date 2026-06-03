@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 /// Shimmer loading effect بدون حاجة لباكدج خارجي
 class ShimmerWidget extends StatefulWidget {
@@ -62,7 +62,7 @@ class _ShimmerWidgetState extends State<ShimmerWidget>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animation,
-      builder: (_, __) {
+      builder: (_, _) {
         return Container(
           width: widget.width,
           height: widget.height,

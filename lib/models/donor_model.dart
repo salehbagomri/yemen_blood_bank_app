@@ -26,7 +26,7 @@ class DonorModel {
     this.phoneNumber2,
     this.phoneNumber3,
     required this.bloodType,
-    required String district,
+    required this.district,
     String? governorate,
     required this.age,
     required this.gender,
@@ -38,8 +38,7 @@ class DonorModel {
     required this.updatedAt,
     this.addedBy,
     this.isActive = true,
-  })  : district = district,
-        governorate = (governorate != null && governorate.isNotEmpty)
+  })  : governorate = (governorate != null && governorate.isNotEmpty)
             ? governorate
             : district.split(' - ').first;
 

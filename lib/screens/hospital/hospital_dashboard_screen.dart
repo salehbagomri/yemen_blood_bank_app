@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -12,6 +12,7 @@ import 'widgets/dashboard_header.dart';
 import 'widgets/statistics_grid.dart';
 import 'widgets/enhanced_main_card.dart';
 import 'widgets/dashboard_search_bar.dart';
+import '../../models/dashboard_statistics_model.dart';
 
 /// لوحة إدارة المستشفى - النسخة المحسّنة
 class HospitalDashboardScreen extends StatefulWidget {
@@ -125,7 +126,7 @@ class _HospitalDashboardScreenState extends State<HospitalDashboardScreen> {
     );
   }
 
-  Widget _buildDashboardContent(stats) {
+  Widget _buildDashboardContent(DashboardStatisticsModel stats) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       physics: const AlwaysScrollableScrollPhysics(),
@@ -151,7 +152,7 @@ class _HospitalDashboardScreenState extends State<HospitalDashboardScreen> {
     );
   }
 
-  Widget _buildMainSections(stats) {
+  Widget _buildMainSections(DashboardStatisticsModel stats) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

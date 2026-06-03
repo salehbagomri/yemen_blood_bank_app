@@ -6,7 +6,7 @@ class AppPageTransitions {
   static Route<T> slideFromRight<T>(Widget page, {RouteSettings? settings}) {
     return PageRouteBuilder<T>(
       settings: settings,
-      pageBuilder: (_, animation, __) => page,
+      pageBuilder: (_, animation, _) => page,
       transitionDuration: const Duration(milliseconds: 280),
       reverseTransitionDuration: const Duration(milliseconds: 250),
       transitionsBuilder: (_, animation, secondaryAnimation, child) {
@@ -34,10 +34,10 @@ class AppPageTransitions {
   static Route<T> fade<T>(Widget page, {RouteSettings? settings}) {
     return PageRouteBuilder<T>(
       settings: settings,
-      pageBuilder: (_, animation, __) => page,
+      pageBuilder: (_, animation, _) => page,
       transitionDuration: const Duration(milliseconds: 320),
       reverseTransitionDuration: const Duration(milliseconds: 280),
-      transitionsBuilder: (_, animation, __, child) {
+      transitionsBuilder: (_, animation, _, child) {
         return FadeTransition(
           opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
           child: child,
@@ -50,10 +50,10 @@ class AppPageTransitions {
   static Route<T> slideUp<T>(Widget page, {RouteSettings? settings}) {
     return PageRouteBuilder<T>(
       settings: settings,
-      pageBuilder: (_, animation, __) => page,
+      pageBuilder: (_, animation, _) => page,
       transitionDuration: const Duration(milliseconds: 340),
       reverseTransitionDuration: const Duration(milliseconds: 280),
-      transitionsBuilder: (_, animation, __, child) {
+      transitionsBuilder: (_, animation, _, child) {
         final curve = CurveTween(curve: Curves.easeOutQuint);
         final slide = Tween<Offset>(
           begin: const Offset(0, 1.0),
@@ -77,10 +77,10 @@ class AppPageTransitions {
   static Route<T> scaleUp<T>(Widget page, {RouteSettings? settings}) {
     return PageRouteBuilder<T>(
       settings: settings,
-      pageBuilder: (_, animation, __) => page,
+      pageBuilder: (_, animation, _) => page,
       transitionDuration: const Duration(milliseconds: 360),
       reverseTransitionDuration: const Duration(milliseconds: 280),
-      transitionsBuilder: (_, animation, __, child) {
+      transitionsBuilder: (_, animation, _, child) {
         final curve = CurveTween(curve: Curves.easeOutBack);
         final scale = Tween<double>(
           begin: 0.92,

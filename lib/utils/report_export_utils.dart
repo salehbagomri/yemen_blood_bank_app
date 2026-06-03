@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -190,7 +191,7 @@ class ReportExportUtils {
         '${_sanitizeFileName(title)}_$timestamp.pdf',
       );
     } catch (e) {
-      print('خطأ في تصدير PDF: $e');
+      debugPrint('خطأ في تصدير PDF: $e');
       return false;
     }
   }
@@ -299,7 +300,7 @@ class ReportExportUtils {
         '${_sanitizeFileName(title)}_$timestamp.xlsx',
       );
     } catch (e) {
-      print('خطأ في تصدير Excel: $e');
+      debugPrint('خطأ في تصدير Excel: $e');
       return false;
     }
   }
@@ -322,7 +323,7 @@ class ReportExportUtils {
 
       return true;
     } catch (e) {
-      print('خطأ في حفظ/مشاركة الملف: $e');
+      debugPrint('خطأ في حفظ/مشاركة الملف: $e');
       return false;
     }
   }

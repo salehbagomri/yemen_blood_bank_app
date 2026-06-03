@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -445,7 +445,7 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
                   ),
                   const SizedBox(height: 6),
                   DropdownButtonFormField<String>(
-                    value: _sortBy,
+                    initialValue: _sortBy,
                     isDense: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -578,7 +578,7 @@ class _SearchDonorsScreenState extends State<SearchDonorsScreen>
           const Spacer(),
           // مؤشر الأوفلاين
           Consumer<DonorProvider>(
-            builder: (_, p, __) => p.isOffline
+            builder: (_, p, _) => p.isOffline
                 ? Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
