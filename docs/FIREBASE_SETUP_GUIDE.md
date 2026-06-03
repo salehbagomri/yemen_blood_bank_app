@@ -1,4 +1,4 @@
-﻿# 🔥 دليل إعداد Firebase - Firebase Setup Guide
+# 🔥 دليل إعداد Firebase - Firebase Setup Guide
 
 **تاريخ: 3 ديسمبر 2025**
 
@@ -182,21 +182,20 @@ flutter run
 
 ### معلومات Keystore:
 ```
-Keystore File:    android/keystore/mahrah-release-key.jks
+Keystore File:    android/keystore/yemen-release-key-v2.jks
 Key Alias:        upload
-Password:         Saleh@770727055
 ```
 
-### البصمات (من KEYSTORE_INFO.txt):
+### البصمات:
 
 **SHA-1:**
 ```
-D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34
+EC:E5:A7:FE:29:4F:E1:CA:C8:1E:0D:20:03:CB:D4:5D:99:86:1A:94
 ```
 
 **SHA-256:**
 ```
-34:48:32:C9:CD:5E:90:D4:42:28:40:63:BA:C3:14:50:F4:8D:C8:77:8D:CE:6F:D5:52:14:4B:D8:FC:96:6F:33
+84:14:9A:00:58:89:26:C6:5D:B1:22:33:3F:71:EF:ED:65:E4:EA:FA:72:69:64:2A:7C:15:DB:D0:5B:65:D5:55
 ```
 
 ---

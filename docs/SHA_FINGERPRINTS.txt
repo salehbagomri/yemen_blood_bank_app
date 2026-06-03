@@ -1,11 +1,11 @@
-﻿═══════════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════════
           البصمات الرقمية - SHA Certificate Fingerprints
               تطبيق بنك دم اليمن - Yemen Blood Bank App
 ═══════════════════════════════════════════════════════════════════
 
-📅 التاريخ: 3 ديسمبر 2025
+📅 التاريخ: 3 يونيو 2026
 📦 Package ID: com.bagomri.yemenbloodbank
-🔑 Keystore: android/keystore/mahrah-release-key.jks
+🔑 Keystore: android/keystore/yemen-release-key-v2.jks
 🏷️ Key Alias: upload
 
 ═══════════════════════════════════════════════════════════════════
@@ -14,12 +14,12 @@
 
 📌 SHA-1 Fingerprint:
 ───────────────────────────────────────────────────────────────────
-D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34
+EC:E5:A7:FE:29:4F:E1:CA:C8:1E:0D:20:03:CB:D4:5D:99:86:1A:94
 ───────────────────────────────────────────────────────────────────
 
 📌 SHA-256 Fingerprint:
 ───────────────────────────────────────────────────────────────────
-34:48:32:C9:CD:5E:90:D4:42:28:40:63:BA:C3:14:50:F4:8D:C8:77:8D:CE:6F:D5:52:14:4B:D8:FC:96:6F:33
+84:14:9A:00:58:89:26:C6:5D:B1:22:33:3F:71:EF:ED:65:E4:EA:FA:72:69:64:2A:7C:15:DB:D0:5B:65:D5:55
 ───────────────────────────────────────────────────────────────────
 
 ═══════════════════════════════════════════════════════════════════
@@ -90,19 +90,19 @@ D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34
 ═══════════════════════════════════════════════════════════════════
 
 📂 Keystore Location:
-   android/keystore/mahrah-release-key.jks
+   android/keystore/yemen-release-key-v2.jks
 
 🔑 Credentials:
-   Store Password:    Saleh@770727055
-   Key Password:      Saleh@770727055
+   Store Password:    [SECURED]
+   Key Password:      [SECURED]
    Key Alias:         upload
 
 📋 Certificate Details:
    Owner:             CN=Saleh Bagomri, OU=Yemen Blood Bank,
                       O=Yemen Blood Bank App, L=Aden, ST=Aden, C=YE
    Issuer:            Self-signed
-   Valid Until:       20 أبريل 2053 (27 سنة)
-   Serial Number:     66c787341f4beb6e
+   Valid Until:       19 أكتوبر 2053 (27 سنة)
+   Serial Number:     4600e2d95be5d71f
    Key Algorithm:     2048-bit RSA
    Signature Alg:     SHA256withRSA
 

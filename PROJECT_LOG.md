@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-03 — [fix] تأمين بيانات التوقيع وإزالة الأسرار من المستودع العام
+- **الوصف:** إزالة KEYSTORE_INFO.txt من تعقّب Git (كان يحوي كلمات مرور صريحة)، إنشاء keystore جديد بكلمة مرور جديدة واعتبار القديم محروقاً (التطبيق غير منشور بعد فلا تبعات)، تحديث key.properties، وتوثيق بصمة توقيع واحدة نظيفة. (تأمين مفتاح Supabase anon مؤجَّل لما قبل النشر.)
+- **الملفات:** `.gitignore`, `android/key.properties`, `android/keystore/yemen-release-key-v2.jks` (غير مرفوع), `yemen_blood_bank_handoff.md`, `docs/FIREBASE_SETUP_GUIDE.md`, `docs/SHA_FINGERPRINTS.txt`
+- **السبب/الدافع:** فحص أمني كشف رفع كلمات مرور keystore على مستودع عام. المعالجة بإبطال المفتاح المكشوف بالكامل.
+- **اختبار:** analyze ✅ / build apk release موقَّع بالمفتاح الجديد ✅ / يدوي ⚠️.
+- **Commit:** `4f94bf8`
+
 ### 2026-06-02 — [fix] إصلاح خطأ Colors.black55 وتحديث المحاذير الملغاة في شاشة إدارة البانرات
 - **الوصف:** تصحيح الخطأ الإملائي للون `Colors.black55` إلى `Colors.black54` وتجاوز التحذيرات الخاصة بالمكونات الملغاة (deprecations) باستبدال المعلمة `value` بـ `initialValue` في حقول الاختيار، و`activeColor` بـ `activeThumbColor` في المفاتيح، وتحويل أزرار الراديو للإجراء إلى قائمة منسدلة `DropdownButtonFormField` نظيفة وأكثر توافقاً.
 - **الملفات:** `lib/screens/admin/manage_banners_screen.dart`

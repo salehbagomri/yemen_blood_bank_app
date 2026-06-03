@@ -101,6 +101,10 @@ coverage/
 **/*.keystore
 **/android/keystore/
 
+# Keystore info file (contains plaintext passwords - NEVER commit)
+KEYSTORE_INFO.txt
+SIGNATURE_VERIFICATION_REPORT.txt
+
 # macOS
 .DS_Store
 
