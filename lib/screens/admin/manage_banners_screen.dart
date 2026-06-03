@@ -243,7 +243,7 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                   itemCount: provider.allBanners.length,
                   itemBuilder: (context, index) {
                     final banner = provider.allBanners[index];
-                    return _buildBannerCard(banner, index, provider.allBanners.length);
+                    return _buildBannerCard(banner, index, provider.allBanners.length, provider.isLoading);
                   },
                 ),
               ],
@@ -254,7 +254,7 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
     );
   }
 
-  Widget _buildBannerCard(BannerModel banner, int index, int totalCount) {
+  Widget _buildBannerCard(BannerModel banner, int index, int totalCount, bool isLoading) {
     final dateFormat = intl.DateFormat('yyyy/MM/dd');
     String dateRange = 'دائم';
     if (banner.startsAt != null || banner.endsAt != null) {
@@ -412,12 +412,12 @@ class _ManageBannersScreenState extends State<ManageBannersScreen> {
                     IconButton(
                       icon: const Icon(Icons.arrow_upward),
                       tooltip: 'نقل لأعلى',
-                      onPressed: index > 0 ? () => _moveBanner(index, -1) : null,
+                      onPressed: (index > 0 && !isLoading) ? () => _moveBanner(index, -1) : null,
                     ),
                     IconButton(
                       icon: const Icon(Icons.arrow_downward),
                       tooltip: 'نقل لأسفل',
-                      onPressed: index < totalCount - 1 ? () => _moveBanner(index, 1) : null,
+                      onPressed: (index < totalCount - 1 && !isLoading) ? () => _moveBanner(index, 1) : null,
                     ),
                     const Spacer(),
                     TextButton.icon(

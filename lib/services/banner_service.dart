@@ -191,16 +191,13 @@ class BannerService {
     }
   }
 
-  /// إعادة ترتيب البانرات دفعة واحدة
+  /// إعادة ترتيب البانرات دفعة واحدة (ذرّياً عبر RPC)
   Future<void> reorderBanners(List<String> bannerIds) async {
     try {
-      // نقوم بتحديث ترتيب كل بانر بناءً على موقعه في القائمة
-      for (int i = 0; i < bannerIds.length; i++) {
-        await _client
-            .from('banners')
-            .update({'sort_order': i})
-            .eq('id', bannerIds[i]);
-      }
+      await _client.rpc(
+        'reorder_banners',
+        params: {'p_ids': bannerIds},
+      );
     } catch (e) {
       throw Exception('فشل إعادة ترتيب البانرات: ${ErrorHandler.getArabicMessage(e)}');
     }
