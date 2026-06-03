@@ -576,7 +576,12 @@ class ExportService {
   /// مشاركة ملف
   Future<void> shareFile(String filePath, String subject) async {
     try {
-      await Share.shareXFiles([XFile(filePath)], subject: subject);
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(filePath)],
+          subject: subject,
+        ),
+      );
     } catch (e) {
       throw Exception('فشل مشاركة الملف: ${ErrorHandler.getArabicMessage(e)}');
     }

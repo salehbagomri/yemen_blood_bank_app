@@ -316,9 +316,11 @@ class ReportExportUtils {
       await file.writeAsBytes(await bytes);
 
       // مشاركة الملف
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        text: 'تقرير من تطبيق بنك دم اليمن',
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+          text: 'تقرير من تطبيق بنك دم اليمن',
+        ),
       );
 
       return true;

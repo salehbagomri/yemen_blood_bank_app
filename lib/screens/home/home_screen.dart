@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
@@ -345,7 +345,7 @@ $playStoreUrl
 
 💙 معاً ننقذ الأرواح في اليمن''';
 
-    await Share.share(shareText);
+    await SharePlus.instance.share(ShareParams(text: shareText));
   }
 
   /// فتح سياسة الخصوصية
