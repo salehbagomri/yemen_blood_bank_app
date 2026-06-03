@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/app_colors.dart';
 import '../../../providers/dashboard_provider.dart';
@@ -281,7 +281,7 @@ class _BloodTypeDetailedReportScreenState
                 // الرأس
                 TableRow(
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                   ),
                   children: const [
                     Padding(

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../models/report_model.dart';
@@ -81,7 +81,7 @@ class _ReviewReportsScreenState extends State<ReviewReportsScreen> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -115,7 +115,7 @@ class _ReviewReportsScreenState extends State<ReviewReportsScreen> {
         });
         _loadReports();
       },
-      selectedColor: color.withOpacity(0.2),
+      selectedColor: color.withValues(alpha: 0.2),
       checkmarkColor: color,
       labelStyle: TextStyle(
         color: isSelected ? color : AppColors.textPrimary,
@@ -359,7 +359,7 @@ class _ReportCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

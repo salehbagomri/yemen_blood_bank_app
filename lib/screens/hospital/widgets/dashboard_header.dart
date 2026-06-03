@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/app_colors.dart';
 import '../../../providers/auth_provider.dart';
@@ -78,7 +78,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withOpacity(0.3),
+                color: AppColors.primary.withValues(alpha: 0.3),
                 blurRadius: 15,
                 offset: const Offset(0, 5),
               ),
@@ -90,10 +90,10 @@ class _DashboardHeaderState extends State<DashboardHeader> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
+                    color: Colors.white.withValues(alpha: 0.3),
                     width: 2,
                   ),
                 ),
@@ -115,7 +115,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
                     Text(
                       'مرحباً',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                         fontSize: 12,
                       ),
                     ),
@@ -137,7 +137,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
                           ? '${email.substring(0, 27)}...'
                           : email,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 11,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -151,7 +151,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
                           Icon(
                             Icons.location_on,
                             size: 13,
-                            color: Colors.white.withOpacity(0.85),
+                            color: Colors.white.withValues(alpha: 0.85),
                           ),
                           const SizedBox(width: 4),
                           Text(
@@ -160,7 +160,7 @@ class _DashboardHeaderState extends State<DashboardHeader> {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.85),
+                                  color: Colors.white.withValues(alpha: 0.85),
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -179,11 +179,11 @@ class _DashboardHeaderState extends State<DashboardHeader> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.success.withOpacity(0.9),
+                  color: AppColors.success.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.success.withOpacity(0.3),
+                      color: AppColors.success.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
@@ -248,10 +248,10 @@ class _EditDonorScreenState extends State<EditDonorScreen> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.warning.withOpacity(0.1),
+                        color: AppColors.warning.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: AppColors.warning.withOpacity(0.3),
+                          color: AppColors.warning.withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(

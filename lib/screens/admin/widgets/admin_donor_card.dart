@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +31,8 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
           color: widget.donor.isSuspended
-              ? AppColors.warning.withOpacity(0.3)
-              : AppColors.success.withOpacity(0.2),
+              ? AppColors.warning.withValues(alpha: 0.3)
+              : AppColors.success.withValues(alpha: 0.2),
           width: 2,
         ),
       ),
@@ -71,10 +71,10 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: _getBloodTypeColor().withOpacity(0.1),
+            color: _getBloodTypeColor().withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: _getBloodTypeColor().withOpacity(0.3),
+              color: _getBloodTypeColor().withValues(alpha: 0.3),
               width: 2,
             ),
           ),
@@ -160,9 +160,9 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: statusColor.withOpacity(0.1),
+        color: statusColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: statusColor.withOpacity(0.5)),
+        border: Border.all(color: statusColor.withValues(alpha: 0.5)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -466,7 +466,7 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
           label: const Text('نسخ جميع البيانات'),
           style: OutlinedButton.styleFrom(
             foregroundColor: AppColors.info,
-            side: BorderSide(color: AppColors.info.withOpacity(0.5)),
+            side: BorderSide(color: AppColors.info.withValues(alpha: 0.5)),
           ),
         ),
       ],
@@ -485,9 +485,9 @@ class _AdminDonorCardState extends State<AdminDonorCard> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: color.withOpacity(0.3)),
+          border: Border.all(color: color.withValues(alpha: 0.3)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

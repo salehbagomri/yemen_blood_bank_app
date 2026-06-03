@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../../../constants/app_colors.dart';
 
 /// بطاقة إجراء محسّنة للأدمن
@@ -29,7 +29,7 @@ class AdminActionCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: isUrgent ? color.withOpacity(0.5) : Colors.transparent,
+          color: isUrgent ? color.withValues(alpha: 0.5) : Colors.transparent,
           width: 2,
         ),
       ),
@@ -45,7 +45,7 @@ class AdminActionCard extends StatelessWidget {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Stack(
@@ -68,8 +68,8 @@ class AdminActionCard extends StatelessWidget {
                             boxShadow: [
                               BoxShadow(
                                 color: isUrgent
-                                    ? AppColors.error.withOpacity(0.3)
-                                    : AppColors.warning.withOpacity(0.3),
+                                    ? AppColors.error.withValues(alpha: 0.3)
+                                    : AppColors.warning.withValues(alpha: 0.3),
                                 blurRadius: 4,
                               ),
                             ],

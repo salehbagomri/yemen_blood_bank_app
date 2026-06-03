@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../../../models/statistics_model.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
@@ -58,7 +58,7 @@ class _StatisticsSectionState extends State<StatisticsSection>
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -204,9 +204,9 @@ class _AnimatedStatCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.15),
+            color: Colors.white.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 1),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

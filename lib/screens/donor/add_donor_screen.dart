@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -99,10 +99,10 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.info.withOpacity(0.1),
+                      color: AppColors.info.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: AppColors.info.withOpacity(0.3),
+                        color: AppColors.info.withValues(alpha: 0.3),
                       ),
                     ),
                     child: Row(
@@ -449,10 +449,10 @@ class _AddDonorScreenState extends State<AddDonorScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: noteColor.withOpacity(0.1),
+        color: noteColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: noteColor.withOpacity(0.3),
+          color: noteColor.withValues(alpha: 0.3),
         ),
       ),
       child: Row(

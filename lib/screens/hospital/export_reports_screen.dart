@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -291,7 +291,7 @@ class _ExportReportsScreenState extends State<ExportReportsScreen> {
                 children: [
                   // نص تعريفي
                   Card(
-                    color: AppColors.info.withOpacity(0.1),
+                    color: AppColors.info.withValues(alpha: 0.1),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Row(
@@ -437,7 +437,7 @@ class _ExportReportsScreenState extends State<ExportReportsScreen> {
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.primary.withOpacity(0.3),
+                                  color: AppColors.primary.withValues(alpha: 0.3),
                                   blurRadius: 12,
                                   offset: const Offset(0, 4),
                                 ),
@@ -477,12 +477,12 @@ class _ExportReportsScreenState extends State<ExportReportsScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [AppColors.success, AppColors.success.withOpacity(0.7)],
+                                colors: [AppColors.success, AppColors.success.withValues(alpha: 0.7)],
                               ),
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.success.withOpacity(0.3),
+                                  color: AppColors.success.withValues(alpha: 0.3),
                                   blurRadius: 12,
                                   offset: const Offset(0, 4),
                                 ),
@@ -557,7 +557,7 @@ class _ExportCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, color: color, size: 36),

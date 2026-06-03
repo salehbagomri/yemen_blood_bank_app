@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
@@ -245,10 +245,10 @@ class _BloodTypeReportScreenState extends State<BloodTypeReportScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.success.withOpacity(0.1),
+                color: AppColors.success.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: AppColors.success.withOpacity(0.3),
+                  color: AppColors.success.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),
@@ -298,10 +298,10 @@ class _BloodTypeReportScreenState extends State<BloodTypeReportScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.warning.withOpacity(0.1),
+                color: AppColors.warning.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: AppColors.warning.withOpacity(0.3),
+                  color: AppColors.warning.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),

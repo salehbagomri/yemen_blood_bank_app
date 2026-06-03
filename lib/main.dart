@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
@@ -196,7 +196,7 @@ class _SplashScreenState extends State<SplashScreen> {
             end: Alignment.bottomCenter,
             colors: [
               Theme.of(context).primaryColor,
-              Theme.of(context).primaryColor.withOpacity(0.8),
+              Theme.of(context).primaryColor.withValues(alpha: 0.8),
             ],
           ),
         ),
@@ -232,7 +232,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 AppStrings.appNameEnglish,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                 ),
               ),
 

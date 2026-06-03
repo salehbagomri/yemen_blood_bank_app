@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 120,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: AppColors.primary.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -144,10 +144,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: AppColors.error.withOpacity(0.1),
+                        color: AppColors.error.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: AppColors.error.withOpacity(0.3),
+                          color: AppColors.error.withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(
@@ -171,10 +171,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.info.withOpacity(0.1),
+                      color: AppColors.info.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: AppColors.info.withOpacity(0.3),
+                        color: AppColors.info.withValues(alpha: 0.3),
                       ),
                     ),
                     child: Column(

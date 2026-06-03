@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -172,7 +172,7 @@ class _AboutScreenState extends State<AboutScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -209,7 +209,7 @@ class _AboutScreenState extends State<AboutScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -236,7 +236,7 @@ class _AboutScreenState extends State<AboutScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -286,7 +286,7 @@ class _AboutScreenState extends State<AboutScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -359,7 +359,7 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
 
           const SizedBox(height: 20),
-          Divider(color: AppColors.primary.withOpacity(0.15)),
+          Divider(color: AppColors.primary.withValues(alpha: 0.15)),
           const SizedBox(height: 12),
 
           // أزرار التواصل التفاعلية
@@ -392,7 +392,7 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
 
           const SizedBox(height: 20),
-          Divider(color: AppColors.primary.withOpacity(0.15)),
+          Divider(color: AppColors.primary.withValues(alpha: 0.15)),
           const SizedBox(height: 12),
 
           // حقوق النشر
@@ -405,7 +405,7 @@ class _AboutScreenState extends State<AboutScreen> {
             'جميع الحقوق محفوظة',
             style: TextStyle(
               fontSize: 12,
-              color: AppColors.textSecondary.withOpacity(0.7),
+              color: AppColors.textSecondary.withValues(alpha: 0.7),
             ),
           ),
         ],

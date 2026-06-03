@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../../../constants/app_colors.dart';
 import '../../../config/app_router.dart';
 
@@ -28,7 +28,7 @@ class QuickActionsRow extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     AppColors.success,
-                    AppColors.success.withOpacity(0.7),
+                    AppColors.success.withValues(alpha: 0.7),
                   ],
                 ),
                 onTap: () {
@@ -45,7 +45,7 @@ class QuickActionsRow extends StatelessWidget {
                 icon: Icons.search,
                 label: 'بحث متقدم',
                 gradient: LinearGradient(
-                  colors: [AppColors.info, AppColors.info.withOpacity(0.7)],
+                  colors: [AppColors.info, AppColors.info.withValues(alpha: 0.7)],
                 ),
                 onTap: () {
                   Navigator.of(
@@ -107,7 +107,7 @@ class _QuickActionButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.15),
+                color: Colors.black.withValues(alpha: 0.15),
                 blurRadius: 8,
                 offset: const Offset(0, 3),
               ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       gradient: LinearGradient(
                         colors: [
                           AppColors.success,
-                          AppColors.success.withOpacity(0.7),
+                          AppColors.success.withValues(alpha: 0.7),
                         ],
                       ),
                       onTap: () {
@@ -459,7 +459,7 @@ class _MainActionButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.3),
+            color: color.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -478,7 +478,7 @@ class _MainActionButton extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(icon, color: Colors.white, size: 30),
@@ -503,7 +503,7 @@ class _MainActionButton extends StatelessWidget {
                       Text(
                         subtitle,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           fontSize: 13,
                         ),
                       ),
@@ -514,7 +514,7 @@ class _MainActionButton extends StatelessWidget {
                 // سهم
                 Icon(
                   Icons.arrow_forward_ios,
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   size: 20,
                 ),
               ],
@@ -548,7 +548,7 @@ class _SecondaryActionButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -567,7 +567,7 @@ class _SecondaryActionButton extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
+                    color: color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(icon, color: color, size: 28),

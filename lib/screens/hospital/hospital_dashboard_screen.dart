@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -187,7 +187,7 @@ class _HospitalDashboardScreenState extends State<HospitalDashboardScreen> {
               icon: Icons.analytics,
               title: 'التقارير',
               gradient: LinearGradient(
-                colors: [AppColors.success, AppColors.success.withOpacity(0.7)],
+                colors: [AppColors.success, AppColors.success.withValues(alpha: 0.7)],
               ),
               onTap: () {
                 Navigator.of(context).pushNamed(AppRouter.hospitalReportsHub);

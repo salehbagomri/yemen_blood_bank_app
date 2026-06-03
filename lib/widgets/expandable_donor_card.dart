@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -46,7 +46,7 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(_isExpanded ? 0.08 : 0.04),
+            color: Colors.black.withValues(alpha: _isExpanded ? 0.08 : 0.04),
             blurRadius: _isExpanded ? 12 : 6,
             offset: const Offset(0, 2),
           ),
@@ -157,7 +157,7 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withOpacity(0.1),
+                  color: AppColors.warning.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
@@ -176,7 +176,7 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.success.withOpacity(0.1),
+                  color: AppColors.success.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
@@ -610,13 +610,13 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: willBeSuspended 
-                    ? AppColors.warning.withOpacity(0.1)
-                    : AppColors.success.withOpacity(0.1),
+                    ? AppColors.warning.withValues(alpha: 0.1)
+                    : AppColors.success.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: willBeSuspended 
-                      ? AppColors.warning.withOpacity(0.3)
-                      : AppColors.success.withOpacity(0.3),
+                      ? AppColors.warning.withValues(alpha: 0.3)
+                      : AppColors.success.withValues(alpha: 0.3),
                 ),
               ),
               child: Column(

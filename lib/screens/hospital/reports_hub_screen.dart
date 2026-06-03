@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../../config/app_router.dart';
 
@@ -32,12 +32,12 @@ class ReportsHubScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    AppColors.info.withOpacity(0.1),
-                    AppColors.info.withOpacity(0.05),
+                    AppColors.info.withValues(alpha: 0.1),
+                    AppColors.info.withValues(alpha: 0.05),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.info.withOpacity(0.3)),
+                border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -164,7 +164,7 @@ class ReportsHubScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -183,7 +183,7 @@ class ReportsHubScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.25),
+                      color: Colors.white.withValues(alpha: 0.25),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(report.icon, color: Colors.white, size: 28),
@@ -208,7 +208,7 @@ class ReportsHubScreen extends StatelessWidget {
                         Text(
                           report.description,
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             fontSize: 13,
                             height: 1.3,
                           ),
@@ -224,7 +224,7 @@ class ReportsHubScreen extends StatelessWidget {
                   // سهم
                   Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     size: 18,
                   ),
                 ],

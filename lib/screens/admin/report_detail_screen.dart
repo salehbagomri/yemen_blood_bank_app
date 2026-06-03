@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -168,7 +168,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color, width: 2),
       ),
@@ -191,7 +191,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                 const SizedBox(height: 4),
                 Text(
                   'الإجراء المقترح: ${widget.report.suggestedActionText}',
-                  style: TextStyle(color: color.withOpacity(0.8), fontSize: 13),
+                  style: TextStyle(color: color.withValues(alpha: 0.8), fontSize: 13),
                 ),
               ],
             ),
@@ -282,9 +282,9 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: AppColors.success.withOpacity(0.1),
+                color: AppColors.success.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.success.withOpacity(0.3)),
+                border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -474,9 +474,9 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           decoration: BoxDecoration(
-            border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+            border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
             borderRadius: BorderRadius.circular(12),
-            color: color.withOpacity(0.05),
+            color: color.withValues(alpha: 0.05),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -544,7 +544,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: statusColor.withOpacity(0.1),
+          color: statusColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -613,8 +613,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              AppColors.primary.withOpacity(0.08),
-              AppColors.primary.withOpacity(0.02),
+              AppColors.primary.withValues(alpha: 0.08),
+              AppColors.primary.withValues(alpha: 0.02),
             ],
           ),
         ),
@@ -719,7 +719,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         boxShadow: isElevated
             ? [
                 BoxShadow(
-                  color: backgroundColor.withOpacity(0.3),
+                  color: backgroundColor.withValues(alpha: 0.3),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
