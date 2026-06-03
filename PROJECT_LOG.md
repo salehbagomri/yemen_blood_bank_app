@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-03 — [refactor] جعل رقم إصدار التطبيق ديناميكياً وتوحيد مصدر الحقيقة
+- **الوصف:** تعديل شاشة "حول التطبيق" لتقرأ رقم الإصدار ديناميكياً من `pubspec.yaml` باستخدام حزمة `package_info_plus` بدلاً من النص الثابت. إضافة حزمة `package_info_plus` للاعتمادات، وتحديث ملفات التوثيق (`CLAUDE.md`, `RELEASE_PREPARATION_REPORT.md`, `FIREBASE_CONFIGURATION_REPORT.md`) لتوضيح أن `pubspec.yaml` هو المصدر الوحيد والصحيح للإصدار.
+- **الملفات:** `lib/screens/info/about_screen.dart`, `pubspec.yaml`, `CLAUDE.md`, `docs/RELEASE_PREPARATION_REPORT.md`, `docs/FIREBASE_CONFIGURATION_REPORT.md`
+- **السبب/الدافع:** تضارب أرقام الإصدار في ملفات مختلفة؛ توحيد مصدر الإصدار وجعله يقرأ تلقائياً.
+- **اختبار:** analyze ✅ / يدوي ⚠️.
+- **Commit:** `<hash>`
+
 ### 2026-06-03 — [chore] إزالة ملف MainActivity الشبح من مسار الحزمة القديم
 - **الوصف:** حذف ملف `MainActivity` والمجلدات الفرعية المتبقية في مسار الحزمة القديم `com.bagomri.yemen_blood_bank` (بقايا عملية إعادة التسمية السابقة). الملف الفعلي للتطبيق نشط في المسار الصحيح `com.bagomri.yemenbloodbank` وعملية البناء لم تتأثر بالحذف.
 - **الملفات:** `android/app/src/main/kotlin/com/bagomri/yemen_blood_bank/MainActivity.kt` (محذوف)

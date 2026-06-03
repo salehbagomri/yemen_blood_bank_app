@@ -78,6 +78,7 @@ dependencies:
   # In-App Update — تحديث إجباري من Play Store
   in_app_update: ^4.2.3
   image_picker: ^1.2.2
+  package_info_plus: ^8.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../constants/app_colors.dart';
 
@@ -27,6 +28,26 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   final _scrollController = ScrollController();
   final _devSectionKey = GlobalKey();
+  String _version = '1.0.0';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppVersion();
+  }
+
+  Future<void> _loadAppVersion() async {
+    try {
+      final packageInfo = await PackageInfo.fromPlatform();
+      if (mounted) {
+        setState(() {
+          _version = packageInfo.version;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading app version: $e');
+    }
+  }
 
   @override
   void dispose() {
@@ -154,9 +175,9 @@ class _AboutScreenState extends State<AboutScreen> {
               color: Colors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: const Text(
-              'الإصدار 1.0.0',
-              style: TextStyle(
+            child: Text(
+              'الإصدار $_version',
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
