@@ -98,13 +98,10 @@ class _ManageDonorsHospitalScreenState
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.of(context)
-              .pushNamed(AppRouter.addDonor)
-              .then((_) {
-                if (!mounted) return;
-                context.read<DonorProvider>().loadDonors();
-              });
+        onPressed: () async {
+          await Navigator.of(context).pushNamed(AppRouter.addDonor);
+          if (!context.mounted) return;
+          context.read<DonorProvider>().loadDonors();
         },
         icon: const Icon(Icons.person_add),
         label: const Text('إضافة متبرع'),
