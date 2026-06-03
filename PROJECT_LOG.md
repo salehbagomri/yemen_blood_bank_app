@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-03 — [refactor] تنظيف كامل لتحذيرات flutter analyze (وصول لصفر)
+- **الوصف:** إزالة كل الـ 179 info على 3 دفعات: (1) ~163 withOpacity ⟶ withValues، (2) متفرقات صغيرة (print ⟶ debugPrint، unnecessary_import، prefer_initializing_formals، unnecessary_underscores، strict_top_level_inference، value ⟶ initialValue)، (3) ترقية share_plus إلى SharePlus.instance.share(ShareParams) مع اختبار يدوي. النتيجة: flutter analyze = 0 issues تماماً.
+- **الملفات:** عشرات الملفات في `lib/` (شاشات/widgets/services/utils/models) + `test/`
+- **السبب/الدافع:** الوصول لصفر تحذيرات (نظافة كاملة)، خاصة استبدال API مُلغاة.
+- **اختبار:** analyze = 0 ✅ / مراجعة بصرية للشفافيات ✅ / مشاركة نص+ملف تعملان ✅.
+- **Commit:** `c651de2`, `d47e398`, `5a48823`
+
 ### 2026-06-03 — [fix] معالجة 12 حالة BuildContext across async gaps
 - **الوصف:** إضافة حراسة mounted/context.mounted للحالات الـ 12 من use_build_context_synchronously، مصنّفة في 4 أنماط: Future.microtask في initState (7)، تحويل .then إلى async/await مع فحص context.mounted في شاشات المتبرعين (2)، await متعدّد بفحص ناقص (2)، Future.delayed مع GlobalKey (1).
 - **الملفات:** `lib/screens/admin/manage_donors_screen.dart`, `lib/screens/hospital/blood_type_report_screen.dart`, `lib/screens/hospital/hospital_dashboard_screen.dart`, `lib/screens/hospital/manage_donors_hospital_screen.dart`, `lib/screens/hospital/reports/blood_type_detailed_report_screen.dart`, `lib/screens/admin/report_detail_screen.dart`, `lib/screens/info/about_screen.dart`, `lib/widgets/expandable_donor_card.dart`
