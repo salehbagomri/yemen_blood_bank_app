@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-06 — [docs] إزالة بصمة keystore المحروقة بالكامل ونقل المذكرة الأخيرة
+- **الوصف:** استبدال بصمات keystore المحروقة في FIREBASE_SETUP_GUIDE.md و PUBLISHING_GUIDE.md بإشارة مرجعية موحدة تشير إلى yemen_blood_bank_handoff.md. نقل مذكرة BRIEF_phase9_docs.md إلى docs/quality-refinement/ للحفاظ على الهيكلية النظيفة.
+- **الملفات:** docs/FIREBASE_SETUP_GUIDE.md, docs/PUBLISHING_GUIDE.md, docs/quality-refinement/BRIEF_phase9_docs.md
+- **السبب/الدافع:** تلافي تكرار بصمات keystore المحروقة أو حدوث تضارب في المعلومات البرمجية لاحقاً.
+- **اختبار:** analyze = 0 للتأكيد ✅.
+- **Commit:** `fd01398`
+
 ### 2026-06-06 — [docs] تنظيف التوثيق: أرشفة التقارير القديمة + مصدر حيّ واحد
 - **الوصف:** نقل 5 تقارير قديمة متناقضة (ديسمبر 2025) إلى docs/archive/ بوسم «تاريخي لا يُعتمد»، وتنظيم مذكّرات مراجعة الجودة في docs/quality-refinement/. إعادة كتابة PROJECT_STATUS.md كمصدر حيّ واحد دقيق يعكس الواقع (analyze=0، 198 اختبار، نطاق وطني) مع قسم «القيود المعروفة» صريح. وسم الأدلة الإجرائية. إضافة قسم القيود المعروفة في handoff. إزالة الاعتماد على بصمات keystore المحروق من الملفات الحيّة (تبقى في الأرشيف الموسوم فقط).
 - **الملفات:** docs/archive/* (منقولة), docs/quality-refinement/* (منقولة), docs/PROJECT_STATUS.md (إعادة كتابة), docs/PUBLISHING_GUIDE.md, docs/FIREBASE_SETUP_GUIDE.md, yemen_blood_bank_handoff.md
