@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-06 — [test] إصلاح الاختبارات المهجورة وتوسيع تغطية النماذج
+- **الوصف:** إصلاح اختبارين فاشلين في constants_test (كانا يفحصان 9 مديريات مهرة قديمة بينما AppStrings.districts صار 22 محافظة). إضافة اختبارات وحدة جديدة: HospitalModel وAdminModel (المنطق الدفاعي: updated_at→created_at، اشتقاق governorate من district، null الدفاعي) وBannerModel (النوع المزدوج صوري/نصي). ربطها بالمجمّع widget_test.
+- **الملفات:** `test/unit/constants_test.dart`, `test/unit/hospital_model_test.dart`, `test/unit/admin_model_test.dart`, `test/unit/banner_model_test.dart`, `test/widget_test.dart`
+- **السبب/الدافع:** اختبارات مهجورة من حقبة المهرة + ثغرات تغطية في نماذج حرجة.
+- **اختبار:** flutter test كل الاختبارات تمرّ (198 اختبار ناجح) ✅ / analyze 0 ✅ / تغطية: 76.39%.
+- **Commit:** `79de821`
+
 ### 2026-06-03 — [refactor] تنظيف كامل لتحذيرات flutter analyze (وصول لصفر)
 - **الوصف:** إزالة كل الـ 179 info على 3 دفعات: (1) ~163 withOpacity ⟶ withValues، (2) متفرقات صغيرة (print ⟶ debugPrint، unnecessary_import، prefer_initializing_formals، unnecessary_underscores، strict_top_level_inference، value ⟶ initialValue)، (3) ترقية share_plus إلى SharePlus.instance.share(ShareParams) مع اختبار يدوي. النتيجة: flutter analyze = 0 issues تماماً.
 - **الملفات:** عشرات الملفات في `lib/` (شاشات/widgets/services/utils/models) + `test/`
