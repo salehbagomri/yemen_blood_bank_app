@@ -24,6 +24,12 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-06 — [chore] حذف إعداد Cloudflare Worker الميت وتبسيط اتصال Supabase
+- **الوصف:** حذف مجلد cloudflare-worker/ (كود غير منشور يشير لقاعدة مشروع المهرة القديمة mgeshfxrcdilwjohoniv) وتبسيط supabase_config.dart للاتصال المباشر بالقاعدة الحقيقية wdvsjpdrlvydoohvvhtx. حذف useCloudflareWorker وsupabaseDirectUrl المنفصل وURL الخاطئ. توثيق خطة طوارئ الحجب (Worker جديد عبر --dart-define إن عاد الحجب). السبب: الحجب المؤقت انحلّ (فبراير 2026)، والإعداد كان ميتاً ومضلّلاً.
+- **الملفات:** lib/config/supabase_config.dart, cloudflare-worker/ (محذوف), yemen_blood_bank_handoff.md, docs/PROJECT_STATUS.md, docs/quality-refinement/BRIEF_cleanup_cloudflare.md
+- **اختبار:** analyze 0 / test 198 / يدوي: الاتصال بالقاعدة يعمل ✅.
+- **Commit:** `d788b35`
+
 ### 2026-06-06 — [fix] دالة خادمة مخصصة ومحروسة جغرافياً لتحديث تاريخ التبرع للمستشفيات
 - **الوصف:** المشكلة (قيد RLS لملكية الصف منع المستشفى من تحديث تاريخ تبرّع متبرع سجّل ذاتياً لأن added_by ليس للمستشفى)، الحل (إنشاء واستدعاء RPC مخصصة باسم update_donor_donation_date بتصنيف SECURITY DEFINER ومحروسة جغرافياً للتأكد من تطابق المحافظة بين المستشفى والمتبرع، مع تحسين معالجة الأخطاء محلياً وعرض snackbar للمستشفى وتنظيف حالة الخطأ، وحل مشكلة زر إعادة المحاولة عبر فرض التحديث forceRefresh وتجنب شاشة الخطأ الكاملة إذا لم تكن القائمة فارغة)، التحقق (اختبار اختراق محلي للتأكد من منع التحديث خارج المحافظة + اختبار يدوي ناجح).
 - **الملفات:** docs/sql/phase10_update_donor_donation_date.sql, yemen_blood_bank_handoff.md, lib/services/donor_service.dart, lib/providers/donor_provider.dart, lib/widgets/expandable_donor_card.dart, lib/screens/hospital/manage_donors_hospital_screen.dart, lib/screens/admin/manage_donors_screen.dart, PROJECT_LOG.md
