@@ -17,6 +17,9 @@ import 'unit/donor_model_test.dart' as donor_model;
 import 'unit/validators_test.dart' as validators;
 import 'unit/helpers_test.dart' as helpers;
 import 'unit/constants_test.dart' as constants;
+import 'unit/hospital_model_test.dart' as hospital_model;
+import 'unit/admin_model_test.dart' as admin_model;
+import 'unit/banner_model_test.dart' as banner_model;
 
 // Widget Tests
 import 'widget/shimmer_test.dart' as shimmer;
@@ -27,6 +30,9 @@ void main() {
   validators.main();
   helpers.main();
   constants.main();
+  hospital_model.main();
+  admin_model.main();
+  banner_model.main();
 
   // ── Widget Tests ────────────────────────────────────────────────
   shimmer.main();

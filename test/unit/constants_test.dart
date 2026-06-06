@@ -15,27 +15,35 @@ void main() {
       expect(AppStrings.appNameEnglish, equals('Yemen Blood Bank'));
     });
 
-    test('قائمة المديريات تحتوي على 9 مديريات', () {
-      expect(AppStrings.districts.length, equals(9));
+    test('قائمة المحافظات تحتوي على 22 محافظة', () {
+      expect(AppStrings.districts.length, equals(22));
     });
 
-    test('قائمة المديريات تحتوي على المديريات الصحيحة', () {
-      const expectedDistricts = [
-        'الغيضة',
-        'سيحوت',
-        'حصوين',
-        'قشن',
-        'حات',
-        'حوف',
-        'منعر',
-        'المسيلة',
-        'شحن',
+    test('قائمة المحافظات تحتوي على محافظات أساسية صحيحة', () {
+      const expectedGovernorates = [
+        'حضرموت',
+        'عدن',
+        'صنعاء',
+        'تعز',
+        'المهرة',
+        'شبوة',
       ];
-      for (final district in expectedDistricts) {
+      for (final gov in expectedGovernorates) {
         expect(
           AppStrings.districts,
-          contains(district),
-          reason: 'يجب أن تحتوي القائمة على "$district"',
+          contains(gov),
+          reason: 'يجب أن تحتوي القائمة على "$gov"',
+        );
+      }
+    });
+
+    test('خريطة المحافظات والمديريات مكتملة', () {
+      expect(AppStrings.governorateDistricts.length, equals(22));
+      for (final entry in AppStrings.governorateDistricts.entries) {
+        expect(
+          entry.value,
+          isNotEmpty,
+          reason: 'محافظة ${entry.key} بلا مديريات',
         );
       }
     });
