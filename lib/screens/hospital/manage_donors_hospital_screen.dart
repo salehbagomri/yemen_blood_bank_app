@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
@@ -452,13 +452,13 @@ class _ManageDonorsHospitalScreenState
           return const LoadingWidget(message: 'جاري تحميل المتبرعين...');
         }
 
-        if (provider.hasError) {
+        if (provider.hasError && provider.donors.isEmpty) {
           return EmptyState(
             icon: Icons.error_outline,
             title: 'حدث خطأ',
             message: provider.errorMessage ?? 'حدث خطأ غير متوقع',
             actionLabel: 'إعادة المحاولة',
-            onAction: () => provider.loadDonors(),
+            onAction: () => provider.loadDonors(forceRefresh: true),
           );
         }
 

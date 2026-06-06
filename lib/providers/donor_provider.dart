@@ -227,6 +227,52 @@ class DonorProvider with ChangeNotifier {
     }
   }
 
+  /// تحديث تاريخ آخر تبرع لمتبرع
+  Future<bool> updateDonorDonationDate({
+    required String donorId,
+    required DateTime lastDonationDate,
+    required DateTime? suspendedUntil,
+  }) async {
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      final updatedDonor = await _donorService.updateDonorDonationDate(
+        donorId: donorId,
+        lastDonationDate: lastDonationDate,
+        suspendedUntil: suspendedUntil,
+      );
+
+      // تحديث في القائمة الرئيسية
+      final index = _donors.indexWhere((d) => d.id == updatedDonor.id);
+      if (index != -1) {
+        _donors[index] = updatedDonor;
+      }
+
+      // تحديث في نتائج البحث
+      final searchIndex = _searchResults.indexWhere(
+        (d) => d.id == updatedDonor.id,
+      );
+      if (searchIndex != -1) {
+        _searchResults[searchIndex] = updatedDonor;
+      }
+
+      // تحديث الكاش
+      await _cacheService.saveDonors(_donors);
+
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } catch (e, stackTrace) {
+      _errorMessage = ErrorHandler.getArabicMessage(e);
+      ErrorHandler.logError(e, stackTrace);
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+  }
+
   /// الحصول على جميع المتبرعين - Cache First, Network Second
   Future<void> loadDonors({bool forceRefresh = false}) async {
     // 1) إذا في الذاكرة وحديث → استخدمه مباشرة

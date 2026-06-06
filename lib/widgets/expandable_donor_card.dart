@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -543,13 +543,25 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
           .read<DonorProvider>()
           .suspendDonorFor6Months(widget.donor.id);
 
-      if (context.mounted && success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('تم إيقاف المتبرع لمدة 6 أشهر'),
-            backgroundColor: AppColors.success,
-          ),
-        );
+      if (context.mounted) {
+        if (success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('تم إيقاف المتبرع لمدة 6 أشهر'),
+              backgroundColor: AppColors.success,
+            ),
+          );
+        } else {
+          final errorMsg =
+              context.read<DonorProvider>().errorMessage ?? 'فشل إيقاف المتبرع';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMsg),
+              backgroundColor: AppColors.error,
+            ),
+          );
+          context.read<DonorProvider>().clearError();
+        }
       }
     }
   }
@@ -679,43 +691,37 @@ class _ExpandableDonorCardState extends State<ExpandableDonorCard>
 
     if (confirmed != true || !context.mounted) return;
 
-    // 4. تحديث البيانات بشكل صريح
-    // ملاحظة: copyWith لا يدعم null بشكل صحيح، لذلك نستخدم constructor مباشرة
-    final updatedDonor = DonorModel(
-      id: widget.donor.id,
-      name: widget.donor.name,
-      phoneNumber: widget.donor.phoneNumber,
-      phoneNumber2: widget.donor.phoneNumber2,
-      phoneNumber3: widget.donor.phoneNumber3,
-      bloodType: widget.donor.bloodType,
-      district: widget.donor.district,
-      age: widget.donor.age,
-      gender: widget.donor.gender,
-      notes: widget.donor.notes,
-      lastDonationDate: selectedDate, // التاريخ الجديد
-      suspendedUntil: willBeSuspended ? sixMonthsFromDonation : null, // null إذا متاح
-      isAvailable: !willBeSuspended, // الحالة الجديدة
-      createdAt: widget.donor.createdAt,
-      updatedAt: DateTime.now(),
-      addedBy: widget.donor.addedBy,
-      isActive: widget.donor.isActive,
-    );
+    // 4. تحديث تاريخ التبرع عبر RPC المخصصة لتجنب قيود RLS للمستشفيات
+    final success = await context.read<DonorProvider>().updateDonorDonationDate(
+          donorId: widget.donor.id,
+          lastDonationDate: selectedDate,
+          suspendedUntil: willBeSuspended ? sixMonthsFromDonation : null,
+        );
 
-    final success =
-        await context.read<DonorProvider>().updateDonor(updatedDonor);
-
-    if (context.mounted && success) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            willBeSuspended
-                ? 'تم التحديث - موقوف حتى ${_formatDate(sixMonthsFromDonation)}'
-                : 'تم التحديث - المتبرع متاح للتبرع',
+    if (context.mounted) {
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              willBeSuspended
+                  ? 'تم التحديث - موقوف حتى ${_formatDate(sixMonthsFromDonation)}'
+                  : 'تم التحديث - المتبرع متاح للتبرع',
+            ),
+            backgroundColor: AppColors.success,
+            duration: const Duration(seconds: 4),
           ),
-          backgroundColor: AppColors.success,
-          duration: const Duration(seconds: 4),
-        ),
-      );
+        );
+      } else {
+        final errorMsg =
+            context.read<DonorProvider>().errorMessage ?? 'فشل تحديث البيانات';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMsg),
+            backgroundColor: AppColors.error,
+          ),
+        );
+        context.read<DonorProvider>().clearError();
+      }
     }
   }
 

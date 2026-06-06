@@ -212,6 +212,28 @@ class DonorService {
     }
   }
 
+  /// تحديث تاريخ آخر تبرع لمتبرع (للمستشفيات والأدمن)
+  Future<DonorModel> updateDonorDonationDate({
+    required String donorId,
+    required DateTime lastDonationDate,
+    required DateTime? suspendedUntil,
+  }) async {
+    try {
+      final response = await _client.rpc(
+        'update_donor_donation_date',
+        params: {
+          'p_donor_id': donorId,
+          'p_last_donation_date': lastDonationDate.toIso8601String(),
+          'p_suspended_until': suspendedUntil?.toIso8601String(),
+        },
+      );
+
+      return DonorModel.fromJson(response as Map<String, dynamic>);
+    } catch (e) {
+      throw Exception('فشل تحديث تاريخ التبرع: ${e.toString()}');
+    }
+  }
+
   /// الحصول على المتبرعين الموقوفين
   Future<List<DonorModel>> getSuspendedDonors() async {
     try {

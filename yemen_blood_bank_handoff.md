@@ -45,10 +45,14 @@
   بحيث إذا أرجعت قاعدة البيانات قيمة فارغة لـ `updated_at` يتجاوزها التطبيق تلقائياً وبسلاسة ويسند قيمة `created_at` بدلاً منها، مما يضمن أن التطبيق **لن ينهار أبداً**!
 
 ### د. مفتاح التوقيع الجديد للجمهور (Yemen Keystore Generation)
-تم إنشاء ملف توقيع رقمي جديد بالكامل وخاص باليمن (`yemen-release-key-v2.jks`) وتم إعداده بنجاح في ملف `key.properties` ومزامنته محلياً.
+...
 * **بصمات التوقيع النشطة للتطبيق الجديد (v2):**
   * **SHA-1:** `EC:E5:A7:FE:29:4F:E1:CA:C8:1E:0D:20:03:CB:D4:5D:99:86:1A:94`
   * **SHA-256:** `84:14:9A:00:58:89:26:C6:5D:B1:22:33:3F:71:EF:ED:65:E4:EA:FA:72:69:64:2A:7C:15:DB:D0:5B:65:D5:55`
+* **متطلبات Firebase قبل النشر:**
+  * إضافة بصمة keystore v2 النشطة أعلاه إلى منصة Firebase Console.
+  * بعد رفع التطبيق إلى Google Play Console وتفعيل "Play App Signing"، يجب نسخ بصمة App Signing المُولّدة من Play Console وإضافتها إلى Firebase Console.
+  * تنزيل ملف `google-services.json` الجديد واستبداله بالملف الحالي في المشروع.
 
 ### هـ. إصلاح تجاوز واجهة المستخدم (UI Overflow Fix)
 * تم حل مشكلة تجاوز واجهة المستخدم بمقدار `4.5 بكسل` في أسفل بطاقة الإحصائيات للأدمن (`_StatCard` في ملف [admin_statistics_grid.dart](file:///c:/flutterprojects/yemen_blood_bank_app/yemen_blood_bank_app/lib/screens/admin/widgets/admin_statistics_grid.dart)) عن طريق ضبط نسبة العرض إلى الارتفاع `childAspectRatio` إلى `1.3` وتقليل الحشوات وأحجام الأيقونات والنصوص رأسياً لتلائم الشاشات الصغيرة بشكل مثالي.

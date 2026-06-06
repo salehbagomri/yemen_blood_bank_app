@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-06 — [test] التحقق النهائي الشامل لمراجعة الجودة (إغلاق الخطة)
+- **الوصف:** بوابة تحقّق نهائية بعد إتمام المراحل 1-9. آلي: analyze=0، 198 اختبار/0 فشل، build apk release ناجح، build appbundle ناجح (تجاوز مشكلة dex index). يدوي على جهاز: السيناريوهات الأربعة (طالب/متبرع/مستشفى/أدمن) + RTL + عدم الاتصال + شاشة حول الديناميكية — كلها ناجحة. تم إصلاح خطأ RLS عند تحديث المستشفى لتاريخ التبرع عبر RPC مخصصة ومحكمة جغرافياً، وتحسين زر إعادة المحاولة ومعالجة الأخطاء.
+- **الملفات:** PROJECT_LOG.md, docs/PROJECT_STATUS.md, yemen_blood_bank_handoff.md, docs/quality-refinement/QUALITY_REFINEMENT_PLAN.md, docs/quality-refinement/BRIEF_phase10_final_verification.md, lib/services/donor_service.dart, lib/providers/donor_provider.dart, lib/widgets/expandable_donor_card.dart, lib/screens/hospital/manage_donors_hospital_screen.dart, lib/screens/admin/manage_donors_screen.dart
+- **السبب/الدافع:** إغلاق رسمي لخطة رفع الجودة بعد التحقّق الشامل وإصلاح خلل RLS المكتشف أثناء الفحص اليدوي.
+- **اختبار:** آلي + يدوي شامل (انظر أعلاه).
+- **Commit:** `b25b819`
+
 ### 2026-06-06 — [docs] إزالة بصمة keystore المحروقة بالكامل ونقل المذكرة الأخيرة
 - **الوصف:** استبدال بصمات keystore المحروقة في FIREBASE_SETUP_GUIDE.md و PUBLISHING_GUIDE.md بإشارة مرجعية موحدة تشير إلى yemen_blood_bank_handoff.md. نقل مذكرة BRIEF_phase9_docs.md إلى docs/quality-refinement/ للحفاظ على الهيكلية النظيفة.
 - **الملفات:** docs/FIREBASE_SETUP_GUIDE.md, docs/PUBLISHING_GUIDE.md, docs/quality-refinement/BRIEF_phase9_docs.md
