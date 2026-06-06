@@ -1,4 +1,4 @@
-﻿> ℹ️ دليل إجرائي. لأرقام الإصدار/البصمات الحالية انظر pubspec.yaml وyemen_blood_bank_handoff.md.
+> ℹ️ دليل إجرائي. لأرقام الإصدار/البصمات الحالية انظر pubspec.yaml وyemen_blood_bank_handoff.md.
 > بعض الأمثلة هنا قد تذكر قيماً قديمة كتوضيح فقط.
 # 📱 دليل النشر على Play Store - Publishing Guide
 
@@ -43,8 +43,8 @@ d:\yemen_blood_bank_app\build\app\outputs\bundle\release\app-release.aab
 **الخصائص:** `android/key.properties`
 
 **SHA Fingerprints (محدّثة):**
-- SHA-1: `D6:CD:53:F1:65:D0:6A:5E:D7:2E:10:B6:B2:6E:DD:5B:6B:D8:C1:34`
-- SHA-256: `34:48:32:C9:CD:5E:90:D4:42:28:40:63:BA:C3:14:50:F4:8D:C8:77:8D:CE:6F:D5:52:14:4B:D8:FC:96:6F:33`
+
+> 🔐 البصمة الحالية: انظر yemen_blood_bank_handoff.md (المصدر الوحيد للبصمة النافذة).
 
 ### 3. Firebase Configuration
 **الملف:** `android/app/google-services.json`
