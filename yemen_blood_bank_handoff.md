@@ -109,7 +109,8 @@
 * **الفهارس:** `idx_donors_gov`, `idx_donors_gov_blood`, `idx_hospitals_gov`.
 * **`search_donors(p_blood_type, p_district, p_available_only, p_governorate DEFAULT NULL)`:** يفلتر بالمحافظة عبر العمود المفهرس + المديرية بالمطابقة الجزئية، ويُرجع المتاحين عند الطلب. (`SECURITY DEFINER` ⇒ يعمل للبحث العام بلا تسجيل.)
 * **دوال إحصائية:** `get_governorate_stats(p_governorate)`, `get_bloodtype_stats()`, `get_district_stats()`.
-* **`add_hospital_bypassing_rls(...)`:** يُنشئ صف المستشفى ويملأ `governorate` من `p_district` تلقائياً.
+* **`update_donor_donation_date(p_donor_id, p_last_donation_date, p_suspended_until)`**: دالة مخصصة بتصريح `SECURITY DEFINER` تتيح للمستشفى/الأدمن تحديث تاريخ آخر تبرع وحالة الإيقاف لمتبرع، مع حارس جغرافي يمنع المستشفى من تحديث متبرع خارج محافظته (تجاوزاً لقيد RLS للـ UPDATE المباشر).
+* **`add_hospital_bypassing_rls(...)`**: يُنشئ صف المستشفى ويملأ `governorate` من `p_district` تلقائياً.
 * **RLS:** قراءة `donors` عامة للنشطين؛ INSERT للعامة (anon) بضوابط + للمستشفى/الأدمن؛ UPDATE بالملكية (`added_by`) أو الأدمن؛ DELETE للأدمن.
   > 🟢 قرار معماري مقصود + تدقيق أمني (2026-06-03):
   > - سياسة SELECT على donors عامة (USING is_active=true) عن عمد: البحث الوطني

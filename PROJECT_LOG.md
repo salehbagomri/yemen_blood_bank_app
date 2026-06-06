@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-06 — [fix] دالة خادمة مخصصة ومحروسة جغرافياً لتحديث تاريخ التبرع للمستشفيات
+- **الوصف:** المشكلة (قيد RLS لملكية الصف منع المستشفى من تحديث تاريخ تبرّع متبرع سجّل ذاتياً لأن added_by ليس للمستشفى)، الحل (إنشاء واستدعاء RPC مخصصة باسم update_donor_donation_date بتصنيف SECURITY DEFINER ومحروسة جغرافياً للتأكد من تطابق المحافظة بين المستشفى والمتبرع، مع تحسين معالجة الأخطاء محلياً وعرض snackbar للمستشفى وتنظيف حالة الخطأ، وحل مشكلة زر إعادة المحاولة عبر فرض التحديث forceRefresh وتجنب شاشة الخطأ الكاملة إذا لم تكن القائمة فارغة)، التحقق (اختبار اختراق محلي للتأكد من منع التحديث خارج المحافظة + اختبار يدوي ناجح).
+- **الملفات:** docs/sql/phase10_update_donor_donation_date.sql, yemen_blood_bank_handoff.md, lib/services/donor_service.dart, lib/providers/donor_provider.dart, lib/widgets/expandable_donor_card.dart, lib/screens/hospital/manage_donors_hospital_screen.dart, lib/screens/admin/manage_donors_screen.dart, PROJECT_LOG.md
+- **السبب/الدافع:** منع تعطل تسجيل تبرعات المتبرعين الذين سجلوا ذاتياً من قبل المستشفيات مع الحفاظ على الأمان الجغرافي.
+- **اختبار:** analyze ✅ / اختبار يدوي واختبار اختراق ✅.
+- **Commit:** `b08a555`
+
 ### 2026-06-06 — [test] التحقق النهائي الشامل لمراجعة الجودة (إغلاق الخطة)
 - **الوصف:** بوابة تحقّق نهائية بعد إتمام المراحل 1-9. آلي: analyze=0، 198 اختبار/0 فشل، build apk release ناجح، build appbundle ناجح (تجاوز مشكلة dex index). يدوي على جهاز: السيناريوهات الأربعة (طالب/متبرع/مستشفى/أدمن) + RTL + عدم الاتصال + شاشة حول الديناميكية — كلها ناجحة. تم إصلاح خطأ RLS عند تحديث المستشفى لتاريخ التبرع عبر RPC مخصصة ومحكمة جغرافياً، وتحسين زر إعادة المحاولة ومعالجة الأخطاء.
 - **الملفات:** PROJECT_LOG.md, docs/PROJECT_STATUS.md, yemen_blood_bank_handoff.md, docs/quality-refinement/QUALITY_REFINEMENT_PLAN.md, docs/quality-refinement/BRIEF_phase10_final_verification.md, lib/services/donor_service.dart, lib/providers/donor_provider.dart, lib/widgets/expandable_donor_card.dart, lib/screens/hospital/manage_donors_hospital_screen.dart, lib/screens/admin/manage_donors_screen.dart
