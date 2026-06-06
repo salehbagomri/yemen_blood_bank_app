@@ -1,4 +1,6 @@
-﻿# 📱 دليل النشر على Play Store - Publishing Guide
+﻿> ℹ️ دليل إجرائي. لأرقام الإصدار/البصمات الحالية انظر pubspec.yaml وyemen_blood_bank_handoff.md.
+> بعض الأمثلة هنا قد تذكر قيماً قديمة كتوضيح فقط.
+# 📱 دليل النشر على Play Store - Publishing Guide
 
 **تاريخ: 3 ديسمبر 2025**
 **الإصدار: 2.0.0**

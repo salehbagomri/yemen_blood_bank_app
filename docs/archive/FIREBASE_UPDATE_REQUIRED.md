@@ -1,4 +1,6 @@
-﻿# ⚠️ تحديث Firebase مطلوب - Firebase Update Required
+﻿> 🗄️ **ملف مؤرشف — تاريخي لا يُعتمد.** المرجع الحيّ لحالة المشروع هو docs/PROJECT_STATUS.md.
+> قد يحتوي معلومات قديمة (بصمات keystore محروق، أرقام إصدار/تحذيرات قديمة، أسماء حزم سابقة).
+# ⚠️ تحديث Firebase مطلوب - Firebase Update Required
 
 **تاريخ: 3 ديسمبر 2025**
 
