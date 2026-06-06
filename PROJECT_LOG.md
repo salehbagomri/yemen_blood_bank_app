@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-06 — [docs] تنظيف التوثيق: أرشفة التقارير القديمة + مصدر حيّ واحد
+- **الوصف:** نقل 5 تقارير قديمة متناقضة (ديسمبر 2025) إلى docs/archive/ بوسم «تاريخي لا يُعتمد»، وتنظيم مذكّرات مراجعة الجودة في docs/quality-refinement/. إعادة كتابة PROJECT_STATUS.md كمصدر حيّ واحد دقيق يعكس الواقع (analyze=0، 198 اختبار، نطاق وطني) مع قسم «القيود المعروفة» صريح. وسم الأدلة الإجرائية. إضافة قسم القيود المعروفة في handoff. إزالة الاعتماد على بصمات keystore المحروق من الملفات الحيّة (تبقى في الأرشيف الموسوم فقط).
+- **الملفات:** docs/archive/* (منقولة), docs/quality-refinement/* (منقولة), docs/PROJECT_STATUS.md (إعادة كتابة), docs/PUBLISHING_GUIDE.md, docs/FIREBASE_SETUP_GUIDE.md, yemen_blood_bank_handoff.md
+- **السبب/الدافع:** التوثيق كان متأخّراً عن الواقع ومتناقضاً ومضلّلاً لأي وكيل قادم.
+- **اختبار:** لا كود (توثيق). analyze = 0 للتأكيد.
+- **Commit:** `0878380`
+
 ### 2026-06-06 — [test] إصلاح الاختبارات المهجورة وتوسيع تغطية النماذج
 - **الوصف:** إصلاح اختبارين فاشلين في constants_test (كانا يفحصان 9 مديريات مهرة قديمة بينما AppStrings.districts صار 22 محافظة). إضافة اختبارات وحدة جديدة: HospitalModel وAdminModel (المنطق الدفاعي: updated_at→created_at، اشتقاق governorate من district، null الدفاعي) وBannerModel (النوع المزدوج صوري/نصي). ربطها بالمجمّع widget_test.
 - **الملفات:** `test/unit/constants_test.dart`, `test/unit/hospital_model_test.dart`, `test/unit/admin_model_test.dart`, `test/unit/banner_model_test.dart`, `test/widget_test.dart`
