@@ -1,204 +1,183 @@
-﻿# 📱 وصف التطبيق للمتاجر - Play Store Description
+# 📱 وصف التطبيق للمتاجر - Play Store Description
 
-## 🏷️ العنوان القصير (Short Title)
-**بنك دم اليمن - Yemen Blood Bank**
-
----
-
-## 📋 الوصف الكامل بالعربية (Arabic Description)
-
-### 🩸 بنك دم اليمن - تطبيق ينقذ الأرواح
-
-**ما هو التطبيق؟**
-
-بنك دم اليمن هو تطبيق مجاني يربط المتبرعين بالدم مع المحتاجين في اليمن، اليمن. التطبيق يوفر منصة سهلة وسريعة للبحث عن متبرعين حسب فصيلة الدم والمديرية، مما يساعد على إنقاذ الأرواح في حالات الطوارئ.
-
-**من يستفيد من التطبيق؟**
-
-✅ المرضى وذويهم الباحثين عن متبرعين بالدم
-✅ المتطوعين الراغبين في التبرع بالدم
-✅ المستشفيات ومراكز نقل الدم
-✅ الجمعيات الخيرية والإنسانية
-✅ أي شخص يريد المساهمة في عمل خيري ينقذ الأرواح
-
-**المميزات الرئيسية:**
-
-🔍 **بحث متقدم عن المتبرعين**
-- البحث حسب فصيلة الدم (A+, A-, B+, B-, O+, O-, AB+, AB-)
-- تصفية حسب المديرية (الغيضة، حصوين، حات، شحن، قشن، سيحوت، المسيلة، منعر، حوف)
-- عرض حالة التوفر للمتبرع
-
-📝 **تسجيل سهل وسريع**
-- إضافة بيانات المتبرع بخطوات بسيطة
-- تحديث المعلومات في أي وقت
-- إمكانية الحذف والتعديل
-
-📊 **إحصائيات شاملة**
-- عدد المتبرعين لكل فصيلة دم
-- توزيع المتبرعين حسب المديريات
-- نسبة المتبرعين المتاحين
-
-💙 **قسم التوعية**
-- معلومات مهمة عن التبرع بالدم
-- فوائد التبرع للمتبرع والمجتمع
-- شروط ونصائح التبرع
-
-📞 **تواصل مباشر**
-- الاتصال الهاتفي بالمتبرع
-- إرسال رسائل واتساب
-- خصوصية وأمان للبيانات
-
-🛡️ **لوحة تحكم إدارية**
-- إدارة كاملة للمتبرعين
-- معالجة البلاغات
-- تقارير وتحليلات
-- تصدير البيانات (Excel, PDF)
-
-**لماذا بنك دم اليمن؟**
-
-🎯 مجاني بالكامل - لا توجد أي رسوم أو اشتراكات
-🔒 آمن وموثوق - حماية كاملة لبيانات المتبرعين
-⚡ سريع وسهل - واجهة بسيطة وسلسة
-🌙 تصميم عصري - ألوان مريحة للعين
-🇾🇪 صُنع في اليمن - بحب لأهالي اليمن
-
-**رسالتنا:**
-نسعى لبناء مجتمع متكافل يساند بعضه البعض، حيث يمكن لكل شخص أن يكون سبباً في إنقاذ حياة إنسان. التبرع بالدم ليس مجرد عمل خيري، بل هو استثمار في الحياة وإنقاذ للأرواح.
-
-**معاً ننقذ الأرواح في اليمن** 💙
+هذا الملف يحتوي على النصوص المحدثة والجاهزة للنشر على متجر Google Play لتطبيق **بنك دم اليمن**.
+تم تحديث الوصف ليعكس النطاق الوطني الجديد (22 محافظة ويشمل كافة مديريات اليمن) وتم تنظيف المراجع القديمة الخاصة بمحافظة المهرة فقط.
 
 ---
 
-## 📋 Full Description in English
+## 🟢 العنوان القصير (Short Description)
+> **الحد الأقصى:** 80 حرفاً. قابل للنسخ المباشر من المربعات أدناه:
 
-### 🩸 Yemen Blood Bank - Saving Lives Together
+### بالعربية (Arabic):
+```text
+تطبيق يربط متبرعي الدم بالمحتاجين في جميع محافظات اليمن مجاناً وبسهولة.
+```
 
-**What is this app?**
+### بالإنجليزية (English):
+```text
+A free app connecting blood donors with those in need across all of Yemen.
+```
 
-Yemen Blood Bank is a free application that connects blood donors with those in need in Yemen Governorate, Yemen. The app provides an easy and fast platform to search for donors by blood type and district, helping save lives in emergencies.
+---
 
-**Who benefits from the app?**
+## 🔵 الوصف الكامل بالعربية (Full Description - Arabic)
+> **الحد الأقصى:** 4000 حرف. قابل للنسخ المباشر من المربع أدناه:
 
-✅ Patients and their families searching for blood donors
-✅ Volunteers willing to donate blood
-✅ Hospitals and blood transfusion centers
-✅ Charitable and humanitarian organizations
-✅ Anyone who wants to contribute to a charitable act that saves lives
+```text
+🩸 بنك دم اليمن - معاً لننقذ الأرواح
 
-**Key Features:**
+بنك دم اليمن هو تطبيق إنساني خدمي مجاني بالكامل، يهدف إلى ربط المتبرعين بالدم بالمرضى والمستشفيات في جميع محافظات ومديريات الجمهورية اليمنية. يسعى التطبيق إلى تسهيل عملية البحث عن متبرعين بالدم وتقليص الوقت اللازم للوصول إليهم في حالات الطوارئ الحرجية، مما يسهم بشكل مباشر في إنقاذ الأرواح.
 
-🔍 **Advanced Donor Search**
-- Search by blood type (A+, A-, B+, B-, O+, O-, AB+, AB-)
-- Filter by district (Al-Ghaydah, Haswayn, Hat, Shahn, Qishn, Sayhut, Al-Masilah, Man'ar, Hawf)
-- View donor availability status
+لماذا تستخدم تطبيق بنك دم اليمن؟
+في اللحظات الحرجة، قد يكون العثور على فصيلة الدم المناسبة مسألة حياة أو موت. يوفر التطبيق منصة موحدة وشبكة واسعة تغطي كافة أرجاء اليمن لمساعدتك في العثور على متبرعين متاحين بأرسع وقت وبأقل جهد.
 
-📝 **Easy and Fast Registration**
-- Add donor information in simple steps
-- Update information anytime
-- Ability to delete and modify
+✨ أهم الميزات والخدمات:
 
-📊 **Comprehensive Statistics**
-- Number of donors per blood type
-- Distribution of donors by district
-- Percentage of available donors
+🔍 بحث متقدم وجغرافي ذكي
+• ابحث عن متبرعين حسب فصيلة الدم المطلوبة: (A+, A-, B+, B-, O+, O-, AB+, AB-)
+• فلترة دقيقة حسب المحافظة والمديرية لتحديد أقرب المتبرعين إليك.
+• نظام قوائم منسدلة متتالية تضمن اختياراً صحيحاً وسهلاً للمناطق دون تعقيد.
 
-💙 **Awareness Section**
-- Important information about blood donation
-- Benefits of donation for the donor and community
-- Donation requirements and tips
+📝 تسجيل سهل وسريع
+• سجل كمتبرع بخطوات بسيطة وساهم في إنقاذ الأرواح.
+• إمكانية تحديث بياناتك، تعديلها، أو تغيير حالة توفرك للتبرع في أي وقت.
+• خصوصية كاملة للمتبرعين الذين لا يرغبون في إظهار أرقامهم للعامة.
 
-📞 **Direct Communication**
-- Phone call to the donor
-- WhatsApp messaging
-- Data privacy and security
+📞 تواصل مباشر وسريع
+• تواصل مع المتبرع المتاح مباشرة بضغطة زر عبر الاتصال الهاتفي.
+• إمكانية إرسال رسالة واتساب سريعة ومباشرة مجهزة مسبقاً بنص الطلب لتوفير الوقت.
 
-🛡️ **Admin Dashboard**
-- Complete donor management
-- Report handling
-- Reports and analytics
-- Data export (Excel, PDF)
+📊 لوحة إحصائيات حية
+• عرض توزيع المتبرعين حسب فصائل الدم ومختلف المحافظات.
+• إحصائيات عامة تدعم الشفافية وتوضح مدى توفر المخزون التطوعي.
 
-**Why Yemen Blood Bank?**
+📱 واجهة مستخدم حديثة وبسيطة
+• تصميم مريح للعين يدعم الوضع الداكن (Dark Mode) والوضع الفاتح بشكل متناسق.
+• يدعم اللغة العربية بشكل كامل مع واجهة مستخدم (RTL) سلسة وسهلة الاستخدام لجميع الفئات العمرية.
+• نظام إرشاد وتوجيه (Onboarding) يظهر للمستخدم لأول مرة لشرح كيفية الاستفادة من التطبيق.
 
-🎯 Completely free - No fees or subscriptions
-🔒 Safe and reliable - Complete protection of donor data
-⚡ Fast and easy - Simple and smooth interface
-🌙 Modern design - Eye-friendly colors
-🇾🇪 Made in Yemen - With love for the people of Yemen
+🩺 إدارة المستشفيات والجهات الصحية
+• لوحات تحكم مخصصة للمستشفيات المعتمدة لإدارة وتحديث سجلات المتبرعين ضمن محافظاتهم.
+• إمكانية تسجيل تواريخ التبرع للمتبرعين وإيقافهم مؤقتاً (لمدة 6 أشهر لحمايتهم طبياً) بضوابط جغرافية محكمة.
+• إمكانية تصدير قوائم المتبرعين والتقارير بصيغ (Excel و PDF).
 
-**Our Mission:**
-We seek to build a supportive community where everyone can be a reason to save a human life. Blood donation is not just a charitable act, but an investment in life and saving souls.
+🔒 خصوصية وأمان عاليين
+• حماية بيانات المستخدمين وتطبيق سياسات حماية متقدمة لمنع التعديل أو الحذف غير المصرح به.
+• تطبيق سياسات حماية جغرافية محددة لضمان أمان العمليات وعدم إساءة استخدام المنصة.
 
-**Together We Save Lives in Yemen** 💙
+🇾🇪 مبادرة وطنية مجانية
+التطبيق مجاني بالكامل بنسبة 100%، لا يحتوي على إعلانات، ولا يتطلب أي رسوم أو اشتراكات. هدفنا هو تقديم خدمة خالصة لوجه الله ومساعدة أهالينا في اليمن.
+
+💡 شروط التبرع بالدم (تذكير صحي):
+• أن يكون عمر المتبرع بين 17 و 70 عاماً.
+• أن يكون الوزن 50 كجم أو أكثر.
+• خلو المتبرع من الأمراض المزمنة أو المعدية.
+• الفترة الزمنية الدنيا بين كل تبرع بالدم هي 3 أشهر للرجال و4 أشهر للنساء (ويقفل التطبيق إمكانية التبرع المتكرر قبل انقضاء 6 أشهر تلقائياً حفاظاً على الصحة).
+
+ساهم معنا بمشاركة التطبيق والتسجيل فيه، فالدال على الخير كفاعله، وتبرعك بالدم قد يكون حياة لغيرك.
+
+معاً ننقذ الأرواح في اليمن 💙
+```
+
+---
+
+## 🔴 الوصف الكامل بالإنجليزية (Full Description - English)
+> **الحد الأقصى:** 4000 حرف. قابل للنسخ المباشر من المربع أدناه:
+
+```text
+🩸 Yemen Blood Bank - Saving Lives Together
+
+Yemen Blood Bank is a completely free, humanitarian service application designed to connect blood donors with patients and hospitals across all governorates and districts of the Republic of Yemen. The app aims to facilitate the search for blood donors and reduce the time needed to reach them during critical emergencies, directly contributing to saving lives.
+
+Why use Yemen Blood Bank?
+In critical moments, finding the right blood type can be a matter of life or death. The app provides a unified platform and a wide network covering all of Yemen to help you find available donors quickly and with minimal effort.
+
+✨ Key Features & Services:
+
+🔍 Advanced & Smart Geographic Search
+• Search for donors by required blood type: (A+, A-, B+, B-, O+, O-, AB+, AB-)
+• Accurate filtering by Governorate and District to locate the nearest donors to you.
+• Interactive cascading dropdowns to ensure easy and error-free location selection.
+
+📝 Quick & Easy Registration
+• Register as a donor in simple steps and start saving lives.
+• Update, edit, or toggle your availability status at any time.
+• Complete privacy options for donors.
+
+📞 Direct & Fast Communication
+• Contact available donors directly with a single tap via phone call.
+• Send quick WhatsApp messages pre-filled with request details to save time.
+
+📊 Live Statistics
+• View donor distribution by blood type and governorate.
+• General statistics to show availability of the voluntary stock.
+
+📱 Modern & Simple UI
+• User-friendly design with full support for Dark Mode and Light Mode.
+• Fully supports Arabic and English with a smooth RTL interface designed for all ages.
+• Guided onboarding flow to introduce features to new users.
+
+🩺 Dedicated Hospital & Health Center Management
+• Specialized dashboard for authorized hospitals to manage donor records within their governorates.
+• Track donor donation dates and suspend them temporarily (for 6 months for medical safety) under strict geographic checks.
+• Export donor lists and reports to Excel and PDF formats.
+
+🔒 High Security & Privacy
+• Protection of user data with advanced access control policies preventing unauthorized edits or deletions.
+• Geo-guarded APIs to ensure secure operations and prevent platform misuse.
+
+🇾🇪 100% Free National Initiative
+The application is completely free, contains no ads, and requires no fees or subscriptions. Our goal is solely humanitarian, helping the community in Yemen.
+
+Together We Save Lives in Yemen 💙
+```
 
 ---
 
 ## 🏷️ الكلمات المفتاحية (Keywords)
+> تُستخدم لتحسين ظهور التطبيق في نتائج البحث (App Store Optimization - ASO):
 
 ### بالعربية:
-بنك دم، المهرة، اليمن، تبرع بالدم، متبرعين، فصائل الدم، طوارئ، إنقاذ الأرواح، صحة، خيري
+```text
+بنك دم، اليمن، تبرع بالدم، متبرعين، فصائل الدم، طوارئ، إنقاذ الأرواح، صحة، خيري، مستشفى، حضرموت، صنعاء، عدن، تعز، المهرة، شبوة، الحديدة، إب
+```
 
 ### English:
-blood bank, mahrah, yemen, blood donation, donors, blood types, emergency, save lives, health, charity
+```text
+blood bank, yemen, blood donation, donors, blood types, emergency, save lives, health, charity, hospital, aden, sanaa, taiz, mukalla, mahrah, shabwah, ibb
+```
 
 ---
 
-## 📸 وصف الصور المطلوبة للمتجر
+## 📸 دليل المواد البصرية للمتجر (Visual Assets Guide)
 
-### Screenshots (لقطات الشاشة):
-1. **الشاشة الرئيسية** - عرض الإحصائيات والأزرار الرئيسية
-2. **البحث عن متبرعين** - واجهة البحث بالفلاتر
-3. **نتائج البحث** - قائمة المتبرعين
-4. **تفاصيل المتبرع** - معلومات كاملة مع أزرار الاتصال
-5. **إضافة متبرع** - نموذج التسجيل
-6. **قسم التوعية** - معلومات عن التبرع
-7. **لوحة الإحصائيات** - الرسوم البيانية
+### 1. لقطات الشاشة (Screenshots):
+* **الشاشة الأولى:** الواجهة الرئيسية وتوزيع الإحصائيات (نص مقترح: *كل فصائل الدم بين يديك*).
+* **الشاشة الثانية:** البحث المتقدم والجغرافي بالمحافظة والمديرية (نص مقترح: *البحث الجغرافي الذكي*).
+* **الشاشة الثالثة:** تفاصيل بطاقة المتبرع وأزرار الاتصال السريع والواتساب (نص مقترح: *تواصل سريع ومباشر في لحظات الطوارئ*).
+* **الشاشة الرابعة:** نموذج تسجيل متبرع جديد وصيغة الهاتف اليمني (نص مقترح: *سجل كمتبرع وكن سبباً في إنقاذ حياة*).
+* **الشاشة الخامسة:** لوحة إدارة متبرعي المستشفى وخيار تصدير التقارير (نص مقترح: *إدارة ذكية وآمنة للمستشفيات والمراكز الصحية*).
 
-### Feature Graphic (الصورة المميزة):
-- الأبعاد: 1024 x 500 بكسل
-- تصميم يحتوي على:
-  - شعار التطبيق
-  - اسم التطبيق بالعربي والإنجليزي
-  - شعار "معاً ننقذ الأرواح"
-  - خلفية بألوان التطبيق (الأحمر المتدرج)
+### 2. الصورة المميزة للمتجر (Feature Graphic):
+* **الأبعاد المطلوبة:** 1024 × 500 بكسل.
+* **عناصر التصميم:** الشعار الرسمي متمركزًا في المنتصف، مع اسم التطبيق بخط واضح وثنائي اللغة (بنك دم اليمن - Yemen Blood Bank)، على خلفية متدرجة باللون الأحمر والداكن تتطابق مع هوية التطبيق البصرية.
 
 ---
 
-## 📧 معلومات الاتصال
+## 📧 معلومات الاتصال الرسمية للمطور
 
-**المطور:** صالح باقمري (Saleh Bagomri)
-**البريد الإلكتروني:** s.bagomri@gmail.com
-**الموقع الإلكتروني:** https://www.bagomri.com
-**واتساب:** +967 735 325 614
-
-**سياسة الخصوصية:** https://salehbagomri.github.io/yemen-blood-bank-privacy/
-
----
-
-## 🎯 الفئة المستهدفة (Target Audience)
-
-**الفئة العمرية:** 18+ (بالغين)
-**المحتوى:** للجميع - لا يحتوي على محتوى حساس
-**الفئة في المتجر:** الطب والصحة (Medical)
+* **الاسم:** صالح باقمري (Saleh Bagomri)
+* **البريد الإلكتروني:** s.bagomri@gmail.com
+* **الموقع الإلكتروني:** https://www.bagomri.com
+* **واتساب الدعم الفني:** +967 735 325 614
+* **رابط سياسة الخصوصية:** https://salehbagomri.github.io/yemen-blood-bank-privacy/
+* **رابط شروط الاستخدام:** https://salehbagomri.github.io/yemen-blood-bank-privacy/terms.html
 
 ---
 
-## 🌍 الدول المستهدفة
+## 🎯 تصنيف وفئة التطبيق على المتجر
 
-الأولوية: اليمن 🇾🇪
-متاح عالمياً لمن يريد المساعدة
-
----
-
-## ✅ نصائح للنشر
-
-1. **تأكد من جودة الصور** - استخدم صور واضحة وعالية الجودة
-2. **اختبر التطبيق جيداً** - تأكد من عدم وجود أخطاء
-3. **راجع سياسة الخصوصية** - تأكد من وضوحها واكتمالها
-4. **ضع معلومات اتصال صحيحة** - للتواصل في حالة وجود مشاكل
-5. **استخدم وصف جذاب** - لزيادة التحميلات
-6. **حدّث التطبيق بانتظام** - لتحسين الجودة والميزات
-
----
-
-💙 **صُنع بحب لأهالي اليمن**
+* **الفئة الرئيسية:** الطب والصحة (Medical)
+* **الفئة العمرية المستهدفة:** 18 عاماً فما فوق (البالغين - حيث أن سن التبرع قانونياً وطبياً يبدأ من 17-18 عاماً).
+* **المحتوى:** للجميع (لا يحتوي على إعلانات أو مواد حساسة).
+* **الدولة المستهدفة بالدرجة الأولى:** اليمن 🇾🇪 (مع إتاحته عالمياً للجميع).

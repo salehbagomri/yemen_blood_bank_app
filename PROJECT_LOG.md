@@ -24,6 +24,13 @@
 
 ## 🗂️ السجل (الأحدث أولاً)
 
+### 2026-06-07 — [docs] تحديث مواد النشر وإنشاء صفحة طلب حذف الحساب والبيانات
+- **الوصف:** تحديث وصف المتجر بالكامل للنطاق الوطني وتجهيزه للنسخ المباشر في PLAY_STORE_DESCRIPTION.md. تحديث دليل النشر وتوضيح فخ البصمة الثالثة لـ Firebase في PUBLISHING_GUIDE.md. إنشاء صفحة delete-account.html ثنائية اللغة لطلب حذف الحساب والبيانات في مستودع الخصوصية ودفعها على Github Pages للتوافق مع متطلبات جوجل.
+- **الملفات:** docs/PLAY_STORE_DESCRIPTION.md, docs/PUBLISHING_GUIDE.md, docs/quality-refinement/QUALITY_REFINEMENT_PLAN.md, docs/quality-refinement/BRIEF_release_checklist.md, yemen-blood-bank-privacy/delete-account.html
+- **السبب/الدافع:** متطلبات جوجل الإلزامية للنشر على متجر Google Play.
+- **اختبار:** analyze ✅ / اختبار بمتصفح آلي لصفحة حذف البيانات المباشرة ✅.
+- **Commit:** `9f0d0b7`
+
 ### 2026-06-06 — [chore] حذف إعداد Cloudflare Worker الميت وتبسيط اتصال Supabase
 - **الوصف:** حذف مجلد cloudflare-worker/ (كود غير منشور يشير لقاعدة مشروع المهرة القديمة mgeshfxrcdilwjohoniv) وتبسيط supabase_config.dart للاتصال المباشر بالقاعدة الحقيقية wdvsjpdrlvydoohvvhtx. حذف useCloudflareWorker وsupabaseDirectUrl المنفصل وURL الخاطئ. توثيق خطة طوارئ الحجب (Worker جديد عبر --dart-define إن عاد الحجب). السبب: الحجب المؤقت انحلّ (فبراير 2026)، والإعداد كان ميتاً ومضلّلاً.
 - **الملفات:** lib/config/supabase_config.dart, cloudflare-worker/ (محذوف), yemen_blood_bank_handoff.md, docs/PROJECT_STATUS.md, docs/quality-refinement/BRIEF_cleanup_cloudflare.md
